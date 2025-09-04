@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\MeasurementResource\Pages;
 
 use App\Filament\Resources\MeasurementResource;
+use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
@@ -21,7 +22,12 @@ class ListMeasurements extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            Action::make('Measure Now')
+                ->color('success')
+                ->icon('heroicon-o-plus-circle')
+                ->url(route('filament.app.resources.measurements.bulk')),
+            CreateAction::make()
+                ->label('Add single measurement'),
         ];
     }
 }

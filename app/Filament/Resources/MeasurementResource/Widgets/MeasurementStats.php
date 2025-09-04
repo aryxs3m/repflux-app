@@ -11,36 +11,42 @@ class MeasurementStats extends StatsOverviewWidget
 {
     protected function getStats(): array
     {
-        $stats = [];
-        foreach (MeasurementType::all() as $item) {
-            $stat = $this->getStatWidgetForType($item);
+        return \Cache::tags(['measurement-stats'])->remember(auth()->id() . '-measurement-stats', 10, function () {
+            $stats = [];
+            foreach (MeasurementType::all() as $item) {
+                $stat = $this->getStatWidgetForType($item);
 
-            if (!$stat) {
-                continue;
+                if (!$stat) {
+                    continue;
+                }
+
+                $stats[] = $stat;
             }
 
-            $stats[] = $stat;
-        }
-
-        return $stats;
+            return $stats;
+        });
     }
 
     protected function getStatWidgetForType(MeasurementType $measurementType): ?Stat
     {
-        $lastMeasurement = Measurement::query()
+        $measurements = Measurement::query()
             ->where('user_id', auth()->id())
             ->where('measurement_type_id', $measurementType->id)
-            ->orderBy('id', 'desc')
-            ->limit(1)
-            ->first();
+            ->orderBy('measured_at', 'desc')
+            ->limit(10)
+            ->get();
 
-        if (!$lastMeasurement) {
+        if ($measurements->isEmpty()) {
             return null;
         }
 
-        return Stat::make(
-            $measurementType->name,
-            $lastMeasurement->id,
-        )->chart();
+        $latestMeasurement = $measurements->first();
+        $allMeasurements = $measurements->reverse()->pluck('value')->toArray();
+
+        $stat = Stat::make($measurementType->name, $latestMeasurement->value)
+            ->chart($allMeasurements)
+            ->description($latestMeasurement->measured_at->diffForHumans());
+
+        return  $stat;
     }
 }

@@ -4,12 +4,12 @@ namespace App\Filament\Resources\RecordSetResource\Pages;
 
 use App\Filament\Resources\RecordSetResource;
 use App\Filament\Resources\RecordSetResource\Widgets\RecordSetChart;
-use App\Filament\Resources\RecordTypeResource\Pages\ViewRecordType;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Resources\Pages\ViewRecord;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
-class ViewRecordSet extends ViewRecordType
+class ViewRecordSet extends ViewRecord
 {
     protected static string $resource = RecordSetResource::class;
 

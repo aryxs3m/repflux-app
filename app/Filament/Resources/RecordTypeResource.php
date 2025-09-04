@@ -66,7 +66,6 @@ class RecordTypeResource extends Resource
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
                 EditAction::make(),
                 DeleteAction::make(),
             ])
@@ -81,7 +80,6 @@ class RecordTypeResource extends Resource
     {
         return [
             'index' => Pages\ListRecordTypes::route('/'),
-            'view' => Pages\ViewRecordType::route('/view/{record}'),
             'create' => Pages\CreateRecordType::route('/create'),
             'edit' => Pages\EditRecordType::route('/{record}/edit'),
         ];

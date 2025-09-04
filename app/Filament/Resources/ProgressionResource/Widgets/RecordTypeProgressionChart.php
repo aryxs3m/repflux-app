@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\RecordTypeResource\Widgets;
+namespace App\Filament\Resources\ProgressionResource\Widgets;
 
 use App\Models\Record;
 use App\Models\RecordType;
@@ -12,7 +12,7 @@ class RecordTypeProgressionChart extends ChartWidget
 {
     public ?RecordType $record = null;
 
-    protected ?string $heading = 'Progression';
+    protected ?string $heading = 'Max Weight Progression (Last 30 Sets)';
 
     protected int | string | array $columnSpan = 'full';
     protected ?string $maxHeight = '200px';
