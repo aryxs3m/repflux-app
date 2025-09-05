@@ -37,7 +37,7 @@
 </head>
 <body>
 <div class="container">
-    <h2>gymBro</h2>
+    <img src="/logos/logo-white.svg" alt="gymBro logo">
     <p>Coming soon!</p>
 
     <a href="/app" class="btn">Beta login</a>
