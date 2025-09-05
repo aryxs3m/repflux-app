@@ -12,7 +12,7 @@ class RecordSetChart extends ChartWidget
     public ?RecordSet $record = null;
     protected ?string $heading = 'Reps and weights';
     protected int | string | array $columnSpan = 'full';
-    protected ?string $maxHeight = '200px';
+    protected ?string $maxHeight = '400px';
 
     protected function getData(): array
     {

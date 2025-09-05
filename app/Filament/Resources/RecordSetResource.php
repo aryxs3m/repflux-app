@@ -29,6 +29,7 @@ class RecordSetResource extends Resource
 {
     protected static ?string $model = RecordSet::class;
 
+    protected static ?string $breadcrumb = 'Sets';
     protected static ?string $navigationLabel = 'Sets';
     protected static ?string $slug = 'record-sets';
 

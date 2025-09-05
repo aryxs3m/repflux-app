@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\RecordSetResource\Widgets;
 
 use App\Models\RecordSet;
-use Filament\Actions\BulkActionGroup;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
@@ -35,16 +35,8 @@ class LastRecordsWidget extends TableWidget
             ->filters([
                 //
             ])
-            ->headerActions([
-                //
-            ])
-            ->recordActions([
-                //
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    //
-                ]),
-            ]);
+            ->recordUrl(function ($record) {
+                return route('filament.app.resources.record-sets.view', ['record' => $record->id]);
+            });
     }
 }

@@ -11,6 +11,7 @@ use Filament\Schemas\Schema;
 
 class ViewRecordSet extends ViewRecord
 {
+    protected static ?string $title = 'View Set';
     protected static string $resource = RecordSetResource::class;
 
     protected function getHeaderWidgets(): array
@@ -24,11 +25,12 @@ class ViewRecordSet extends ViewRecord
     public function infolist(Schema $schema): Schema
     {
         return $schema->schema([
-            Section::make('Set Type')->schema([
+            Section::make('Exercise')->schema([
                 TextEntry::make('recordType.name'),
-                TextEntry::make('recordType.recordCategory.name'),
+                TextEntry::make('recordType.recordCategory.name')
+                    ->label('Category'),
             ])->columns(2),
-            Section::make('User')->schema([
+            Section::make('Record')->schema([
                 TextEntry::make('set_done_at')
                     ->date(),
                 TextEntry::make('user.name'),
