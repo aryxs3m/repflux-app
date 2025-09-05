@@ -30,6 +30,7 @@ class AppPanelProvider extends PanelProvider
             ->brandName('gymBro')
             ->brandLogo('/logos/logo-white-blur.png')
             ->favicon('/logos/favicon.png')
+            ->spa()
             ->id('app')
             ->path('app')
             ->login()
