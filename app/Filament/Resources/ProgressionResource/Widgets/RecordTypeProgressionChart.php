@@ -5,39 +5,42 @@ namespace App\Filament\Resources\ProgressionResource\Widgets;
 use App\Models\Record;
 use App\Models\RecordType;
 use App\Models\Weight;
+use Carbon\Carbon;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Contracts\Support\Htmlable;
 
 class RecordTypeProgressionChart extends ChartWidget
 {
     public ?RecordType $record = null;
 
-    protected ?string $heading = 'Max Weight Progression (Last 30 Sets)';
+    public function getHeading(): string|Htmlable|null
+    {
+        return __('pages.progression.widgets.weight_progression');
+    }
 
     protected int | string | array $columnSpan = 'full';
     protected ?string $maxHeight = '200px';
 
     protected function getData(): array
     {
-        $weight = Record::query()
-            ->selectRaw('*, MAX(weight) as mweight')
-            ->join('record_sets', 'records.record_set_id', '=', 'record_sets.id')
-            ->where('record_sets.user_id', auth()->id())
-            ->where('record_sets.record_type_id', $this->record->id)
-            ->groupBy('record_sets.id')
-            ->orderBy('record_sets.set_done_at', 'desc')
-            ->limit(30)
-            ->get()
-            ->pluck('weight', 'set_done_at')
-            ->toArray();
+        $weight = \DB::select("
+            select set_done_at, MAX(weight) as mweight
+            from `records`
+                     inner join `record_sets` on `records`.`record_set_id` = `record_sets`.`id`
+            where `record_sets`.`user_id` = ?
+              and `record_sets`.`record_type_id` = ?
+            group by `record_sets`.`id`
+            order by set_done_at
+            limit 30", [auth()->id(), $this->record->id]);
 
-        $keys = array_reverse(array_map(fn ($date) => date('M d', strtotime($date)), array_keys($weight)));
-        $values = array_reverse(array_values($weight));
+        $keys = array_map(fn ($date) => Carbon::parse($date)->toFormattedDateString(), array_column($weight, 'set_done_at'));
+        $values = array_column($weight, 'mweight');
 
         return [
             'datasets' => [
                 [
-                    'label' => 'Weight',
+                    'label' => __('pages.progression.widgets.weight'),
                     'data' => $values,
                 ],
             ],

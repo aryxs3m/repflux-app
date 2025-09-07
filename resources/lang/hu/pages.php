@@ -45,5 +45,9 @@ return [
     ],
     'progression' => [
         'list_title' => 'Előrehaladás',
+        'widgets' => [
+            'weight' => 'Súly',
+            'weight_progression' => 'Megmozgatott súly változása (utolsó 30 sorozat)'
+        ]
     ],
 ];
