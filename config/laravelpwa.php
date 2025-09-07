@@ -6,7 +6,7 @@ return [
         'name' => 'gymBro',
         'short_name' => 'gymBro',
         'start_url' => '/app',
-        'background_color' => '#ffffff',
+        'background_color' => '#333333',
         'theme_color' => '#000000',
         'display' => 'standalone',
         'orientation'=> 'any',
