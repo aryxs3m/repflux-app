@@ -24,16 +24,28 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use UnitEnum;
 
 class RecordSetResource extends Resource
 {
     protected static ?string $model = RecordSet::class;
 
-    protected static ?string $breadcrumb = 'Sets';
-    protected static ?string $navigationLabel = 'Sets';
     protected static ?string $slug = 'record-sets';
 
-    protected static string|null|\UnitEnum $navigationGroup = 'Records';
+    public static function getBreadcrumb(): string
+    {
+        return __('navbar.sets');
+    }
+
+    public static function getNavigationGroup(): string|UnitEnum|null
+    {
+        return __('navbar.records');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navbar.sets');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleGroup;
 

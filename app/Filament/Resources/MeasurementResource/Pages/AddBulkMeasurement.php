@@ -12,11 +12,17 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Schema;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 
 class AddBulkMeasurement extends CreateRecord
 {
     protected static string $resource = MeasurementResource::class;
+
+    public function getTitle(): string|Htmlable
+    {
+        return __('pages.measurements.bulk_create_title');
+    }
 
     public function form(Schema $schema): Schema
     {

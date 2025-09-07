@@ -16,6 +16,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class RecordCategoryResource extends Resource
 {
@@ -23,7 +24,20 @@ class RecordCategoryResource extends Resource
 
     protected static ?string $slug = 'record-categories';
 
-    protected static string|null|\UnitEnum $navigationGroup = 'Settings';
+    public static function getBreadcrumb(): string
+    {
+        return __('navbar.record_categories');
+    }
+
+    public static function getNavigationGroup(): string|UnitEnum|null
+    {
+        return __('navbar.settings');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navbar.record_categories');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
@@ -49,7 +63,12 @@ class RecordCategoryResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('columns.name'))
                     ->searchable()
+                    ->sortable(),
+                TextColumn::make('created_at')
+                    ->label(__('columns.created_at'))
+                    ->date()
                     ->sortable(),
             ])
             ->filters([

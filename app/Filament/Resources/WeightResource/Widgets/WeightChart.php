@@ -5,10 +5,16 @@ namespace App\Filament\Resources\WeightResource\Widgets;
 use App\Models\Weight;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Contracts\Support\Htmlable;
 
 class WeightChart extends ChartWidget
 {
     protected ?string $heading = 'Weight Chart';
+
+    public function getHeading(): string|Htmlable|null
+    {
+        return __('pages.weight.widgets.weight_history');
+    }
 
     protected int | string | array $columnSpan = 'full';
     protected ?string $maxHeight = '200px';
@@ -29,7 +35,7 @@ class WeightChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Weight',
+                    'label' => __('columns.weight'),
                     'data' => $values,
                 ],
             ],

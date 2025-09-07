@@ -26,10 +26,20 @@ class ProgressionResource extends Resource
 
     protected static ?string $slug = 'progression';
 
-    protected static ?string $breadcrumb = 'Progression';
+    public static function getBreadcrumb(): string
+    {
+        return __('navbar.progression');
+    }
 
-    protected static string | UnitEnum | null $navigationGroup = 'Reports';
-    protected static ?string $navigationLabel = 'Progression';
+    public static function getNavigationGroup(): string|UnitEnum|null
+    {
+        return __('navbar.reports');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navbar.progression');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentChartBar;
 
@@ -38,9 +48,11 @@ class ProgressionResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('recordCategory.name')
+                    ->label(__('columns.category'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('name')
+                    ->label(__('columns.exercise'))
                     ->searchable()
                     ->sortable(),
             ])

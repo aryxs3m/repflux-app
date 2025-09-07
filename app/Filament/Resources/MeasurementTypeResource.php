@@ -16,13 +16,27 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class MeasurementTypeResource extends Resource
 {
     protected static ?string $model = MeasurementType::class;
 
     protected static ?string $slug = 'measurement-types';
-    protected static string|null|\UnitEnum $navigationGroup = 'Settings';
+    public static function getNavigationGroup(): string|UnitEnum|null
+    {
+        return __('navbar.settings');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navbar.measurement_types');
+    }
+
+    public static function getBreadcrumb(): string
+    {
+        return __('navbar.measurement_types');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
@@ -48,6 +62,7 @@ class MeasurementTypeResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('columns.name'))
                     ->searchable()
                     ->sortable(),
             ])

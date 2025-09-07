@@ -15,12 +15,25 @@ class LastRecordsWidget extends TableWidget
 
     public function table(Table $table): Table
     {
+        $maxIds = \DB::select("
+            SELECT rs.id
+            FROM record_sets rs
+            INNER JOIN
+                (
+                    SELECT record_type_id, MAX(set_done_at) as last_done_at
+                    FROM record_sets rs2
+                    WHERE rs2.user_id = ?
+                    GROUP BY record_type_id) AS EachItem ON
+                        EachItem.last_done_at = rs.set_done_at
+                        AND EachItem.record_type_id = rs.record_type_id
+            WHERE
+                rs.user_id = ?
+            ", [auth()->user()->id, auth()->user()->id]);
+
         return $table
             ->query(fn (): Builder =>
                 RecordSet::query()
-                    ->selectRaw('*, MAX(set_done_at) as set_done_at_max')
-                    ->where('user_id', auth()->id())
-                    ->groupBy('record_type_id')
+                    ->whereIn('id', array_column($maxIds, 'id'))
             )
             ->columns([
                 TextColumn::make('set_done_at')

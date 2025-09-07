@@ -3,11 +3,15 @@
 namespace App\Filament\Resources\ProgressionResource\Pages;
 
 use App\Filament\Resources\ProgressionResource;
-use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ListProgression extends ListRecords
 {
     protected static string $resource = ProgressionResource::class;
-    protected static ?string $title = 'Progression Reports';
+
+    public function getTitle(): string|Htmlable
+    {
+        return __('pages.progression.list_title');
+    }
 }

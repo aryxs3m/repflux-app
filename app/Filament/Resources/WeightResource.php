@@ -20,7 +20,20 @@ class WeightResource extends Resource
 
     protected static ?string $slug = 'weights';
 
-    protected static string | UnitEnum | null $navigationGroup = 'Records';
+    public static function getBreadcrumb(): string
+    {
+        return __('navbar.weights');
+    }
+
+    public static function getNavigationGroup(): string|UnitEnum|null
+    {
+        return __('navbar.records');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navbar.weights');
+    }
 
     protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-scale';
 
@@ -49,12 +62,11 @@ class WeightResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('weight'),
-
-                TextColumn::make('user_id'),
+                TextColumn::make('weight')
+                    ->label(__('columns.weight')),
 
                 TextColumn::make('measured_at')
-                    ->label('Measured Date')
+                    ->label(__('columns.measured_at'))
                     ->date(),
             ])
             ->filters([

@@ -8,11 +8,16 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Contracts\Support\Htmlable;
 
 class ViewRecordSet extends ViewRecord
 {
-    protected static ?string $title = 'View Set';
     protected static string $resource = RecordSetResource::class;
+
+    public function getTitle(): string|Htmlable
+    {
+        return __('pages.record_sets.view_title');
+    }
 
     protected function getHeaderWidgets(): array
     {

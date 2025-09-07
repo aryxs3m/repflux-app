@@ -26,7 +26,20 @@ class RecordTypeResource extends Resource
 
     protected static ?string $slug = 'record-types';
 
-    protected static string | UnitEnum | null $navigationGroup = 'Settings';
+    public static function getBreadcrumb(): string
+    {
+        return __('navbar.record_types');
+    }
+
+    public static function getNavigationGroup(): string|UnitEnum|null
+    {
+        return __('navbar.settings');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navbar.record_types');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
@@ -56,9 +69,11 @@ class RecordTypeResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('recordCategory.name')
+                    ->label(__('columns.category'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('name')
+                    ->label(__('columns.exercise'))
                     ->searchable()
                     ->sortable(),
             ])

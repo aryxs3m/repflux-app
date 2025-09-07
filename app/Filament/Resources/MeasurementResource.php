@@ -27,7 +27,21 @@ class MeasurementResource extends Resource
     protected static ?string $model = Measurement::class;
 
     protected static ?string $slug = 'measurements';
-    protected static string | UnitEnum | null $navigationGroup = 'Records';
+
+    public static function getNavigationGroup(): string|UnitEnum|null
+    {
+        return __('navbar.records');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('navbar.measurements');
+    }
+
+    public static function getBreadcrumb(): string
+    {
+        return __('navbar.measurements');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
@@ -68,14 +82,16 @@ class MeasurementResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('measurementType.name')
+                    ->label(__('columns.type'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('measured_at')
-                    ->label('Measured Date')
+                    ->label(__('columns.measured_at'))
                     ->date(),
 
-                TextColumn::make('value'),
+                TextColumn::make('value')
+                    ->label(__('columns.value')),
             ])
             ->filters([
                 //
