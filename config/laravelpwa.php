@@ -15,7 +15,7 @@ return [
             // TODO: generate lower res versions too
             '512x512' => [
                 'path' => '/logos/favicon.png',
-                'purpose' => 'monochrome maskable',
+                'purpose' => 'monochrome',
             ],
         ],
         'splash' => [
