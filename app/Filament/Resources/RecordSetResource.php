@@ -116,14 +116,14 @@ class RecordSetResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('records.weight')
+                TextColumn::make('records.weight_with_base')
                     ->label('Rep weights')
                     ->badge(),
 
                 TextColumn::make('total_weight')
                     ->label('Total weight')
                     ->state(function (RecordSet $recordSet): string {
-                        return $recordSet->records->sum(fn ($record) => $record->weight * $record->repeat_count);
+                        return $recordSet->records->sum(fn ($record) => $record->weight_with_base * $record->repeat_count);
                     })
                     ->suffix(' kg'),
             ])

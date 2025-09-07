@@ -8,5 +8,6 @@ return [
     'value' => 'Érték',
     'category' => 'Kategória',
     'exercise' => 'Gyakorlat',
+    'base_weight' => 'Gép/rúd súlya',
     'weight' => 'Súly',
 ];

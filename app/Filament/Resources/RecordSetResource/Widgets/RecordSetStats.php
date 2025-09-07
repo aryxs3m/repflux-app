@@ -20,12 +20,12 @@ class RecordSetStats extends StatsOverviewWidget
 
     protected function totalMovedWeight(RecordSet $recordSet)
     {
-        $weightSum = $recordSet->records->sum(function ($record) {
-            return $record->weight * $record->repeat_count;
+        $weightSum = $recordSet->records->sum(function ($record) use ($recordSet) {
+            return $record->weight_with_base * $record->repeat_count;
         });
 
-        return Stat::make('Moved Weight', $weightSum . ' kg')
-            ->description('Total weight moved in this set')
+        return Stat::make(__('pages.record_sets.widget.moved_weight.title'), $weightSum . ' kg')
+            ->description(__('pages.record_sets.widget.moved_weight.description'))
             ->icon('heroicon-s-scale');
     }
 
@@ -35,8 +35,8 @@ class RecordSetStats extends StatsOverviewWidget
             return $record->repeat_count;
         });
 
-        return Stat::make('Repetitions', $repSum)
-            ->description('Total repetitions in this set')
+        return Stat::make(__('pages.record_sets.widget.repetitions.title'), $repSum)
+            ->description(__('pages.record_sets.widget.repetitions.description'))
             ->icon('heroicon-s-arrow-path');
     }
 }

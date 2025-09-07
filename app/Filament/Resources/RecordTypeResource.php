@@ -54,6 +54,9 @@ class RecordTypeResource extends Resource
                 TextInput::make('name')
                     ->required(),
 
+                TextInput::make('base_weight')
+                    ->required(),
+
                 TextEntry::make('created_at')
                     ->label('Created Date')
                     ->state(fn(?RecordType $record): string => $record?->created_at?->diffForHumans() ?? '-'),
@@ -76,6 +79,9 @@ class RecordTypeResource extends Resource
                     ->label(__('columns.exercise'))
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('base_weight')
+                    ->label(__('columns.base_weight'))
+                    ->suffix(' kg')
             ])
             ->filters([
                 //

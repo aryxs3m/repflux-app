@@ -27,6 +27,19 @@ return [
         'edit_title' => 'Sorozat szerkesztése',
         'view_title' => 'Sorozat megtekintése',
         'add_set' => 'Sorozat hozzáadása',
+        'widget' => [
+            'weight' => 'Súly',
+            'repeats' => 'Ismétlések',
+            'reps_and_weights' => 'Súlyok és ismétlések',
+            'moved_weight' => [
+                'title' => 'Megmozgatott súly',
+                'description' => 'A sorozat során megmozgatott összes súly',
+            ],
+            'repetitions' => [
+                'title' => 'Ismétlések',
+                'description' => 'Összes ismétlés a sorozat során',
+            ],
+        ],
     ],
     'record_types' => [
         'list_title' => 'Gyakorlatok',

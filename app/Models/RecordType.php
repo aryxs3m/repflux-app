@@ -10,6 +10,7 @@ class RecordType extends Model
     protected $fillable = [
         'name',
         'record_category_id',
+        'base_weight',
     ];
 
     public function recordCategory(): BelongsTo

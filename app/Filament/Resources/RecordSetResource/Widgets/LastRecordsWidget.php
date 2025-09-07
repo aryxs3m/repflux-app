@@ -41,7 +41,7 @@ class LastRecordsWidget extends TableWidget
                     ->sortable(),
                 TextColumn::make('recordType.name')
                     ->searchable(),
-                TextColumn::make('records.weight')
+                TextColumn::make('records.weight_with_base')
                     ->label('Rep weights')
                     ->badge(),
             ])

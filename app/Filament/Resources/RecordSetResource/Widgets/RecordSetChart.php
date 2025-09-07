@@ -6,11 +6,17 @@ use App\Models\Record;
 use App\Models\RecordSet;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Contracts\Support\Htmlable;
 
 class RecordSetChart extends ChartWidget
 {
     public ?RecordSet $record = null;
-    protected ?string $heading = 'Reps and weights';
+
+    public function getHeading(): string|Htmlable|null
+    {
+        return __('pages.record_sets.widget.reps_and_weights');
+    }
+
     protected int | string | array $columnSpan = 'full';
     protected ?string $maxHeight = '400px';
 
@@ -21,14 +27,14 @@ class RecordSetChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Repeats',
+                    'label' => __('pages.record_sets.widget.repeats'),
                     'data' => array_column($results, 'repeat_count'),
                     'backgroundColor' => '#eb403433',
                     'borderColor' => '#eb4034',
                 ],
                 [
-                    'label' => 'Weight',
-                    'data' => array_column($results, 'weight'),
+                    'label' => __('pages.record_sets.widget.weight'),
+                    'data' => array_column($results, 'weight_with_base'),
                 ],
             ],
             'labels' => array_column($results, 'repeat_index'),
