@@ -14,8 +14,8 @@ return [
         'icons' => [
             // TODO: generate lower res versions too
             '512x512' => [
-                'path' => '/logos/favicon.png',
-                'purpose' => 'monochrome',
+                'path' => '/logos/pwa.png',
+                'purpose' => 'any',
             ],
         ],
         'splash' => [
