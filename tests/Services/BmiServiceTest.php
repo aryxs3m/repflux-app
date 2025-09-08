@@ -13,7 +13,6 @@ class BmiServiceTest extends TestCase
     /**
      * Test data validated with the BMI calculator on Wikipedia.
      *
-     * @return array
      * @url https://en.wikipedia.org/wiki/Body_mass_index
      */
     public static function bmiProvider(): array
@@ -32,27 +31,27 @@ class BmiServiceTest extends TestCase
      * @throws Exception
      */
     #[DataProvider('bmiProvider')]
-    public function testCalculate(int $weight, int $height, UnitType $type, float $bmi)
+    public function test_calculate(int $weight, int $height, UnitType $type, float $bmi)
     {
-        $result = app(BmiService::class)->calculate($height, $weight, $type);;
+        $result = app(BmiService::class)->calculate($height, $weight, $type);
 
         $this->assertNotEmpty($result);
         $this->assertEquals($bmi, $result);
     }
 
-    public function testThrowsExceptionWhenNoWeight(): void
+    public function test_throws_exception_when_no_weight(): void
     {
         $this->expectException(Exception::class);
         app(BmiService::class)->calculate(10, 0);
     }
 
-    public function testThrowsExceptionWhenNoHeight(): void
+    public function test_throws_exception_when_no_height(): void
     {
         $this->expectException(Exception::class);
         app(BmiService::class)->calculate(0, 10);
     }
 
-    public function testThrowsExceptionWhenNoWeightAndHeight(): void
+    public function test_throws_exception_when_no_weight_and_height(): void
     {
         $this->expectException(Exception::class);
         app(BmiService::class)->calculate(0, 0);

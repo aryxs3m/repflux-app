@@ -12,12 +12,12 @@ class MeasurementStats extends StatsOverviewWidget
 {
     protected function getStats(): array
     {
-        return \Cache::tags(['measurement-stats'])->remember(auth()->id() . '-measurement-stats', 10, function () {
+        return \Cache::tags(['measurement-stats'])->remember(auth()->id().'-measurement-stats', 10, function () {
             $stats = [];
             foreach (MeasurementType::all() as $item) {
                 $stat = $this->getStatWidgetForType($item);
 
-                if (!$stat) {
+                if (! $stat) {
                     continue;
                 }
 
@@ -48,6 +48,6 @@ class MeasurementStats extends StatsOverviewWidget
             ->chart($allMeasurements)
             ->description($latestMeasurement->measured_at->diffForHumans());
 
-        return  $stat;
+        return $stat;
     }
 }

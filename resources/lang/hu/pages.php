@@ -61,8 +61,8 @@ return [
         'list_title' => 'Előrehaladás',
         'widgets' => [
             'weight' => 'Súly',
-            'weight_progression' => 'Megmozgatott súly változása (utolsó 30 sorozat)'
-        ]
+            'weight_progression' => 'Megmozgatott súly változása (utolsó 30 sorozat)',
+        ],
     ],
     'tenancy' => [
         'register_tenant' => 'Munkaterület regisztráció',

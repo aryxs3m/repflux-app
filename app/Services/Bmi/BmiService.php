@@ -22,12 +22,12 @@ class BmiService
             throw new \Exception('Weight is required');
         }
 
-        if (UnitType::METRIC === $type) {
+        if ($type === UnitType::METRIC) {
             $height = $height / 100;
         }
 
         $conversion = 1;
-        if (UnitType::IMPERIAL === $type) {
+        if ($type === UnitType::IMPERIAL) {
             $conversion = 703;
         }
 

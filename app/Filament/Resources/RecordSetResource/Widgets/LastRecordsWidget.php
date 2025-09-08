@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
 
 class LastRecordsWidget extends TableWidget
 {
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     public function table(Table $table): Table
     {
-        $maxIds = \DB::select("
+        $maxIds = \DB::select('
             SELECT rs.id
             FROM record_sets rs
             INNER JOIN
@@ -28,12 +28,11 @@ class LastRecordsWidget extends TableWidget
                         AND EachItem.record_type_id = rs.record_type_id
             WHERE
                 rs.user_id = ?
-            ", [auth()->user()->id, auth()->user()->id]);
+            ', [auth()->user()->id, auth()->user()->id]);
 
         return $table
-            ->query(fn (): Builder =>
-                RecordSet::query()
-                    ->whereIn('id', array_column($maxIds, 'id'))
+            ->query(fn (): Builder => RecordSet::query()
+                ->whereIn('id', array_column($maxIds, 'id'))
             )
             ->columns([
                 TextColumn::make('set_done_at')

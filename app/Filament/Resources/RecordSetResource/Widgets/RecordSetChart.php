@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\RecordSetResource\Widgets;
 
-use App\Models\Record;
 use App\Models\RecordSet;
 use App\Services\Settings\TenantSettings;
 use Filament\Support\RawJs;
@@ -18,7 +17,8 @@ class RecordSetChart extends ChartWidget
         return __('pages.record_sets.widget.reps_and_weights');
     }
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
+
     protected ?string $maxHeight = '400px';
 
     protected function getData(): array

@@ -5,7 +5,6 @@ namespace App\Filament\Resources\WeightResource\Widgets;
 use App\Models\Weight;
 use App\Services\Bmi\BmiService;
 use App\Services\Settings\TenantSettings;
-use Filament\Events\TenantSet;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -28,7 +27,7 @@ class BmiWidget extends StatsOverviewWidget
             ->get()
             ->last();
 
-        if (!$weightRecord) {
+        if (! $weightRecord) {
             return Stat::make('BMI', 'N/A')
                 ->description(__('pages.weight.widgets.no_weight_recorded'));
         }

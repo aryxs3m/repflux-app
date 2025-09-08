@@ -71,11 +71,11 @@ class MeasurementResource extends Resource
 
                 TextEntry::make('created_at')
                     ->label('Created Date')
-                    ->state(fn(?Measurement $record): string => $record?->created_at?->diffForHumans() ?? '-'),
+                    ->state(fn (?Measurement $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
                 TextEntry::make('updated_at')
                     ->label('Last Modified Date')
-                    ->state(fn(?Measurement $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ->state(fn (?Measurement $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
             ]);
     }
 

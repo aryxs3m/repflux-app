@@ -50,11 +50,11 @@ class RecordCategoryResource extends Resource
 
                 TextEntry::make('created_at')
                     ->label('Created Date')
-                    ->state(fn(?RecordCategory $record): string => $record?->created_at?->diffForHumans() ?? '-'),
+                    ->state(fn (?RecordCategory $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
                 TextEntry::make('updated_at')
                     ->label('Last Modified Date')
-                    ->state(fn(?RecordCategory $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ->state(fn (?RecordCategory $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
             ]);
     }
 

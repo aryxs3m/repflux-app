@@ -5,7 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     protected array $tables = [
         'record_categories',
         'record_types',
@@ -23,7 +24,7 @@ return new class extends Migration {
                     $table->foreignIdFor(Tenant::class);
                 });
             } catch (Throwable $e) {
-                echo "Failed to add foreign key for tenant on table {$tableName}: " . $e->getMessage() . "\n";
+                echo "Failed to add foreign key for tenant on table {$tableName}: ".$e->getMessage()."\n";
             }
         }
     }
@@ -32,11 +33,11 @@ return new class extends Migration {
     {
         foreach ($this->tables as $tableName) {
             try {
-                Schema::table($tableName, function (Blueprint $table) use ($tableName) {
+                Schema::table($tableName, function (Blueprint $table) {
                     $table->dropForeignIdFor(Tenant::class);
                 });
             } catch (Throwable $e) {
-                echo "Failed to drop foreign key for tenant on table {$tableName}: " . $e->getMessage() . "\n";
+                echo "Failed to drop foreign key for tenant on table {$tableName}: ".$e->getMessage()."\n";
                 echo "\n";
             }
         }

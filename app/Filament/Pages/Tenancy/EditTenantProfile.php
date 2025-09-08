@@ -2,7 +2,6 @@
 
 namespace App\Filament\Pages\Tenancy;
 
-use App\Models\Tenant;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
@@ -31,4 +30,3 @@ class EditTenantProfile extends \Filament\Pages\Tenancy\EditTenantProfile
             ]);
     }
 }
-

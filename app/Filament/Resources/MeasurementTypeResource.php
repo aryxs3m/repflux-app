@@ -23,6 +23,7 @@ class MeasurementTypeResource extends Resource
     protected static ?string $model = MeasurementType::class;
 
     protected static ?string $slug = 'measurement-types';
+
     public static function getNavigationGroup(): string|UnitEnum|null
     {
         return __('navbar.settings');
@@ -49,11 +50,11 @@ class MeasurementTypeResource extends Resource
 
                 TextEntry::make('created_at')
                     ->label('Created Date')
-                    ->state(fn(?MeasurementType $record): string => $record?->created_at?->diffForHumans() ?? '-'),
+                    ->state(fn (?MeasurementType $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
                 TextEntry::make('updated_at')
                     ->label('Last Modified Date')
-                    ->state(fn(?MeasurementType $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ->state(fn (?MeasurementType $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
             ]);
     }
 

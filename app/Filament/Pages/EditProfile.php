@@ -28,7 +28,7 @@ class EditProfile extends BaseEditProfile
                     TextInput::make('height')
                         ->minValue(0)
                         ->suffix(TenantSettings::getTenant() ? TenantSettings::getLengthUnitLabel() : null)
-                        ->nullable()
+                        ->nullable(),
                 ]),
                 Section::make('Preferences')->schema([
                     Select::make('language')
@@ -38,7 +38,7 @@ class EditProfile extends BaseEditProfile
                         ])
                         ->nullable()
                         ->placeholder('Automatic by browser')
-                        ->default(null)
+                        ->default(null),
                 ]),
             ]);
     }

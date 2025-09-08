@@ -39,4 +39,3 @@ class RegisterTenant extends \Filament\Pages\Tenancy\RegisterTenant
         return $team;
     }
 }
-

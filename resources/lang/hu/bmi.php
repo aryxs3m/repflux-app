@@ -10,5 +10,5 @@ return [
         'obese_class_1' => 'Túlsúly (1. szint)',
         'obese_class_2' => 'Túlsúly (2. szint)',
         'obese_class_3' => 'Túlsúly (3. szint)',
-    ]
+    ],
 ];

@@ -30,7 +30,7 @@ class Record extends Model
     public function weightWithBase(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->weight + $this->recordSet->recordType->base_weight,
+            get: fn () => $this->weight + $this->recordSet->recordType->base_weight,
         );
     }
 }

@@ -69,7 +69,7 @@ class AppPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
                 LanguageHandlerMiddleware::class,
             ])
-            //->userMenuItems([])
+            // ->userMenuItems([])
             ->authMiddleware([
                 Authenticate::class,
             ])

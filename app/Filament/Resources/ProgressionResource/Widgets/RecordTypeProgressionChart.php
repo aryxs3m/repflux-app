@@ -2,9 +2,7 @@
 
 namespace App\Filament\Resources\ProgressionResource\Widgets;
 
-use App\Models\Record;
 use App\Models\RecordType;
-use App\Models\Weight;
 use App\Services\Settings\TenantSettings;
 use Carbon\Carbon;
 use Filament\Support\RawJs;
@@ -20,12 +18,13 @@ class RecordTypeProgressionChart extends ChartWidget
         return __('pages.progression.widgets.weight_progression');
     }
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
+
     protected ?string $maxHeight = '200px';
 
     protected function getData(): array
     {
-        $weight = \DB::select("
+        $weight = \DB::select('
             select set_done_at, MAX(weight) as mweight
             from `records`
                      inner join `record_sets` on `records`.`record_set_id` = `record_sets`.`id`
@@ -33,7 +32,7 @@ class RecordTypeProgressionChart extends ChartWidget
               and `record_sets`.`record_type_id` = ?
             group by `record_sets`.`id`
             order by set_done_at
-            limit 30", [auth()->id(), $this->record->id]);
+            limit 30', [auth()->id(), $this->record->id]);
 
         $keys = array_map(fn ($date) => Carbon::parse($date)->toFormattedDateString(), array_column($weight, 'set_done_at'));
         $values = array_column($weight, 'mweight');

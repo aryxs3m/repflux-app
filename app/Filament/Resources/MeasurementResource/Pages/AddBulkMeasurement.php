@@ -6,13 +6,8 @@ use App\Filament\Resources\MeasurementResource;
 use App\Models\Measurement;
 use App\Models\MeasurementType;
 use App\Services\Settings\TenantSettings;
-use Filament\Actions\Action;
-use Filament\Actions\DeleteAction;
-use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\CreateRecord;
-use Filament\Resources\Pages\EditRecord;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +26,7 @@ class AddBulkMeasurement extends CreateRecord
         $components = [];
 
         foreach (MeasurementType::query()->get() as $item) {
-            $components[] = TextInput::make('measurement_type_' . $item->id)
+            $components[] = TextInput::make('measurement_type_'.$item->id)
                 ->label($item->name)
                 ->suffix(TenantSettings::getLengthUnitLabel())
                 ->minValue(0)
@@ -58,7 +53,7 @@ class AddBulkMeasurement extends CreateRecord
         Measurement::query()->insert($insert);
 
         // Dummy return to satisfy the method signature
-        return new Measurement();
+        return new Measurement;
     }
 
     protected function getRedirectUrl(): string

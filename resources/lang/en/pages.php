@@ -61,8 +61,8 @@ return [
         'list_title' => 'Progression',
         'widgets' => [
             'weight' => 'Weight',
-            'weight_progression' => 'Max weight (last 30 set)'
-        ]
+            'weight_progression' => 'Max weight (last 30 set)',
+        ],
     ],
     'tenancy' => [
         'register_tenant' => 'Register tenant',

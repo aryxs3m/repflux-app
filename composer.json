@@ -20,6 +20,8 @@
         "larswiegers/laravel-translations-checker": "^0.9.3",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
+        "php-parallel-lint/php-parallel-lint": "^1.4",
+        "phpmd/phpmd": "^2.15",
         "phpunit/phpunit": "^11.5.3"
     },
     "autoload": {

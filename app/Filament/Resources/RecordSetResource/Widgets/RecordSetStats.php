@@ -21,11 +21,11 @@ class RecordSetStats extends StatsOverviewWidget
 
     protected function totalMovedWeight(RecordSet $recordSet)
     {
-        $weightSum = $recordSet->records->sum(function ($record) use ($recordSet) {
+        $weightSum = $recordSet->records->sum(function ($record) {
             return $record->weight_with_base * $record->repeat_count;
         });
 
-        return Stat::make(__('pages.record_sets.widget.moved_weight.title'), $weightSum . ' '. TenantSettings::getWeightUnitLabel())
+        return Stat::make(__('pages.record_sets.widget.moved_weight.title'), $weightSum.' '.TenantSettings::getWeightUnitLabel())
             ->description(__('pages.record_sets.widget.moved_weight.description'))
             ->icon('heroicon-s-scale');
     }

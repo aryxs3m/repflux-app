@@ -10,7 +10,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
@@ -62,11 +61,11 @@ class RecordTypeResource extends Resource
 
                 TextEntry::make('created_at')
                     ->label('Created Date')
-                    ->state(fn(?RecordType $record): string => $record?->created_at?->diffForHumans() ?? '-'),
+                    ->state(fn (?RecordType $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
                 TextEntry::make('updated_at')
                     ->label('Last Modified Date')
-                    ->state(fn(?RecordType $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ->state(fn (?RecordType $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
             ]);
     }
 
@@ -84,7 +83,7 @@ class RecordTypeResource extends Resource
                     ->sortable(),
                 TextColumn::make('base_weight')
                     ->label(__('columns.base_weight'))
-                    ->suffix(' '.TenantSettings::getWeightUnitLabel())
+                    ->suffix(' '.TenantSettings::getWeightUnitLabel()),
             ])
             ->filters([
                 //

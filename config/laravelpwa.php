@@ -9,8 +9,8 @@ return [
         'background_color' => '#333333',
         'theme_color' => '#000000',
         'display' => 'standalone',
-        'orientation'=> 'any',
-        'status_bar'=> 'black',
+        'orientation' => 'any',
+        'status_bar' => 'black',
         'icons' => [
             // TODO: generate lower res versions too
             '512x512' => [
@@ -40,9 +40,9 @@ return [
             [
                 'name' => 'Record a set',
                 'description' => 'Add new exercise set',
-                'url' => '/app/record-sets/create'
-            ]
+                'url' => '/app/record-sets/create',
+            ],
         ],
-        'custom' => []
-    ]
+        'custom' => [],
+    ],
 ];

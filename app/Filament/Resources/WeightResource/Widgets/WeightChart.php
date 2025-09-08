@@ -17,7 +17,8 @@ class WeightChart extends ChartWidget
         return __('pages.weight.widgets.weight_history');
     }
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
+
     protected ?string $maxHeight = '200px';
 
     protected function getData(): array

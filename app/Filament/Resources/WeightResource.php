@@ -36,7 +36,7 @@ class WeightResource extends Resource
         return __('navbar.weights');
     }
 
-    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-scale';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-scale';
 
     public static function form(Schema $schema): Schema
     {
