@@ -1,4 +1,4 @@
-name: Laravel test
+name: Translations Check
 
 on:
   push:
