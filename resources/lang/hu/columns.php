@@ -9,5 +9,6 @@ return [
     'category' => 'Kategória',
     'exercise' => 'Gyakorlat',
     'base_weight' => 'Gép/rúd súlya',
+    'reps_short' => 'ism',
     'weight' => 'Súly',
 ];

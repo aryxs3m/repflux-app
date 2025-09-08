@@ -2,7 +2,14 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Tenancy\EditTenantProfile;
+use App\Filament\Pages\Tenancy\RegisterTenant;
+use App\Filament\Pages\UserSettings;
+use App\Http\Middlewares\TenantLanguageHandlerMiddleware;
+use App\Models\Tenant;
 use Blade;
+use Filament\Actions\Action;
+use Filament\Auth\Pages\EditProfile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -34,6 +41,13 @@ class AppPanelProvider extends PanelProvider
             ->id('app')
             ->path('app')
             ->login()
+            ->registration()
+            ->passwordReset()
+            ->emailVerification()
+            ->profile()
+            ->tenant(Tenant::class)
+            ->tenantRegistration(RegisterTenant::class)
+            ->tenantProfile(EditTenantProfile::class)
             ->colors([
                 'primary' => Color::Orange,
             ])
@@ -45,7 +59,6 @@ class AppPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -58,6 +71,10 @@ class AppPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->tenantMiddleware([
+                TenantLanguageHandlerMiddleware::class,
+            ])
+            //->userMenuItems([])
             ->authMiddleware([
                 Authenticate::class,
             ])

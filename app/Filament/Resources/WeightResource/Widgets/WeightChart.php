@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\WeightResource\Widgets;
 
 use App\Models\Weight;
+use App\Services\Settings\TenantSettings;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Contracts\Support\Htmlable;
@@ -45,6 +46,8 @@ class WeightChart extends ChartWidget
 
     protected function getOptions(): RawJs
     {
+        $weightLabel = TenantSettings::getWeightUnitLabel();
+
         return RawJs::make(<<<JS
             {
                 plugins: {
@@ -55,7 +58,7 @@ class WeightChart extends ChartWidget
                 scales: {
                     y: {
                         ticks: {
-                            callback: (value) => value + ' kg',
+                            callback: (value) => value + ' $weightLabel',
                         },
                     },
                 },

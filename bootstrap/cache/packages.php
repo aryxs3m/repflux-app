@@ -111,6 +111,17 @@
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
+  'larswiegers/laravel-translations-checker' => 
+  array (
+    'aliases' => 
+    array (
+      'LaravelTranslationsChecker' => 'Larswiegers\\LaravelTranslationsChecker\\LaravelTranslationsCheckerFacade',
+    ),
+    'providers' => 
+    array (
+      0 => 'Larswiegers\\LaravelTranslationsChecker\\LaravelTranslationsCheckerServiceProvider',
+    ),
+  ),
   'livewire/livewire' => 
   array (
     'aliases' => 

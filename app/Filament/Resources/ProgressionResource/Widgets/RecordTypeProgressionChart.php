@@ -5,6 +5,7 @@ namespace App\Filament\Resources\ProgressionResource\Widgets;
 use App\Models\Record;
 use App\Models\RecordType;
 use App\Models\Weight;
+use App\Services\Settings\TenantSettings;
 use Carbon\Carbon;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
@@ -50,6 +51,8 @@ class RecordTypeProgressionChart extends ChartWidget
 
     protected function getOptions(): RawJs
     {
+        $weightUnit = TenantSettings::getWeightUnitLabel();
+
         return RawJs::make(<<<JS
             {
                 plugins: {
@@ -60,7 +63,7 @@ class RecordTypeProgressionChart extends ChartWidget
                 scales: {
                     y: {
                         ticks: {
-                            callback: (value) => value + ' kg',
+                            callback: (value) => value + ' $weightUnit',
                         },
                     },
                 },

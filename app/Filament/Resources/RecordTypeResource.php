@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RecordTypeResource\Pages;
 use App\Models\RecordType;
+use App\Services\Settings\TenantSettings;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -55,6 +56,8 @@ class RecordTypeResource extends Resource
                     ->required(),
 
                 TextInput::make('base_weight')
+                    ->default(0)
+                    ->suffix(TenantSettings::getWeightUnitLabel())
                     ->required(),
 
                 TextEntry::make('created_at')
@@ -81,7 +84,7 @@ class RecordTypeResource extends Resource
                     ->sortable(),
                 TextColumn::make('base_weight')
                     ->label(__('columns.base_weight'))
-                    ->suffix(' kg')
+                    ->suffix(' '.TenantSettings::getWeightUnitLabel())
             ])
             ->filters([
                 //

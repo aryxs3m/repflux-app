@@ -4,6 +4,7 @@ namespace App\Filament\Resources\RecordSetResource\Widgets;
 
 use App\Models\Record;
 use App\Models\RecordSet;
+use App\Services\Settings\TenantSettings;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Contracts\Support\Htmlable;
@@ -43,6 +44,9 @@ class RecordSetChart extends ChartWidget
 
     protected function getOptions(): RawJs
     {
+        $repUnit = __('columns.reps_short');
+        $weightUnit = TenantSettings::getWeightUnitLabel();
+
         return RawJs::make(<<<JS
             {
                 indexAxis: 'y',
@@ -54,7 +58,12 @@ class RecordSetChart extends ChartWidget
                 scales: {
                     y: {
                         ticks: {
-                            callback: (value) => (value + 1) + '. rep',
+                            callback: (value) => (value + 1) + '. $repUnit',
+                        },
+                    },
+                    x: {
+                        ticks: {
+                            callback: (value) => (value + 1) + ' $weightUnit',
                         },
                     },
                 },

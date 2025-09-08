@@ -63,4 +63,8 @@ return [
             'weight_progression' => 'Megmozgatott súly változása (utolsó 30 sorozat)'
         ]
     ],
+    'tenancy' => [
+        'register_tenant' => 'Munkaterület regisztráció',
+        'edit_tenant' => 'Munkaterület szerkesztése',
+    ],
 ];

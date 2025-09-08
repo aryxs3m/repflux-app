@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasTenantRelationship;
 use App\Observers\MeasurementCacheObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[ObservedBy([MeasurementCacheObserver::class])]
 class Measurement extends Model
 {
+    use HasTenantRelationship;
+
     protected $fillable = [
         'measurement_type_id',
         'user_id',

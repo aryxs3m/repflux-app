@@ -5,8 +5,10 @@ namespace App\Filament\Resources\MeasurementResource\Pages;
 use App\Filament\Resources\MeasurementResource;
 use App\Models\Measurement;
 use App\Models\MeasurementType;
+use App\Services\Settings\TenantSettings;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\CreateRecord;
@@ -31,7 +33,7 @@ class AddBulkMeasurement extends CreateRecord
         foreach (MeasurementType::query()->get() as $item) {
             $components[] = TextInput::make('measurement_type_' . $item->id)
                 ->label($item->name)
-                ->suffix('cm')
+                ->suffix(TenantSettings::getLengthUnitLabel())
                 ->minValue(0)
                 ->nullable()
                 ->columnSpan('full')
@@ -49,6 +51,7 @@ class AddBulkMeasurement extends CreateRecord
                 'value' => (int) $value,
                 'measured_at' => now(),
                 'user_id' => auth()->id(),
+                'tenant_id' => TenantSettings::getTenant()->id,
             ];
         }, array_keys($data), $data);
 

@@ -5,6 +5,7 @@ namespace App\Filament\Resources\MeasurementResource\Pages;
 use App\Filament\Resources\MeasurementResource;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
+use Filament\Facades\Filament;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -32,7 +33,7 @@ class ListMeasurements extends ListRecords
                 ->label(__('pages.measurements.measure_now'))
                 ->color('success')
                 ->icon('heroicon-o-plus-circle')
-                ->url(route('filament.app.resources.measurements.bulk')),
+                ->url(route('filament.app.resources.measurements.bulk', ['tenant' => Filament::getTenant()])),
             CreateAction::make()
                 ->label(__('pages.measurements.add_single')),
         ];

@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\RecordSetResource\Pages;
 use App\Models\RecordCategory;
 use App\Models\RecordSet;
+use App\Services\Settings\TenantSettings;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -57,9 +58,10 @@ class RecordSetResource extends Resource
                     Wizard\Step::make('Set')
                         ->schema([
                             Select::make('user_id')
-                                ->relationship('user', 'name')
+                                ->options(TenantSettings::getTenant()->users->pluck('name', 'id'))
                                 ->searchable()
                                 ->default(auth()->id())
+                                ->preload()
                                 ->required(),
                             DatePicker::make('set_done_at')
                                 ->label('Set Done Date')
@@ -67,7 +69,7 @@ class RecordSetResource extends Resource
                                 ->required(),
                             ToggleButtons::make('record_category_id')
                                 ->options(RecordCategory::query()->get()->pluck('name', 'id'))
-                                ->default(RecordCategory::query()->first()->id)
+                                ->default(RecordCategory::query()->first()?->id)
                                 ->inline(),
                             // https://laraveldaily.com/post/filament-dependent-dropdowns-edit-form-set-select-values
                             Select::make('record_type_id')
@@ -88,7 +90,7 @@ class RecordSetResource extends Resource
                                         ->minValue(0)
                                         ->columnSpan(1),
                                     TextInput::make('weight')
-                                        ->suffix('kg')
+                                        ->suffix(TenantSettings::getWeightUnitLabel())
                                         ->numeric()
                                         ->minValue(0)
                                         ->columnSpan(1),
@@ -125,7 +127,7 @@ class RecordSetResource extends Resource
                     ->state(function (RecordSet $recordSet): string {
                         return $recordSet->records->sum(fn ($record) => $record->weight_with_base * $record->repeat_count);
                     })
-                    ->suffix(' kg'),
+                    ->suffix(' '.TenantSettings::getWeightUnitLabel()),
             ])
             ->filters([
                 //
