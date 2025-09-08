@@ -54,6 +54,7 @@ return [
         'add_weight' => 'Add measurement',
         'widgets' => [
             'weight_history' => 'Weight history',
+            'no_weight_recorded' => 'No weight recorded yet',
         ],
     ],
     'progression' => [

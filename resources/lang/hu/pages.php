@@ -54,6 +54,7 @@ return [
         'add_weight' => 'Mérés hozzáadása',
         'widgets' => [
             'weight_history' => 'Testúly történet',
+            'no_weight_recorded' => 'Még nem rögzítetted a súlyodat',
         ],
     ],
     'progression' => [

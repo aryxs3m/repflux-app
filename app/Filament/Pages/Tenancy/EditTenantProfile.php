@@ -24,18 +24,10 @@ class EditTenantProfile extends \Filament\Pages\Tenancy\EditTenantProfile
                 Select::make('unit_type')
                     ->options([
                         'metric' => 'Metric (kg, cm)',
-                        'imperial' => 'Imperial (lbs, ft)',
+                        'imperial' => 'Imperial (lbs, in)',
                     ])
                     ->default('metric')
                     ->required(),
-                Select::make('language')
-                    ->options([
-                        'de' => '<Automatic by browser>',
-                        'en' => 'English',
-                        'hu' => 'Hungarian',
-                    ])
-                    ->nullable()
-                    ->default(null)
             ]);
     }
 }

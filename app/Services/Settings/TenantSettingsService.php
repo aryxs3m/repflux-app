@@ -26,6 +26,6 @@ class TenantSettingsService
 
     public function getLengthUnitLabel(): string
     {
-        return $this->getUnitType() === UnitType::METRIC ? 'cm' : 'ft';
+        return $this->getUnitType() === UnitType::METRIC ? 'cm' : 'in';
     }
 }

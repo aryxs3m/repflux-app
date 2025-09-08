@@ -3,16 +3,15 @@
 namespace App\Http\Middlewares;
 
 use App;
-use App\Services\Settings\TenantSettings;
 use Closure;
 use Illuminate\Http\Request;
 
-class TenantLanguageHandlerMiddleware
+class LanguageHandlerMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (TenantSettings::getTenant()) {
-            App::setLocale(TenantSettings::getTenant()->language);
+        if (auth()->user() && auth()->user()->language) {
+            App::setLocale(auth()->user()->language);
         }
 
         return $next($request);
