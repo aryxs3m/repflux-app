@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\RecordSetResource\Pages;
 use App\Models\RecordCategory;
 use App\Models\RecordSet;
+use App\Models\RecordType;
+use App\Services\RecordSetSessionService;
 use App\Services\Settings\TenantSettings;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -18,6 +20,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Components\Wizard;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -52,6 +56,8 @@ class RecordSetResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
+        $recordSetSession = app(RecordSetSessionService::class);
+
         return $schema
             ->components([
                 Wizard::make([
@@ -65,15 +71,34 @@ class RecordSetResource extends Resource
                                 ->required(),
                             DatePicker::make('set_done_at')
                                 ->label('Set Done Date')
-                                ->default(now())
+                                ->default($recordSetSession->getLastSetDone() ?? now())
                                 ->required(),
                             ToggleButtons::make('record_category_id')
+                                ->live()
+                                ->dehydrated(false)
                                 ->options(RecordCategory::query()->get()->pluck('name', 'id'))
-                                ->default(RecordCategory::query()->first()?->id)
-                                ->inline(),
-                            // https://laraveldaily.com/post/filament-dependent-dropdowns-edit-form-set-select-values
+                                ->inline()
+                                ->afterStateUpdated(function (Set $set) {
+                                    $set('record_type_id', null);
+                                }),
                             Select::make('record_type_id')
-                                ->relationship('recordType', 'name')
+                                ->placeholder(fn (Get $get): string => empty($get('record_category_id')) ? 'First select category' : 'Select an option')
+                                ->options(function (?RecordSet $record, Get $get, Set $set) use ($recordSetSession) {
+                                    if (! empty($record) && empty($get('record_category_id'))) {
+                                        $set('record_category_id', $record->recordType->recordCategory->id);
+                                        $set('record_type_id', $record->recordType->id);
+                                    }
+
+                                    if (empty($record) && empty($get('record_category_id')) && $recordSetSession->hasLastRecord()) {
+                                        $set('record_category_id', $recordSetSession->getLastRecordCategoryId());
+                                        $set('record_type_id', $recordSetSession->getLastRecordTypeId());
+                                    }
+
+                                    return RecordType::query()
+                                        ->where('record_category_id', $get('record_category_id'))
+                                        ->get()
+                                        ->pluck('name', 'id');
+                                })
                                 ->required(),
                         ]),
                     Wizard\Step::make('Repetitions')
