@@ -5,9 +5,11 @@ namespace App\Providers\Filament;
 use App\Filament\Pages\EditProfile;
 use App\Filament\Pages\Tenancy\EditTenantProfile;
 use App\Filament\Pages\Tenancy\RegisterTenant;
+use App\Filament\Resources\TenantResources\UserResource;
 use App\Http\Middlewares\LanguageHandlerMiddleware;
 use App\Models\Tenant;
 use Blade;
+use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -16,6 +18,7 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Icons\Heroicon;
 use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -45,6 +48,12 @@ class AppPanelProvider extends PanelProvider
             ->tenant(Tenant::class)
             ->tenantRegistration(RegisterTenant::class)
             ->tenantProfile(EditTenantProfile::class)
+            ->tenantMenuItems([
+                Action::make('users')
+                    ->label(__('pages.tenancy.users.title'))
+                    ->url(fn (): string => UserResource::getUrl())
+                    ->icon(Heroicon::UserGroup),
+            ])
             ->colors([
                 'primary' => Color::Orange,
             ])

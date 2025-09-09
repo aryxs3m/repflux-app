@@ -3,6 +3,7 @@
 namespace App\Services\Settings;
 
 use App\Models\Tenant;
+use App\Models\User;
 use App\Services\Settings\Enums\UnitType;
 use Filament\Facades\Filament;
 
@@ -12,6 +13,20 @@ class TenantSettingsService
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Filament::getTenant();
+    }
+
+    public function canAdminister(?User $user = null): bool
+    {
+        if ($user === null) {
+            $user = auth()->user();
+        }
+
+        return $this->getTenant()
+            ->users()
+            ->where('id', $user->id)
+            ->first()
+            ->pivot
+            ->is_admin ?? false;
     }
 
     public function getUnitType(): UnitType
@@ -27,5 +42,10 @@ class TenantSettingsService
     public function getLengthUnitLabel(): string
     {
         return $this->getUnitType() === UnitType::METRIC ? 'cm' : 'in';
+    }
+
+    public function removeUser(User $user): void
+    {
+        $this->getTenant()->users()->detach($user);
     }
 }

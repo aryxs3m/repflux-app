@@ -67,5 +67,28 @@ return [
     'tenancy' => [
         'register_tenant' => 'Munkaterület regisztráció',
         'edit_tenant' => 'Munkaterület szerkesztése',
+        'users' => [
+            'title' => 'Felhasználók',
+            'invite' => 'Meghívás',
+            'kick' => 'Kirúgás',
+            'has_admin' => 'Adminisztrátori jogaid vannak ezen a munkaterületen. Felhasználókat hívhatsz meg vagy rúghatsz ki.',
+            'notifications' => [
+                'join' => [
+                    'success' => [
+                        'title' => 'Sikeres csatlakozás',
+                    ],
+                ],
+                'invitation' => [
+                    'success' => [
+                        'title' => 'Sikeres meghívás',
+                        'body' => 'A meghívót kiküldtük e-mailben!',
+                    ],
+                    'fail' => [
+                        'title' => 'Sikertelen meghívás',
+                        'body' => 'A meghívó kiküldése meghiúsult!',
+                    ],
+                ],
+            ],
+        ],
     ],
 ];

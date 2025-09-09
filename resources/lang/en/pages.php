@@ -67,5 +67,28 @@ return [
     'tenancy' => [
         'register_tenant' => 'Register tenant',
         'edit_tenant' => 'Edit tenant',
+        'users' => [
+            'title' => 'Users',
+            'invite' => 'Invite',
+            'kick' => 'Kick',
+            'has_admin' => 'You have administrator rights in this tenant. You can invite or kick users.',
+            'notifications' => [
+                'join' => [
+                    'success' => [
+                        'title' => 'Successful join',
+                    ],
+                ],
+                'invitation' => [
+                    'success' => [
+                        'title' => 'Invitation sent',
+                        'body' => 'An email sent to your friend.',
+                    ],
+                    'fail' => [
+                        'title' => 'Failed to invite',
+                        'body' => 'Failed to send invitation.',
+                    ],
+                ],
+            ],
+        ],
     ],
 ];

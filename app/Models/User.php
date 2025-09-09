@@ -4,8 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,7 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 
-class User extends Authenticatable implements FilamentUser, HasTenants
+class User extends Authenticatable implements FilamentUser, HasAvatar, HasTenants
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -30,6 +32,10 @@ class User extends Authenticatable implements FilamentUser, HasTenants
         'password',
         'language',
         'height',
+    ];
+
+    protected $appends = [
+        'avatar_url',
     ];
 
     /**
@@ -67,7 +73,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants
 
     public function tenants(): BelongsToMany
     {
-        return $this->belongsToMany(Tenant::class);
+        return $this->belongsToMany(Tenant::class)->withPivot('is_admin', 'created_at');
     }
 
     public function canAccessTenant(Model $tenant): bool
@@ -78,5 +84,17 @@ class User extends Authenticatable implements FilamentUser, HasTenants
     public function getTenants(Panel $panel): array|Collection
     {
         return $this->tenants;
+    }
+
+    public function avatarUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->getFilamentAvatarUrl(),
+        );
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return url('/logos/favicon.png');
     }
 }

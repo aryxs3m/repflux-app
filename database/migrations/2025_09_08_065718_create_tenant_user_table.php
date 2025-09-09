@@ -15,6 +15,8 @@ return new class extends Migration
             $table->foreignIdFor(Tenant::class);
             $table->timestamp('created_at')->useCurrent();
             $table->boolean('is_admin')->default(false);
+
+            $table->unique(['user_id', 'tenant_id']);
         });
     }
 

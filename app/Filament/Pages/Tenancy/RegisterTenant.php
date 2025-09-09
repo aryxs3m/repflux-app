@@ -34,7 +34,7 @@ class RegisterTenant extends \Filament\Pages\Tenancy\RegisterTenant
     protected function handleRegistration(array $data): Tenant
     {
         $team = Tenant::create($data);
-        $team->users()->attach(auth()->user());
+        $team->users()->attach(auth()->user(), ['is_admin' => true]);
 
         return $team;
     }
