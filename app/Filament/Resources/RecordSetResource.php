@@ -95,7 +95,9 @@ class RecordSetResource extends Resource
                                         ->minValue(0)
                                         ->columnSpan(1),
                                 ])
-                                ->columns(2),
+                                ->columns([
+                                    'default' => 2,
+                                ]),
                         ]),
                 ]),
             ])

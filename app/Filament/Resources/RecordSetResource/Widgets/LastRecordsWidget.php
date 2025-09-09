@@ -35,14 +35,14 @@ class LastRecordsWidget extends TableWidget
                 ->whereIn('id', array_column($maxIds, 'id'))
             )
             ->columns([
-                TextColumn::make('set_done_at')
-                    ->dateTime()
-                    ->sortable(),
                 TextColumn::make('recordType.name')
                     ->searchable(),
                 TextColumn::make('records.weight_with_base')
                     ->label('Rep weights')
                     ->badge(),
+                TextColumn::make('set_done_at')
+                    ->date()
+                    ->sortable(),
             ])
             ->filters([
                 //
