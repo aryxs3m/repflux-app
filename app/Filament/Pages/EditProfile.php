@@ -16,9 +16,6 @@ class EditProfile extends BaseEditProfile
         return $schema
             ->components([
                 Section::make('Account')->schema([
-                    TextInput::make('name')
-                        ->required()
-                        ->maxLength(255),
                     $this->getNameFormComponent(),
                     $this->getEmailFormComponent(),
                     $this->getPasswordFormComponent(),
