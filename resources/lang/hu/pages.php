@@ -102,5 +102,6 @@ return [
     ],
     'dashboard' => [
         'title' => 'Áttekintés',
+        'gym_greet' => 'Jó edzést!',
     ],
 ];

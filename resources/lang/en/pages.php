@@ -102,5 +102,6 @@ return [
     ],
     'dashboard' => [
         'title' => 'Overview',
+        'gym_greet' => 'Have a good workout!',
     ],
 ];
