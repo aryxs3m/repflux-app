@@ -91,4 +91,12 @@ return [
             ],
         ],
     ],
+    'calendar' => [
+        'title' => 'Calendar',
+        'events' => 'Events',
+        'event' => [
+            'weight_measurement' => 'Weight Measurement',
+            'body_measurement' => 'Body Measurement',
+        ],
+    ],
 ];

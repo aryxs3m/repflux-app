@@ -91,4 +91,12 @@ return [
             ],
         ],
     ],
+    'calendar' => [
+        'title' => 'Naptár',
+        'events' => 'Események',
+        'event' => [
+            'weight_measurement' => 'Testsúly napló',
+            'body_measurement' => 'Méret napló',
+        ],
+    ],
 ];
