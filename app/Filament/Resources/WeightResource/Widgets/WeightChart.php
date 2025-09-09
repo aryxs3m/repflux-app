@@ -19,7 +19,7 @@ class WeightChart extends ChartWidget
 
     protected int|string|array $columnSpan = 'full';
 
-    protected ?string $maxHeight = '200px';
+    protected ?string $maxHeight = '250px';
 
     protected function getData(): array
     {
@@ -69,6 +69,6 @@ class WeightChart extends ChartWidget
 
     protected function getType(): string
     {
-        return 'bar';
+        return 'line';
     }
 }

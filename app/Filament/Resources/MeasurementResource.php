@@ -82,6 +82,7 @@ class MeasurementResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultPaginationPageOption(5)
             ->columns([
                 TextColumn::make('measurementType.name')
                     ->label(__('columns.type'))

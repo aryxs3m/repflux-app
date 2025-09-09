@@ -2,7 +2,7 @@
 
 return [
     'measurements' => [
-        'list_title' => 'Mérések',
+        'list_title' => 'Testméretek',
         'create_title' => 'Mérés hozzáadása',
         'edit_title' => 'Mérés szerkesztése',
         'bulk_create_title' => 'Tömeges mérés hozzáadás',
@@ -10,9 +10,9 @@ return [
         'add_single' => 'Egy méret rögzítése',
     ],
     'measurement_types' => [
-        'list_title' => 'Mérési típusok',
-        'create_title' => 'Mérési típus hozzáadása',
-        'edit_title' => 'Mérési típus szerkesztése',
+        'list_title' => 'Testméret típusok',
+        'create_title' => 'Típus hozzáadása',
+        'edit_title' => 'Típus szerkesztése',
         'add_type' => 'Típus hozzáadása',
     ],
     'record_categories' => [
@@ -65,8 +65,9 @@ return [
         ],
     ],
     'tenancy' => [
-        'register_tenant' => 'Munkaterület regisztráció',
-        'edit_tenant' => 'Munkaterület szerkesztése',
+        'register_tenant' => 'Csapat regisztrációja',
+        'edit_tenant' => 'Csapat szerkesztése',
+        'default_tenant_name' => ':user csapata',
         'users' => [
             'title' => 'Felhasználók',
             'invite' => 'Meghívás',
@@ -96,7 +97,10 @@ return [
         'events' => 'Események',
         'event' => [
             'weight_measurement' => 'Testsúly napló',
-            'body_measurement' => 'Méret napló',
+            'body_measurement' => 'Testméret napló',
         ],
+    ],
+    'dashboard' => [
+        'title' => 'Áttekintés',
     ],
 ];

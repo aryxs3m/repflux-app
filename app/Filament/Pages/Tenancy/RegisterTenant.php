@@ -19,7 +19,7 @@ class RegisterTenant extends \Filament\Pages\Tenancy\RegisterTenant
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->default(auth()->user()->name.'\'s tenant')
+                    ->default(__('pages.tenancy.default_tenant_name', ['user' => auth()->user()->name]))
                     ->required(),
                 Select::make('unit_type')
                     ->options([

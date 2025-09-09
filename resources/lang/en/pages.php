@@ -67,6 +67,7 @@ return [
     'tenancy' => [
         'register_tenant' => 'Register tenant',
         'edit_tenant' => 'Edit tenant',
+        'default_tenant_name' => ':user tenant',
         'users' => [
             'title' => 'Users',
             'invite' => 'Invite',
@@ -98,5 +99,8 @@ return [
             'weight_measurement' => 'Weight Measurement',
             'body_measurement' => 'Body Measurement',
         ],
+    ],
+    'dashboard' => [
+        'title' => 'Overview',
     ],
 ];

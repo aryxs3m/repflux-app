@@ -22,7 +22,7 @@ class BmiWidget extends StatsOverviewWidget
         $weightRecord = Weight::query()
             ->where('user_id', auth()->user()->id)
             ->where('tenant_id', TenantSettings::getTenant()->id)
-            ->orderBy('id', 'desc')
+            ->orderBy('measured_at', 'desc')
             ->limit(1)
             ->get()
             ->last();
