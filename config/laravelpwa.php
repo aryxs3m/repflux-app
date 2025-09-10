@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'name' => 'gymBro',
+    'name' => 'Repflux',
     'manifest' => [
-        'name' => 'gymBro',
-        'short_name' => 'gymBro',
+        'name' => 'Repflux',
+        'short_name' => 'Repflux',
         'start_url' => '/app',
         'background_color' => '#333333',
         'theme_color' => '#000000',
