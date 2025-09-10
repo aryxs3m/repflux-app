@@ -6,6 +6,8 @@ use App\Services\Settings\TenantSettings;
 use Filament\Auth\Pages\EditProfile as BaseEditProfile;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -36,6 +38,22 @@ class EditProfile extends BaseEditProfile
                         ->nullable()
                         ->placeholder('Automatic by browser')
                         ->default(null),
+                ]),
+                Section::make('Notifications')->schema([
+                    Fieldset::make('Weight')->schema([
+                        Toggle::make('notify_measurement_weight')
+                            ->label('Enabled'),
+                        TextInput::make('notify_measurement_weight_days')
+                            ->label('After')
+                            ->suffix('days'),
+                    ]),
+                    Fieldset::make('Body')->schema([
+                        Toggle::make('notify_measurement_body')
+                            ->label('Enabled'),
+                        TextInput::make('notify_measurement_body_days')
+                            ->label('After')
+                            ->suffix('days'),
+                    ]),
                 ]),
             ]);
     }

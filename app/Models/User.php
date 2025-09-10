@@ -32,6 +32,10 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasTenant
         'password',
         'language',
         'height',
+        'notify_measurement_weight',
+        'notify_measurement_body',
+        'notify_measurement_weight_days',
+        'notify_measurement_body_days',
     ];
 
     protected $appends = [

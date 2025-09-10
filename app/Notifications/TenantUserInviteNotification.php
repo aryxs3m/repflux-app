@@ -22,10 +22,10 @@ class TenantUserInviteNotification extends Notification implements ShouldQueue
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('gymBro invitation')
-            ->greeting('Hi!')
-            ->line('You have been invited to "'.$this->invite->tenant->name.'" in gymBro.')
-            ->action('Accept Invite', url(route('invite.join', ['hash' => $this->invite->hash])));
+            ->subject(__('notifications.invite.subject'))
+            ->greeting(__('notifications.greeting'))
+            ->line(__('notifications.invite.body', ['tenant' => $this->invite->tenant->name]))
+            ->action(__('notifications.invite.accept_invite'), url(route('invite.join', ['hash' => $this->invite->hash])));
     }
 
     public function toArray($notifiable): array
