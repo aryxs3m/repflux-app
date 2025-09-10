@@ -1,5 +1,4 @@
 :root {
-    // Buttons
     --fc-button-bg-color: #00000000;
     --fc-button-border-color: #161617;
     --fc-button-hover-bg-color: #161617;
@@ -7,7 +6,6 @@
     --fc-button-active-bg-color: #19191a;
     --fc-button-active-border-color: #19191a;
 
-    // Calendar layouts / grid
     --fc-border-color: #161617;
     --fc-neutral-bg-color: #19191a;
     --fc-daygrid-event-dot-width: 10px;

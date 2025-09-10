@@ -35,8 +35,8 @@ class AppPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->brandName('gymBro')
-            ->brandLogo('/logos/logo-white-blur.png')
+            ->brandName('Repflux')
+            ->brandLogo('/logos/repflux_logo_transparent.png')
             ->favicon('/logos/favicon.png')
             ->spa()
             ->id('app')

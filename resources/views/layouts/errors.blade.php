@@ -1,15 +1,11 @@
 @extends('layouts.minimal')
 
 @section('body')
-    <div class="container">
-        <h1 class="text-3xl font-bold">Invitation error</h1>
-        <hr class="my-4">
+    <div class="container text-center m-auto">
+        <img src="/logos/logo-black.svg" alt="gymBro" class="m-auto mb-10">
+        <h1 class="text-3xl font-bold">@yield('title')</h1>
 
         @yield('content')
-
-        <div class="mt-4">
-            <x-button href="/app">Register your own</x-button>
-        </div>
 
         <div class="mt-10 text-center">
             <p class="text-sm text-gray-400">{{ config('app.name') }} {{ date('Y') }}</p>
