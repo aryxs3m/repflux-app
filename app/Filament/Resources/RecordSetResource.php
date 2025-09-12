@@ -98,6 +98,7 @@ class RecordSetResource extends Resource
 
                                     return RecordType::query()
                                         ->where('record_category_id', $get('record_category_id'))
+                                        ->orderBy('name')
                                         ->get()
                                         ->pluck('name', 'id');
                                 })
