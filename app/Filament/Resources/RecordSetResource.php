@@ -162,8 +162,7 @@ class RecordSetResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('user')
-                    ->relationship('user', 'name', fn (Builder $query) =>
-                        $query->whereAttachedTo(TenantSettings::getTenant(), 'tenants'))
+                    ->relationship('user', 'name', fn (Builder $query) => $query->whereAttachedTo(TenantSettings::getTenant(), 'tenants')),
             ])
             ->recordActions([
                 ViewAction::make(),
