@@ -5,6 +5,8 @@ namespace App\Filament\Resources\RecordSetResource\Pages;
 use App\Filament\Resources\RecordSetResource;
 use App\Filament\Resources\RecordSetResource\Widgets\RecordSetChart;
 use App\Services\Settings\TenantSettings;
+use Filament\Actions\CreateAction;
+use Filament\Actions\EditAction;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\ViewRecord;
@@ -32,6 +34,15 @@ class ViewRecordSet extends ViewRecord
     {
         return [
             RecordSetChart::class,
+        ];
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            CreateAction::make()
+                ->label(__('pages.record_sets.add_set')),
+            EditAction::make(),
         ];
     }
 
