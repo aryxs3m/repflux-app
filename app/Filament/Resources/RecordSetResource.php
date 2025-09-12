@@ -108,8 +108,12 @@ class RecordSetResource extends Resource
                         ->schema([
                             Repeater::make('records')
                                 ->relationship('records')
-                                ->label('Repetitions')
+                                ->hiddenLabel()
+                                ->cloneable()
                                 ->orderColumn('repeat_index')
+                                ->reorderableWithButtons()
+                                ->reorderableWithDragAndDrop(false)
+                                ->minItems(1)
                                 ->addActionLabel('Add repetition')
                                 ->schema([
                                     TextInput::make('repeat_count')
