@@ -42,6 +42,8 @@ return [
         ],
     ],
     'record_types' => [
+        'basic_settings' => 'Alap beállítások',
+        'other' => 'Egyéb',
         'list_title' => 'Gyakorlatok',
         'create_title' => 'Gyakorlat hozzáadása',
         'edit_title' => 'Gyakorlat szerkesztése',

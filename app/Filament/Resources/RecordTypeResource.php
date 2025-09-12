@@ -11,9 +11,11 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
@@ -47,17 +49,23 @@ class RecordTypeResource extends Resource
     {
         return $schema
             ->components([
-                Select::make('record_category_id')
-                    ->relationship('recordCategory', 'name')
-                    ->required(),
+                Section::make(__('pages.record_types.basic_settings'))->schema([
+                    Select::make('record_category_id')
+                        ->relationship('recordCategory', 'name')
+                        ->required(),
 
-                TextInput::make('name')
-                    ->required(),
+                    TextInput::make('name')
+                        ->required(),
 
-                TextInput::make('base_weight')
-                    ->default(0)
-                    ->suffix(TenantSettings::getWeightUnitLabel())
-                    ->required(),
+                    TextInput::make('base_weight')
+                        ->default(0)
+                        ->suffix(TenantSettings::getWeightUnitLabel())
+                        ->required(),
+                ]),
+                Section::make(__('pages.record_types.other'))->schema([
+                    Textarea::make('notes')
+                        ->nullable(),
+                ]),
 
                 TextEntry::make('created_at')
                     ->label('Created Date')

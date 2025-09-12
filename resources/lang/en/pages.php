@@ -42,6 +42,8 @@ return [
         ],
     ],
     'record_types' => [
+        'basic_settings' => 'Basic settings',
+        'other' => 'Other',
         'list_title' => 'Exercises',
         'create_title' => 'Add exercise',
         'edit_title' => 'Edit exercise',

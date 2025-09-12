@@ -14,6 +14,7 @@ class RecordType extends Model
         'name',
         'record_category_id',
         'base_weight',
+        'notes',
     ];
 
     public function recordCategory(): BelongsTo
