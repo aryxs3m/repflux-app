@@ -18,7 +18,6 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Field;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Resources\Resource;
@@ -89,7 +88,7 @@ class RecordSetResource extends Resource
                                 ->live()
                                 ->placeholder(fn (Get $get): string => empty($get('record_category_id')) ? 'First select category' : 'Select an option')
                                 ->options(function (?RecordSet $record, Get $get, Set $set, Field $component) use ($recordSetSession) {
-                                    if (!empty($record) && empty($get('record_category_id'))) {
+                                    if (! empty($record) && empty($get('record_category_id'))) {
                                         $set('record_category_id', $record->recordType->recordCategory->id);
                                         $set('record_type_id', $record->recordType->id);
                                         $component->callAfterStateUpdated();
@@ -107,13 +106,13 @@ class RecordSetResource extends Resource
                                         ->get()
                                         ->pluck('name', 'id');
                                 })
-                                ->afterStateHydrated(function ($state, Field $component) use ($recordSetSession) {
+                                ->afterStateHydrated(function ($state, Field $component) {
                                     $component->callAfterStateUpdated();
                                 })
-                                ->afterStateUpdated(function ($state, Field $component) use ($recordSetSession) {
-                                    if (!empty($state) && $recordType = RecordType::query()->find($state)) {
+                                ->afterStateUpdated(function ($state, Field $component) {
+                                    if (! empty($state) && $recordType = RecordType::query()->find($state)) {
                                         $component->hint($recordType->notes);
-                                        if (!empty($recordType->notes)) {
+                                        if (! empty($recordType->notes)) {
                                             $component->hintIcon(Heroicon::InformationCircle);
                                         }
                                     } else {
