@@ -26,6 +26,8 @@ use Filament\Schemas\Components\Wizard;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -158,7 +160,9 @@ class RecordSetResource extends Resource
                     ->suffix(' '.TenantSettings::getWeightUnitLabel()),
             ])
             ->filters([
-                //
+                SelectFilter::make('user')
+                    ->relationship('user', 'name', fn (Builder $query) =>
+                        $query->whereAttachedTo(TenantSettings::getTenant(), 'tenants'))
             ])
             ->recordActions([
                 ViewAction::make(),
@@ -169,6 +173,10 @@ class RecordSetResource extends Resource
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+            ])
+            ->groups([
+                Group::make('user.name')
+                    ->collapsible(),
             ])
             ->defaultSort('set_done_at', 'desc');
     }
