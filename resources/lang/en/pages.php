@@ -27,6 +27,8 @@ return [
         'edit_title' => 'Edit set',
         'view_title' => 'Show set',
         'add_set' => 'Add set',
+        'clone_set' => 'Clone',
+        'new_user' => 'New user',
         'widget' => [
             'weight' => 'Weight',
             'repeats' => 'Reps',

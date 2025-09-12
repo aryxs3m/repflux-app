@@ -27,6 +27,8 @@ return [
         'edit_title' => 'Sorozat szerkesztése',
         'view_title' => 'Sorozat megtekintése',
         'add_set' => 'Sorozat hozzáadása',
+        'clone_set' => 'Klónozás',
+        'new_user' => 'Új felhasználó',
         'widget' => [
             'weight' => 'Súly',
             'repeats' => 'Ismétlések',

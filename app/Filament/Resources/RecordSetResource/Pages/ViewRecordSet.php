@@ -4,15 +4,22 @@ namespace App\Filament\Resources\RecordSetResource\Pages;
 
 use App\Filament\Resources\RecordSetResource;
 use App\Filament\Resources\RecordSetResource\Widgets\RecordSetChart;
+use App\Models\Record;
 use App\Services\Settings\TenantSettings;
 use Filament\Actions\CreateAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ReplicateAction;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 
 class ViewRecordSet extends ViewRecord
 {
@@ -43,6 +50,66 @@ class ViewRecordSet extends ViewRecord
             CreateAction::make()
                 ->label(__('pages.record_sets.add_set')),
             EditAction::make(),
+            ReplicateAction::make()
+                ->color('success')
+                ->schema([
+                    Select::make('user_id')
+                        ->label(__('pages.record_sets.new_user'))
+                        ->options(TenantSettings::getTenant()->users->pluck('name', 'id'))
+                        ->searchable()
+                        ->default(auth()->id())
+                        ->preload()
+                        ->required(),
+                    Repeater::make('records')
+                        ->hiddenLabel()
+                        ->cloneable()
+                        ->afterStateHydrated(function (Set $set) {
+                            $records = $this->getRecord()->records->toArray();
+
+                            $defaults = array_map(function ($record) {
+                                return [
+                                    'repeat_count' => $record['repeat_count'],
+                                    'weight' => $record['weight'],
+                                ];
+                            }, $records);
+
+                            $set('records', $defaults);
+                        })
+                        ->orderColumn('repeat_index')
+                        ->reorderableWithButtons()
+                        ->reorderableWithDragAndDrop(false)
+                        ->minItems(1)
+                        ->addActionLabel('Add repetition')
+                        ->schema([
+                            TextInput::make('repeat_count')
+                                ->suffix('reps')
+                                ->numeric()
+                                ->minValue(0)
+                                ->columnSpan(1),
+                            TextInput::make('weight')
+                                ->suffix(TenantSettings::getWeightUnitLabel())
+                                ->numeric()
+                                ->minValue(0)
+                                ->columnSpan(1),
+                        ])
+                        ->columns([
+                            'default' => 2,
+                        ]),
+                ])
+                ->after(function (Model $replica, array $data) {
+                    $id = $replica->id;
+
+                    $index = 0;
+                    Record::query()->insert(array_map(function ($record) use ($id, $index) {
+                        $index++;
+
+                        return array_merge($record, [
+                            'repeat_index' => $index,
+                            'record_set_id' => $id,
+                        ]);
+                    }, $data['records']));
+                })
+                ->label(__('pages.record_sets.clone_set')),
         ];
     }
 
