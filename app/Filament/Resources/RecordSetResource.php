@@ -135,6 +135,7 @@ class RecordSetResource extends Resource
             ->columns([
                 TextColumn::make('set_done_at')
                     ->label('Set Done Date')
+                    ->sortable()
                     ->date(),
 
                 TextColumn::make('user.name')
@@ -168,7 +169,8 @@ class RecordSetResource extends Resource
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('set_done_at', 'desc');
     }
 
     public static function getPages(): array
