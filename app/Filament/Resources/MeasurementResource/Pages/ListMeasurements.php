@@ -23,6 +23,7 @@ class ListMeasurements extends ListRecords
         return [
             // MeasurementResource\Widgets\MeasurementWidget::class,
             MeasurementResource\Widgets\MeasurementStats::class,
+            MeasurementResource\Widgets\AllMeasurementsChart::class,
         ];
     }
 
