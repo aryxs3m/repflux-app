@@ -12,11 +12,24 @@ class CalendarService
 {
     public function getEvents(Tenant $tenant, Carbon $start, Carbon $end): array
     {
-        return array_merge(
+        return $this->uniqueEvents(array_merge(
             $this->getRecordCategories($tenant, $start, $end),
             $this->getMeasurements($tenant, $start, $end),
             $this->getWeights($tenant, $start, $end)
-        );
+        ));
+    }
+
+    protected function uniqueEvents(array $events): array
+    {
+        $filtered = [];
+
+        foreach ($events as $event) {
+            if (!in_array($event, $filtered)) {
+                $filtered[] = $event;
+            }
+        }
+
+        return $filtered;
     }
 
     protected function getRecordCategories(Tenant $tenant, Carbon $start, Carbon $end): array
@@ -45,8 +58,8 @@ class CalendarService
                 return [
                     'title' => __('pages.calendar.event.body_measurement'),
                     'backgroundColor' => 'yellow',
-                    'start' => $measurement->measured_at,
-                    'end' => clone $measurement->measured_at->addHour(),
+                    'start' => $measurement->measured_at->startOfDay(),
+                    'end' => clone $measurement->measured_at->startOfDay()->addHour(),
                 ];
             })
             ->toArray();
