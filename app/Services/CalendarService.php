@@ -24,7 +24,7 @@ class CalendarService
         $filtered = [];
 
         foreach ($events as $event) {
-            if (!in_array($event, $filtered)) {
+            if (! in_array($event, $filtered)) {
                 $filtered[] = $event;
             }
         }
