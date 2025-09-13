@@ -1,4 +1,6 @@
-![logo-white-blur.png](public/logos/logo-white-blur.png)
+[![Code Quality](https://github.com/aryxs3m/gymbro/actions/workflows/code-quality.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/code-quality.yml) [![Laravel test](https://github.com/aryxs3m/gymbro/actions/workflows/laravel.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/laravel.yml) [![Translations Check](https://github.com/aryxs3m/gymbro/actions/workflows/translations.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/translations.yml)
+
+<img src="/public/logos/repflux_logo_transparent.png" alt="drawing" width="200"/>
 
 A simple fitness tracker app built with Laravel and Filament.
 
@@ -10,8 +12,8 @@ A simple fitness tracker app built with Laravel and Filament.
 
 - [x] PWA
 - [x] full dark mode support
-- [ ] multilingual (English, Hungarian)
-- [ ] imperial / metric support
+- [x] multilingual (English, Hungarian)
+- [x] imperial / metric support
 
 ## 🖥️ Installation
 
