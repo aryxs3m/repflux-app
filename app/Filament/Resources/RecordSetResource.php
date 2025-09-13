@@ -3,10 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RecordSetResource\Pages;
-use App\Models\RecordCategory;
+use App\Filament\Resources\RecordSetResource\Schemas\RecordSetForm;
 use App\Models\RecordSet;
-use App\Models\RecordType;
-use App\Services\RecordSetSessionService;
 use App\Services\Settings\TenantSettings;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -14,16 +12,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Field;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\ToggleButtons;
 use Filament\Resources\Resource;
-use Filament\Schemas\Components\Utilities\Get;
-use Filament\Schemas\Components\Utilities\Set;
-use Filament\Schemas\Components\Wizard;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
@@ -59,98 +48,7 @@ class RecordSetResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        $recordSetSession = app(RecordSetSessionService::class);
-
-        return $schema
-            ->components([
-                Wizard::make([
-                    Wizard\Step::make('Set')
-                        ->schema([
-                            Select::make('user_id')
-                                ->options(TenantSettings::getTenant()->users->pluck('name', 'id'))
-                                ->searchable()
-                                ->default(auth()->id())
-                                ->preload()
-                                ->required(),
-                            DatePicker::make('set_done_at')
-                                ->label('Set Done Date')
-                                ->default($recordSetSession->getLastSetDone() ?? now())
-                                ->required(),
-                            ToggleButtons::make('record_category_id')
-                                ->live()
-                                ->dehydrated(false)
-                                ->options(RecordCategory::query()->get()->pluck('name', 'id'))
-                                ->inline()
-                                ->afterStateUpdated(function (Set $set) {
-                                    $set('record_type_id', null);
-                                }),
-                            Select::make('record_type_id')
-                                ->live()
-                                ->placeholder(fn (Get $get): string => empty($get('record_category_id')) ? 'First select category' : 'Select an option')
-                                ->options(function (?RecordSet $record, Get $get, Set $set, Field $component) use ($recordSetSession) {
-                                    if (! empty($record) && empty($get('record_category_id'))) {
-                                        $set('record_category_id', $record->recordType->recordCategory->id);
-                                        $set('record_type_id', $record->recordType->id);
-                                        $component->callAfterStateUpdated();
-                                    }
-
-                                    if (empty($record) && empty($get('record_category_id')) && $recordSetSession->hasLastRecord()) {
-                                        $set('record_category_id', $recordSetSession->getLastRecordCategoryId());
-                                        $set('record_type_id', $recordSetSession->getLastRecordTypeId());
-                                        $component->callAfterStateUpdated();
-                                    }
-
-                                    return RecordType::query()
-                                        ->where('record_category_id', $get('record_category_id'))
-                                        ->orderBy('name')
-                                        ->get()
-                                        ->pluck('name', 'id');
-                                })
-                                ->afterStateHydrated(function ($state, Field $component) {
-                                    $component->callAfterStateUpdated();
-                                })
-                                ->afterStateUpdated(function ($state, Field $component) {
-                                    if (! empty($state) && $recordType = RecordType::query()->find($state)) {
-                                        $component->hint($recordType->notes);
-                                        if (! empty($recordType->notes)) {
-                                            $component->hintIcon(Heroicon::InformationCircle);
-                                        }
-                                    } else {
-                                        $component->hintIcon(null);
-                                    }
-                                })
-                                ->required(),
-                        ]),
-                    Wizard\Step::make('Repetitions')
-                        ->schema([
-                            Repeater::make('records')
-                                ->relationship('records')
-                                ->hiddenLabel()
-                                ->cloneable()
-                                ->orderColumn('repeat_index')
-                                ->reorderableWithButtons()
-                                ->reorderableWithDragAndDrop(false)
-                                ->minItems(1)
-                                ->addActionLabel('Add repetition')
-                                ->schema([
-                                    TextInput::make('repeat_count')
-                                        ->suffix('reps')
-                                        ->numeric()
-                                        ->minValue(0)
-                                        ->columnSpan(1),
-                                    TextInput::make('weight')
-                                        ->suffix(TenantSettings::getWeightUnitLabel())
-                                        ->numeric()
-                                        ->minValue(0)
-                                        ->columnSpan(1),
-                                ])
-                                ->columns([
-                                    'default' => 2,
-                                ]),
-                        ]),
-                ]),
-            ])
-            ->columns(1);
+        return RecordSetForm::configure($schema);
     }
 
     public static function table(Table $table): Table
