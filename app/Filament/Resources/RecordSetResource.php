@@ -15,6 +15,8 @@ use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Grouping\Group;
@@ -55,29 +57,40 @@ class RecordSetResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('set_done_at')
-                    ->label('Set Done Date')
-                    ->sortable()
-                    ->date(),
+                Stack::make([
+                    TextColumn::make('set_done_at')
+                        ->label('Set Done Date')
+                        ->sortable()
+                        ->date(),
 
-                TextColumn::make('user.name')
-                    ->searchable()
-                    ->sortable(),
+                    Split::make([
+                        TextColumn::make('user.name')
+                            ->searchable()
+                            ->sortable()
+                            ->badge()
+                            ->color('danger'),
+                        TextColumn::make('recordType.name')
+                            ->searchable()
+                            ->sortable()
+                            ->badge()
+                            ->color('blue'),
+                    ]),
 
-                TextColumn::make('recordType.name')
-                    ->searchable()
-                    ->sortable(),
+                    TextColumn::make('records.weight_with_base')
+                        ->label('Rep weights')
+                        ->badge(),
 
-                TextColumn::make('records.weight_with_base')
-                    ->label('Rep weights')
-                    ->badge(),
-
-                TextColumn::make('total_weight')
-                    ->label('Total weight')
-                    ->state(function (RecordSet $recordSet): string {
-                        return $recordSet->records->sum(fn ($record) => $record->weight_with_base * $record->repeat_count);
-                    })
-                    ->suffix(' '.TenantSettings::getWeightUnitLabel()),
+                    TextColumn::make('total_weight')
+                        ->label('Total weight')
+                        ->state(function (RecordSet $recordSet): string {
+                            return $recordSet->records->sum(fn ($record) => $record->weight_with_base * $record->repeat_count);
+                        })
+                        ->suffix(' '.TenantSettings::getWeightUnitLabel()),
+                ]),
+            ])
+            ->contentGrid([
+                'md' => 2,
+                'xl' => 3,
             ])
             ->filters([
                 SelectFilter::make('user')
