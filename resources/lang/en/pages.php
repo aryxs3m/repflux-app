@@ -26,6 +26,7 @@ return [
         'create_title' => 'Add set',
         'edit_title' => 'Edit set',
         'view_title' => 'Show set',
+        'back' => 'Back',
         'add_set' => 'Add set',
         'clone_set' => 'Clone',
         'new_user' => 'New user',

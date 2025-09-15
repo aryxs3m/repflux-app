@@ -6,6 +6,7 @@ use App\Filament\Resources\RecordSetResource;
 use App\Filament\Resources\RecordSetResource\Widgets\RecordSetChart;
 use App\Models\Record;
 use App\Services\Settings\TenantSettings;
+use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ReplicateAction;
@@ -18,6 +19,7 @@ use Filament\Resources\Pages\ViewRecord;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -47,17 +49,24 @@ class ViewRecordSet extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
+            Action::make('back')
+                ->label(__('pages.record_sets.back'))
+                ->icon(Heroicon::OutlinedArrowLeft)
+                ->url(ListRecordSets::getUrl())
+                ->color('gray'),
             CreateAction::make()
                 ->label(__('pages.record_sets.add_set')),
             EditAction::make(),
             ReplicateAction::make()
                 ->color('success')
+                ->icon(Heroicon::OutlinedClipboardDocument)
+                ->modalHeading(__('pages.record_sets.clone_set'))
+                ->modalSubmitActionLabel(__('pages.record_sets.clone_set'))
                 ->schema([
                     Select::make('user_id')
                         ->label(__('pages.record_sets.new_user'))
                         ->options(TenantSettings::getTenant()->users->pluck('name', 'id'))
                         ->searchable()
-                        ->default(auth()->id())
                         ->preload()
                         ->required(),
                     Repeater::make('records')
