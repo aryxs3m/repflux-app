@@ -1,5 +1,8 @@
 {
     "$schema": "https://json.schemastore.org/package.json",
+    "name": "@aryxs3m/repflux-app",
+    "description": "Repflux helps with logging your sets, measuring yourself and keeping track of your progression.",
+    "keywords": ["repflux", "fitness", "workout-tracker", "gymtracker", "health"],
     "private": true,
     "type": "module",
     "scripts": {
