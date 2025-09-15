@@ -16,7 +16,7 @@ class ListRecordSets extends ListRecords
         return __('pages.record_sets.list_title');
     }
 
-    protected function getHeaderWidgets(): array
+    protected function getFooterWidgets(): array
     {
         return [
             RecordSetResource\Widgets\LastRecordsWidget::class,

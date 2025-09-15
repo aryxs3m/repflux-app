@@ -97,7 +97,7 @@ class RecordSetResource extends Resource
                 Group::make('user.name')
                     ->collapsible(),
             ])
-            ->defaultSort('set_done_at', 'desc');
+            ->defaultSort('id', 'desc');
     }
 
     public static function getPages(): array
