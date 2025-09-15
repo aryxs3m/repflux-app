@@ -58,8 +58,8 @@ class CalendarService
                 return [
                     'title' => __('pages.calendar.event.body_measurement'),
                     'backgroundColor' => 'yellow',
-                    'start' => $measurement->measured_at->startOfDay(),
-                    'end' => clone $measurement->measured_at->startOfDay()->addHour(),
+                    'start' => $measurement->measured_at,
+                    'end' => clone $measurement->measured_at->addHour(),
                 ];
             })
             ->toArray();
