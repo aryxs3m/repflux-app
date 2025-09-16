@@ -73,6 +73,7 @@ class RecordSetResource extends Resource
                             ->searchable()
                             ->sortable()
                             ->badge()
+                            ->alignEnd()
                             ->color('blue'),
                     ]),
 

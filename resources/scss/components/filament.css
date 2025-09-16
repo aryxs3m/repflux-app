@@ -1,0 +1,4 @@
+/* Add extra margin to grid layout table columns */
+.fi-ta-col.fi-grid-col {
+    margin-bottom: 5px;
+}
