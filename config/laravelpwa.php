@@ -9,7 +9,7 @@ return [
         'background_color' => '#333333',
         'theme_color' => '#000000',
         'display' => 'standalone',
-        'orientation' => 'any',
+        'orientation' => 'natural',
         'status_bar' => 'black',
         'icons' => [
             // TODO: generate lower res versions too
