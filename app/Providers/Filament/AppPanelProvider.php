@@ -37,6 +37,7 @@ class AppPanelProvider extends PanelProvider
             ->default()
             ->brandName('Repflux')
             ->brandLogo('/logos/repflux_logo_transparent.png')
+            ->darkMode(true, true)
             ->favicon('/logos/favicon.png')
             ->spa()
             ->id('app')
