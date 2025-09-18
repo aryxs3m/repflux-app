@@ -8,6 +8,7 @@ use App\Filament\Pages\Tenancy\RegisterTenant;
 use App\Filament\Resources\TenantResources\UserResource;
 use App\Filament\Resources\WeightResource\Widgets\BmiWidget;
 use App\Filament\Resources\WeightResource\Widgets\WeightChart;
+use App\Filament\Resources\WorkoutResource\Widgets\WorkoutCategoryChart;
 use App\Http\Middlewares\LanguageHandlerMiddleware;
 use App\Models\Tenant;
 use Blade;
@@ -67,6 +68,7 @@ class AppPanelProvider extends PanelProvider
                 AccountWidget::class,
                 BmiWidget::class,
                 WeightChart::class,
+                WorkoutCategoryChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

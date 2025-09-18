@@ -17,6 +17,7 @@ class RecordSet extends Model
         'record_type_id',
         'user_id',
         'set_done_at',
+        'workout_id',
     ];
 
     public function recordType(): BelongsTo
@@ -32,6 +33,11 @@ class RecordSet extends Model
     public function records(): HasMany
     {
         return $this->hasMany(Record::class);
+    }
+
+    public function workout(): BelongsTo
+    {
+        return $this->belongsTo(Workout::class);
     }
 
     protected function casts(): array

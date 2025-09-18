@@ -13,4 +13,5 @@ return [
     'reports' => 'Reports',
     'settings' => 'Settings',
     'progression' => 'Progression',
+    'workouts' => 'Workouts',
 ];

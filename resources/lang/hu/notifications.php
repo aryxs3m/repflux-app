@@ -20,4 +20,10 @@ return [
         'body' => 'Utoljára :ago frissítetted a testsúlyod. Mérd meg magad, hogy követhesd a progressziód!',
         'measure_now' => 'Mérés',
     ],
+
+    'workout' => [
+        'sync_failed' => 'Sikertelen szinkronizáció',
+        'multiple_workout_exception' => 'Erre a napra több edzés van rögzítve, nem tudtam automatikusan csatolni a sorozatot.',
+        'workout_not_found_exception' => 'Erre a napra nincs edzés rögzítve, nem tudtam automatikusan csatolni a sorozatot.',
+    ],
 ];

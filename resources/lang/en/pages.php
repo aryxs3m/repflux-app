@@ -69,6 +69,19 @@ return [
             'weight_progression' => 'Max weight (last 30 set)',
         ],
     ],
+    'workouts' => [
+        'list_title' => 'Workouts',
+        'edit_title' => 'Edit workout',
+        'view_title' => 'Show workout',
+        'widgets' => [
+            'exercises' => 'Exercises',
+            'total_reps' => 'Total reps',
+            'total_weight' => 'Moved weight',
+            'category' => [
+                'title' => 'Exercise categories',
+            ],
+        ],
+    ],
     'tenancy' => [
         'register_tenant' => 'Register tenant',
         'edit_tenant' => 'Edit tenant',

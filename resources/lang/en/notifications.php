@@ -20,4 +20,10 @@ return [
         'body' => 'Your last weight measurement was :ago. Measure yourself to keep track of your progress!',
         'measure_now' => 'Measure Now',
     ],
+
+    'workout' => [
+        'sync_failed' => 'Failed sync',
+        'multiple_workout_exception' => 'There are multiple workouts for that day. I could not attach this set.',
+        'workout_not_found_exception' => 'There are no workout created for that day. I could not attach this set.',
+    ],
 ];

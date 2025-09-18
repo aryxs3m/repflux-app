@@ -69,6 +69,19 @@ return [
             'weight_progression' => 'Megmozgatott súly változása (utolsó 30 sorozat)',
         ],
     ],
+    'workouts' => [
+        'list_title' => 'Edzések',
+        'edit_title' => 'Edzés szerkesztése',
+        'view_title' => 'Edzés megtekintése',
+        'widgets' => [
+            'exercises' => 'Gyakorlatok',
+            'total_reps' => 'Összes ismétlés',
+            'total_weight' => 'Megmozgatott súly',
+            'category' => [
+                'title' => 'Gyakorlat típusok',
+            ],
+        ],
+    ],
     'tenancy' => [
         'register_tenant' => 'Csapat regisztrációja',
         'edit_tenant' => 'Csapat szerkesztése',
