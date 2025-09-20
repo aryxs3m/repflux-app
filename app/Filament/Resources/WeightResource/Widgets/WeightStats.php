@@ -5,16 +5,48 @@ namespace App\Filament\Resources\WeightResource\Widgets;
 use App\Models\Weight;
 use App\Services\Bmi\BmiService;
 use App\Services\Settings\TenantSettings;
+use App\Utilities\Trend;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
-class BmiWidget extends StatsOverviewWidget
+class WeightStats extends StatsOverviewWidget
 {
     protected function getStats(): array
     {
+        $this->getWeeklyWeightProgression();
         $bmiStat = $this->getBmiStat();
 
-        return $bmiStat ? [$bmiStat] : [];
+        return $this->getWeeklyWeightProgression() + [$bmiStat];
+    }
+
+    protected function getWeeklyWeightProgression()
+    {
+        $records = Weight::query()
+            ->where('user_id', auth()->user()->id)
+            ->where('tenant_id', TenantSettings::getTenant()->id)
+            ->orderBy('measured_at', 'desc')
+            ->limit(2)
+            ->get();
+
+        $weeklyTrend = Trend::calculate(
+            $records,
+            'weight',
+            'measured_at',
+            7
+        );
+
+        $monthlyTrend = Trend::calculate(
+            $records,
+            'weight',
+            'measured_at',
+            30
+        );
+
+        // TODO: translations
+        return [
+            Stat::make('Heti súlyváltozás', $weeklyTrend.' '.TenantSettings::getWeightUnitLabel()),
+            Stat::make('Havi súlyváltozás', $monthlyTrend.' '.TenantSettings::getWeightUnitLabel()),
+        ];
     }
 
     protected function getBmiStat(): ?Stat

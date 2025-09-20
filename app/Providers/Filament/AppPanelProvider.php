@@ -6,8 +6,8 @@ use App\Filament\Pages\EditProfile;
 use App\Filament\Pages\Tenancy\EditTenantProfile;
 use App\Filament\Pages\Tenancy\RegisterTenant;
 use App\Filament\Resources\TenantResources\UserResource;
-use App\Filament\Resources\WeightResource\Widgets\BmiWidget;
 use App\Filament\Resources\WeightResource\Widgets\WeightChart;
+use App\Filament\Resources\WeightResource\Widgets\WeightStats;
 use App\Filament\Resources\WorkoutResource\Widgets\WorkoutCategoryChart;
 use App\Http\Middlewares\LanguageHandlerMiddleware;
 use App\Models\Tenant;
@@ -66,7 +66,7 @@ class AppPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,
-                BmiWidget::class,
+                WeightStats::class,
                 WeightChart::class,
                 WorkoutCategoryChart::class,
             ])

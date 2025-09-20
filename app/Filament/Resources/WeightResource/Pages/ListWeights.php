@@ -19,7 +19,7 @@ class ListWeights extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            WeightResource\Widgets\BmiWidget::class,
+            WeightResource\Widgets\WeightStats::class,
             WeightResource\Widgets\WeightChart::class,
         ];
     }
