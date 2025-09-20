@@ -6,9 +6,9 @@ use App\Models\RecordSet;
 use App\Services\Workout\WorkoutService;
 use Illuminate\Console\Command;
 
-class AppWorkoutSyncCommand extends Command
+class WorkoutSyncCommand extends Command
 {
-    protected $signature = 'app:workout-sync';
+    protected $signature = 'workout:sync';
 
     protected $description = 'Creates missing workout entities';
 

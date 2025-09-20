@@ -52,10 +52,10 @@ class WorkoutStats extends StatsOverviewWidget
 
     protected function makeExercisesStat(): Stat
     {
-        $stat = Stat::make(__('pages.workouts.widgets.exercises'), $this->record->recordSets->count());
+        $stat = Stat::make(__('pages.workouts.widgets.exercises'), $this->record->calc_total_exercises);
 
         if ($this->previous) {
-            $this->makeTrend($stat, $this->previous->recordSets->count());
+            $this->makeTrend($stat, $this->previous->calc_total_exercises);
         }
 
         return $stat;
@@ -63,10 +63,10 @@ class WorkoutStats extends StatsOverviewWidget
 
     protected function makeRepsStat(): Stat
     {
-        $stat = Stat::make(__('pages.workouts.widgets.total_reps'), WorkoutService::countReps($this->record));
+        $stat = Stat::make(__('pages.workouts.widgets.total_reps'), $this->record->calc_total_reps);
 
         if ($this->previous) {
-            $this->makeTrend($stat, WorkoutService::countReps($this->previous), __('columns.reps_short'));
+            $this->makeTrend($stat, $this->previous->calc_total_reps, __('columns.reps_short'));
         }
 
         return $stat;
@@ -74,10 +74,10 @@ class WorkoutStats extends StatsOverviewWidget
 
     protected function makeWeightStat(): Stat
     {
-        $stat = Stat::make(__('pages.workouts.widgets.total_weight'), WorkoutService::countWeights($this->record));
+        $stat = Stat::make(__('pages.workouts.widgets.total_weight'), $this->record->calc_total_weight);
 
         if ($this->previous) {
-            $this->makeTrend($stat, WorkoutService::countWeights($this->previous), TenantSettings::getWeightUnitLabel());
+            $this->makeTrend($stat, $this->previous->calc_total_weight, TenantSettings::getWeightUnitLabel());
         }
 
         return $stat;

@@ -11,6 +11,37 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[ObservedBy([WorkoutGeneratorObserver::class])]
+/**
+ * @property int $id
+ * @property int $record_type_id
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon $set_done_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $tenant_id
+ * @property int|null $workout_id
+ * @property-read \App\Models\RecordType|null $recordType
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Record> $records
+ * @property-read int|null $records_count
+ * @property-read \App\Models\Tenant|null $tenant
+ * @property-read \App\Models\User|null $user
+ * @property-read \App\Models\Workout|null $workout
+ *
+ * @method static \Database\Factories\RecordSetFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereRecordTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereSetDoneAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereTenantId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereWorkoutId($value)
+ *
+ * @mixin \Eloquent
+ */
 class RecordSet extends Model
 {
     use HasFactory;

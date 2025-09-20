@@ -81,6 +81,9 @@ return [
                 'title' => 'Exercise categories',
             ],
         ],
+        'last_dominant_category' => 'Last dominant category',
+        'last_total_weight' => 'Last workout total weight',
+        'last_total_reps' => 'Last workout total reps',
     ],
     'tenancy' => [
         'register_tenant' => 'Register tenant',

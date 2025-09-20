@@ -2,7 +2,6 @@
 
 namespace App\Services\Workout;
 
-use App\Models\Record;
 use App\Models\RecordSet;
 use App\Models\Workout;
 use App\Services\Settings\TenantSettings;
@@ -46,6 +45,8 @@ class WorkoutService
             ->where('tenant_id', TenantSettings::getTenant()->id)
             ->where('user_id', auth()->user()->id)
             ->update(['workout_id' => $workout->id]);
+
+        $this->calculateValues($workout);
     }
 
     /**
@@ -71,43 +72,47 @@ class WorkoutService
         }
 
         $recordSet->update(['workout_id' => $workout->first()->id]);
+        $this->calculateValues($workout->first());
     }
 
-    protected function calculateValues(Workout $workout): void {}
+    public function calculateValues(Workout $workout): void
+    {
+        $totalReps = 0;
+        $totalWeight = 0;
+        $types = [];
+        $categories = [];
+
+        foreach ($workout->recordSets as $set) {
+            foreach ($set->records as $record) {
+                $totalReps += $record->repeat_count;
+                $totalWeight += $record->weight_with_base;
+            }
+
+            $types[] = $set->record_type_id;
+            $categories[] = $set->recordType->record_category_id;
+        }
+
+        $categoriesCount = array_count_values($categories);
+        arsort($categoriesCount);
+        if (! empty($categoriesCount)) {
+            $dominant = array_keys($categoriesCount)[0];
+            $workout->calc_dominant_category = $dominant;
+        }
+
+        $workout->calc_total_reps = $totalReps;
+        $workout->calc_total_weight = $totalWeight;
+        $workout->calc_total_exercises = count(array_unique($types));
+
+        $workout->save();
+    }
 
     public static function getPreviousWorkout(Workout $originalWorkout): ?Workout
     {
         return Workout::query()
             ->where('tenant_id', $originalWorkout->tenant_id)
             ->where('id', '<', $originalWorkout->id)
+            ->where('calc_dominant_category', '=', $originalWorkout->calc_dominant_category)
             ->orderBy('id', 'desc')
             ->first();
-    }
-
-    public static function countReps(Workout $workout): int
-    {
-        $reps = 0;
-
-        foreach ($workout->recordSets as $set) {
-            foreach ($set->records as $record) {
-                $reps += $record->repeat_count;
-            }
-        }
-
-        return $reps;
-    }
-
-    public static function countWeights(Workout $workout): int
-    {
-        $reps = 0;
-
-        foreach ($workout->recordSets as $set) {
-            /** @var Record $record */
-            foreach ($set->records as $record) {
-                $reps += $record->weight_with_base;
-            }
-        }
-
-        return $reps;
     }
 }
