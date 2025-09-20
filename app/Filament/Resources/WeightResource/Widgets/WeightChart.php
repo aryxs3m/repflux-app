@@ -3,6 +3,9 @@
 namespace App\Filament\Resources\WeightResource\Widgets;
 
 use App\Models\Weight;
+use App\Services\ChartBuilder\BaseChart;
+use App\Services\ChartBuilder\Dataset;
+use App\Services\ChartBuilder\DatasetFill;
 use App\Services\Settings\TenantSettings;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
@@ -34,15 +37,23 @@ class WeightChart extends ChartWidget
         $keys = array_reverse(array_map(fn ($date) => date('M d', strtotime($date)), array_keys($weight)));
         $values = array_reverse(array_values($weight));
 
-        return [
-            'datasets' => [
-                [
-                    'label' => __('columns.weight'),
-                    'data' => $values,
-                ],
-            ],
-            'labels' => $keys,
-        ];
+        $weightChart = BaseChart::make()
+            ->addLabels($keys)
+            ->addDataset(Dataset::make()
+                ->setLabel(__('columns.weight'))
+                ->setFill(DatasetFill::ORIGIN)
+                ->addValues($values));
+
+        if (auth()->user()->weight_target) {
+            $weightChart->addDataset(Dataset::make()
+                ->setLabel(__('columns.weight_target'))
+                ->setBorderDash([5, 15])
+                ->setBorderColor('#ffffff50')
+                ->setPointStyle(false)
+                ->addValues(array_fill(0, count($values), auth()->user()->weight_target)));
+        }
+
+        return $weightChart->toArray();
     }
 
     protected function getOptions(): RawJs

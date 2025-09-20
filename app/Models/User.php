@@ -32,6 +32,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasTenant
         'password',
         'language',
         'height',
+        'weight_target',
         'notify_measurement_weight',
         'notify_measurement_body',
         'notify_measurement_weight_days',

@@ -28,6 +28,10 @@ class EditProfile extends BaseEditProfile
                         ->minValue(0)
                         ->suffix(TenantSettings::getTenant() ? TenantSettings::getLengthUnitLabel() : null)
                         ->nullable(),
+                    TextInput::make('weight_target')
+                        ->minValue(0)
+                        ->suffix(TenantSettings::getTenant() ? TenantSettings::getWeightUnitLabel() : null)
+                        ->nullable(),
                 ]),
                 Section::make('Preferences')->schema([
                     Select::make('language')

@@ -11,4 +11,5 @@ return [
     'base_weight' => 'Machine/rod weight',
     'reps_short' => 'rep',
     'weight' => 'Weight',
+    'weight_target' => 'Target weight',
 ];
