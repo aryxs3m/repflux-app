@@ -10,6 +10,7 @@
         "ext-pdo": "*",
         "filament/filament": "^4.0",
         "laravel/framework": "^12.0",
+        "laravel/octane": "^2.12",
         "laravel/tinker": "^2.10.1",
         "silviolleite/laravelpwa": "^2.0"
     },
