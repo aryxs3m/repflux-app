@@ -20,7 +20,7 @@ class RecordTypeProgressionChart extends ChartWidget
 
     protected int|string|array $columnSpan = 'full';
 
-    protected ?string $maxHeight = '200px';
+    protected ?string $maxHeight = '350px';
 
     protected function getData(): array
     {

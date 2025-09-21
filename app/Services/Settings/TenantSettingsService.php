@@ -44,8 +44,12 @@ class TenantSettingsService
         return $this->getUnitType() === UnitType::METRIC ? 'cm' : 'in';
     }
 
-    public function numberFormat(int|float $number, $suffix = null): string
+    public function numberFormat(int|float|null $number, $suffix = null): string
     {
+        if ($number === null) {
+            return '';
+        }
+
         $format = number_format($number, 2, ',', '');
 
         if ($suffix !== null) {
