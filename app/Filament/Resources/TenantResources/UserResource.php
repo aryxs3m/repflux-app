@@ -4,7 +4,7 @@ namespace App\Filament\Resources\TenantResources;
 
 use App\Filament\Resources\TenantResources\UserResource\Pages\ListUsers;
 use App\Models\User;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use Filament\Actions\Action;
 use Filament\Resources\Resource;
 use Filament\Support\Icons\Heroicon;
@@ -29,11 +29,11 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-        $canAdminister = TenantSettings::canAdminister();
+        $canAdminister = Tenant::canAdminister();
 
         return $table
             ->description($canAdminister ? __('pages.tenancy.users.has_admin') : '')
-            ->query(TenantSettings::getTenant()->users()->getQuery())
+            ->query(Tenant::getTenant()->users()->getQuery())
             ->columns([
                 ImageColumn::make('avatar_url')
                     ->label('Avatar')
@@ -59,7 +59,7 @@ class UserResource extends Resource
                         return $canAdminister && $record->id !== auth()->id();
                     })
                     ->requiresConfirmation()
-                    ->action(fn (User $record) => TenantSettings::removeUser($record)),
+                    ->action(fn (User $record) => Tenant::removeUser($record)),
             ]);
     }
 

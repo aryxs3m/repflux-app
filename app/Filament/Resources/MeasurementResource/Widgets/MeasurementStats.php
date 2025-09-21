@@ -4,7 +4,7 @@ namespace App\Filament\Resources\MeasurementResource\Widgets;
 
 use App\Models\Measurement;
 use App\Models\MeasurementType;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -44,7 +44,7 @@ class MeasurementStats extends StatsOverviewWidget
         $latestMeasurement = $measurements->first();
         $allMeasurements = $measurements->reverse()->pluck('value')->toArray();
 
-        $stat = Stat::make($measurementType->name, $latestMeasurement->value.' '.TenantSettings::getLengthUnitLabel())
+        $stat = Stat::make($measurementType->name, $latestMeasurement->value.' '.Tenant::getLengthUnitLabel())
             ->chart($allMeasurements)
             ->description($latestMeasurement->measured_at->diffForHumans());
 

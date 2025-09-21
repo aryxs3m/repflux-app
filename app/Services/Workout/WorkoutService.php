@@ -4,7 +4,7 @@ namespace App\Services\Workout;
 
 use App\Models\RecordSet;
 use App\Models\Workout;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use App\Services\Workout\Exceptions\MultipleWorkoutException;
 use App\Services\Workout\Exceptions\WorkoutNotFoundException;
 use Exception;
@@ -42,7 +42,7 @@ class WorkoutService
     {
         RecordSet::query()
             ->whereBetween('set_done_at', [$workout->workout_at->startOfDay(), $workout->workout_at->endOfDay()])
-            ->where('tenant_id', TenantSettings::getTenant()->id)
+            ->where('tenant_id', Tenant::getTenant()->id)
             ->where('user_id', auth()->user()->id)
             ->update(['workout_id' => $workout->id]);
 

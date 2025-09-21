@@ -5,7 +5,7 @@ namespace App\Filament\Resources\RecordSetResource\Pages;
 use App\Filament\Resources\RecordSetResource;
 use App\Filament\Resources\RecordSetResource\Widgets\RecordSetChart;
 use App\Models\Record;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Actions\EditAction;
@@ -65,7 +65,7 @@ class ViewRecordSet extends ViewRecord
                 ->schema([
                     Select::make('user_id')
                         ->label(__('pages.record_sets.new_user'))
-                        ->options(TenantSettings::getTenant()->users->pluck('name', 'id'))
+                        ->options(Tenant::getTenant()->users->pluck('name', 'id'))
                         ->searchable()
                         ->preload()
                         ->required(),
@@ -96,7 +96,7 @@ class ViewRecordSet extends ViewRecord
                                 ->minValue(0)
                                 ->columnSpan(1),
                             TextInput::make('weight')
-                                ->suffix(TenantSettings::getWeightUnitLabel())
+                                ->suffix(Tenant::getWeightUnitLabel())
                                 ->numeric()
                                 ->minValue(0)
                                 ->columnSpan(1),
@@ -137,7 +137,7 @@ class ViewRecordSet extends ViewRecord
                             ->hiddenLabel(),
                         TextEntry::make('weight_with_base')
                             ->hiddenLabel()
-                            ->suffix(' '.TenantSettings::getWeightUnitLabel()),
+                            ->suffix(' '.Tenant::getWeightUnitLabel()),
                     ])->columns([
                         'default' => 3,
                     ]),

@@ -4,7 +4,7 @@ namespace App\Filament\Resources\TenantResources\UserResource\Pages;
 
 use App\Filament\Resources\TenantResources\UserResource;
 use App\Services\InvitationService;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use Filament\Actions\Action;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
@@ -26,7 +26,7 @@ class ListUsers extends ListRecords
         return [
             Action::make('invite')
                 ->label(__('pages.tenancy.users.invite'))
-                ->visible(TenantSettings::canAdminister())
+                ->visible(Tenant::canAdminister())
                 ->icon(Heroicon::UserPlus)
                 ->color('success')
                 ->schema([
@@ -36,7 +36,7 @@ class ListUsers extends ListRecords
                 ])
                 ->action(function (array $data): void {
                     try {
-                        app(InvitationService::class)->inviteByEmail(TenantSettings::getTenant(), $data['email']);
+                        app(InvitationService::class)->inviteByEmail(Tenant::getTenant(), $data['email']);
 
                         Notification::make()
                             ->title(__('pages.tenancy.users.notifications.invitation.success.title'))

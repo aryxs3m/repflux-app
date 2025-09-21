@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see TenantSettingsService
  */
-class TenantSettings extends Facade
+class Tenant extends Facade
 {
     protected static function getFacadeAccessor(): string
     {

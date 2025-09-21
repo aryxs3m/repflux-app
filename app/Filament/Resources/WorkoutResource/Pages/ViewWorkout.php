@@ -4,7 +4,7 @@ namespace App\Filament\Resources\WorkoutResource\Pages;
 
 use App\Filament\Resources\WorkoutResource;
 use App\Filament\Resources\WorkoutResource\Widgets\WorkoutStats;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use Filament\Actions\EditAction;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
@@ -61,7 +61,7 @@ class ViewWorkout extends ViewRecord
                                         ->suffix('x'),
                                     TextEntry::make('weight_with_base')
                                         ->hiddenLabel()
-                                        ->suffix(' '.TenantSettings::getWeightUnitLabel()),
+                                        ->suffix(' '.Tenant::getWeightUnitLabel()),
                                 ])
                                 ->columns(2)
                                 ->columnSpanFull(),

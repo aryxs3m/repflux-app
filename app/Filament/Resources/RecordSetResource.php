@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\RecordSetResource\Pages;
 use App\Filament\Resources\RecordSetResource\Schemas\RecordSetForm;
 use App\Models\RecordSet;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -86,7 +86,7 @@ class RecordSetResource extends Resource
                         ->state(function (RecordSet $recordSet): string {
                             return $recordSet->records->sum(fn ($record) => $record->weight_with_base * $record->repeat_count);
                         })
-                        ->suffix(' '.TenantSettings::getWeightUnitLabel()),
+                        ->suffix(' '.Tenant::getWeightUnitLabel()),
                 ]),
             ])
             ->contentGrid([
@@ -95,7 +95,7 @@ class RecordSetResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('user')
-                    ->relationship('user', 'name', fn (Builder $query) => $query->whereAttachedTo(TenantSettings::getTenant(), 'tenants')),
+                    ->relationship('user', 'name', fn (Builder $query) => $query->whereAttachedTo(Tenant::getTenant(), 'tenants')),
             ])
             ->recordActions([
                 ViewAction::make(),

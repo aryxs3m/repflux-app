@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\WorkoutResource\Widgets;
 
 use App\Models\Workout;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use App\Services\Workout\WorkoutService;
 use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget;
@@ -77,7 +77,7 @@ class WorkoutStats extends StatsOverviewWidget
         $stat = Stat::make(__('pages.workouts.widgets.total_weight'), $this->record->calc_total_weight);
 
         if ($this->previous) {
-            $this->makeTrend($stat, $this->previous->calc_total_weight, TenantSettings::getWeightUnitLabel());
+            $this->makeTrend($stat, $this->previous->calc_total_weight, Tenant::getWeightUnitLabel());
         }
 
         return $stat;

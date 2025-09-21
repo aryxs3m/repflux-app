@@ -6,7 +6,7 @@ use App\Models\Weight;
 use App\Services\ChartBuilder\BaseChart;
 use App\Services\ChartBuilder\Dataset;
 use App\Services\ChartBuilder\DatasetFill;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Contracts\Support\Htmlable;
@@ -58,7 +58,7 @@ class WeightChart extends ChartWidget
 
     protected function getOptions(): RawJs
     {
-        $weightLabel = TenantSettings::getWeightUnitLabel();
+        $weightLabel = Tenant::getWeightUnitLabel();
 
         return RawJs::make(<<<JS
             {

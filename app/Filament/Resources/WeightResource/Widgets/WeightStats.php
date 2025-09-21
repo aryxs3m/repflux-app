@@ -4,7 +4,7 @@ namespace App\Filament\Resources\WeightResource\Widgets;
 
 use App\Models\Weight;
 use App\Services\Bmi\BmiService;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use App\Utilities\Trend;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -23,7 +23,7 @@ class WeightStats extends StatsOverviewWidget
     {
         $records = Weight::query()
             ->where('user_id', auth()->user()->id)
-            ->where('tenant_id', TenantSettings::getTenant()->id)
+            ->where('tenant_id', Tenant::getTenant()->id)
             ->orderBy('measured_at', 'desc')
             ->limit(2)
             ->get();
@@ -49,7 +49,7 @@ class WeightStats extends StatsOverviewWidget
         $dailyTrend = $weeklyTrend / 7;
         $weightRecord = Weight::query()
             ->where('user_id', auth()->user()->id)
-            ->where('tenant_id', TenantSettings::getTenant()->id)
+            ->where('tenant_id', Tenant::getTenant()->id)
             ->orderBy('measured_at', 'desc')
             ->limit(1)
             ->get()
@@ -63,9 +63,9 @@ class WeightStats extends StatsOverviewWidget
         $neededChange *= -1;
 
         return [
-            Stat::make('Heti súlyváltozás', TenantSettings::numberFormat($weeklyTrend, TenantSettings::getWeightUnitLabel())),
-            Stat::make('Havi súlyváltozás', TenantSettings::numberFormat($monthlyTrend, TenantSettings::getWeightUnitLabel())),
-            Stat::make('Hátralévő napok a célig', TenantSettings::numberFormat($neededChange)),
+            Stat::make('Heti súlyváltozás', Tenant::numberFormat($weeklyTrend, Tenant::getWeightUnitLabel())),
+            Stat::make('Havi súlyváltozás', Tenant::numberFormat($monthlyTrend, Tenant::getWeightUnitLabel())),
+            Stat::make('Hátralévő napok a célig', Tenant::numberFormat($neededChange)),
         ];
     }
 
@@ -73,7 +73,7 @@ class WeightStats extends StatsOverviewWidget
     {
         $weightRecord = Weight::query()
             ->where('user_id', auth()->user()->id)
-            ->where('tenant_id', TenantSettings::getTenant()->id)
+            ->where('tenant_id', Tenant::getTenant()->id)
             ->orderBy('measured_at', 'desc')
             ->limit(1)
             ->get()
@@ -92,7 +92,7 @@ class WeightStats extends StatsOverviewWidget
         $bmi = $bmiService->calculate(
             auth()->user()->height,
             $weightRecord->weight,
-            TenantSettings::getUnitType()
+            Tenant::getUnitType()
         );
 
         return Stat::make('BMI', $bmi)

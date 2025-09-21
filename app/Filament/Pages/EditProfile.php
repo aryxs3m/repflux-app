@@ -2,7 +2,7 @@
 
 namespace App\Filament\Pages;
 
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use Filament\Auth\Pages\EditProfile as BaseEditProfile;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -26,11 +26,11 @@ class EditProfile extends BaseEditProfile
                 Section::make('Health')->schema([
                     TextInput::make('height')
                         ->minValue(0)
-                        ->suffix(TenantSettings::getTenant() ? TenantSettings::getLengthUnitLabel() : null)
+                        ->suffix(Tenant::getTenant() ? Tenant::getLengthUnitLabel() : null)
                         ->nullable(),
                     TextInput::make('weight_target')
                         ->minValue(0)
-                        ->suffix(TenantSettings::getTenant() ? TenantSettings::getWeightUnitLabel() : null)
+                        ->suffix(Tenant::getTenant() ? Tenant::getWeightUnitLabel() : null)
                         ->nullable(),
                 ]),
                 Section::make('Preferences')->schema([

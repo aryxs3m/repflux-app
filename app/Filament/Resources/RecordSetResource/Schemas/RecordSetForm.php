@@ -7,7 +7,7 @@ use App\Models\RecordCategory;
 use App\Models\RecordSet;
 use App\Models\RecordType;
 use App\Services\RecordSetSessionService;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Field;
 use Filament\Forms\Components\Repeater;
@@ -87,7 +87,7 @@ class RecordSetForm extends AbstractFormSchema
         return Wizard\Step::make('Set')
             ->schema([
                 Select::make('user_id')
-                    ->options(TenantSettings::getTenant()->users->pluck('name', 'id'))
+                    ->options(Tenant::getTenant()->users->pluck('name', 'id'))
                     ->searchable()
                     ->default(auth()->id())
                     ->preload()
@@ -121,7 +121,7 @@ class RecordSetForm extends AbstractFormSchema
                             ->required()
                             ->columnSpan(1),
                         TextInput::make('weight')
-                            ->suffix(TenantSettings::getWeightUnitLabel())
+                            ->suffix(Tenant::getWeightUnitLabel())
                             ->numeric()
                             ->minValue(0)
                             ->required()

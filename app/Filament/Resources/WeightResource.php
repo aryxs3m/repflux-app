@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\WeightResource\Pages;
 use App\Models\Weight;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use BackedEnum;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -50,7 +50,7 @@ class WeightResource extends Resource
 
                 TextInput::make('weight')
                     ->required()
-                    ->suffix(TenantSettings::getWeightUnitLabel())
+                    ->suffix(Tenant::getWeightUnitLabel())
                     ->minValue(1)
                     ->integer(),
 
@@ -71,7 +71,7 @@ class WeightResource extends Resource
 
                 TextColumn::make('weight')
                     ->label(__('columns.weight'))
-                    ->suffix(' '.TenantSettings::getWeightUnitLabel()),
+                    ->suffix(' '.Tenant::getWeightUnitLabel()),
             ])
             ->filters([
                 //

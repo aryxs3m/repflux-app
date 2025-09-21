@@ -49,7 +49,7 @@ class TenantSettingsService
         $format = number_format($number, 2, ',', '');
 
         if ($suffix !== null) {
-            $format .= ' ' . $suffix;
+            $format .= ' '.$suffix;
         }
 
         return $format;

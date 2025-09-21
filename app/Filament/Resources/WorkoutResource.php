@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\WorkoutResource\Pages;
 use App\Filament\Resources\WorkoutResource\WorkoutForm;
 use App\Models\Workout;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -54,7 +54,7 @@ class WorkoutResource extends Resource
 
                 TextColumn::make('dominantCategory.name'),
                 TextColumn::make('calc_total_weight')
-                    ->suffix(' '.TenantSettings::getWeightUnitLabel()),
+                    ->suffix(' '.Tenant::getWeightUnitLabel()),
             ])
             ->filters([
                 //

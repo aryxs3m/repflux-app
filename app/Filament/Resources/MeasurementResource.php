@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MeasurementResource\Pages;
 use App\Models\Measurement;
-use App\Services\Settings\TenantSettings;
+use App\Services\Settings\Tenant;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -66,7 +66,7 @@ class MeasurementResource extends Resource
 
                 TextInput::make('value')
                     ->required()
-                    ->suffix(TenantSettings::getLengthUnitLabel())
+                    ->suffix(Tenant::getLengthUnitLabel())
                     ->integer(),
 
                 TextEntry::make('created_at')
@@ -95,7 +95,7 @@ class MeasurementResource extends Resource
 
                 TextColumn::make('value')
                     ->label(__('columns.value'))
-                    ->suffix(' '.TenantSettings::getLengthUnitLabel()),
+                    ->suffix(' '.Tenant::getLengthUnitLabel()),
             ])
             ->filters([
                 //
