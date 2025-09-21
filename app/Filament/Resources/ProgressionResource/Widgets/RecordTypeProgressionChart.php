@@ -25,9 +25,10 @@ class RecordTypeProgressionChart extends ChartWidget
     protected function getData(): array
     {
         $weight = \DB::select('
-            select set_done_at, MAX(weight) as mweight
+            select set_done_at, MAX(weight) + record_types.base_weight as mweight
             from `records`
-                     inner join `record_sets` on `records`.`record_set_id` = `record_sets`.`id`
+                inner join `record_sets` on `records`.`record_set_id` = `record_sets`.`id`
+                inner join `record_types` on record_sets.record_type_id = record_types.id
             where `record_sets`.`user_id` = ?
               and `record_sets`.`record_type_id` = ?
             group by `record_sets`.`id`
