@@ -19,7 +19,7 @@ class WeightStats extends StatsOverviewWidget
         return $this->getWeeklyWeightProgression() + [$bmiStat];
     }
 
-    protected function getWeeklyWeightProgression()
+    protected function getWeeklyWeightProgression(): array
     {
         $records = Weight::query()
             ->where('user_id', auth()->user()->id)
@@ -27,6 +27,10 @@ class WeightStats extends StatsOverviewWidget
             ->orderBy('measured_at', 'desc')
             ->limit(2)
             ->get();
+
+        if ($records->count() < 2) {
+            return [];
+        }
 
         $weeklyTrend = Trend::calculate(
             $records,
@@ -42,10 +46,26 @@ class WeightStats extends StatsOverviewWidget
             30
         );
 
-        // TODO: translations
+        $dailyTrend = $weeklyTrend / 7;
+        $weightRecord = Weight::query()
+            ->where('user_id', auth()->user()->id)
+            ->where('tenant_id', TenantSettings::getTenant()->id)
+            ->orderBy('measured_at', 'desc')
+            ->limit(1)
+            ->get()
+            ->last();
+        $currentWeight = $weightRecord->weight;
+        $neededChange = ($currentWeight - auth()->user()->weight_target) / $dailyTrend;
+        if ($neededChange > 1) {
+            $neededChange = '-';
+        }
+
+        $neededChange *= -1;
+
         return [
-            Stat::make('Heti súlyváltozás', $weeklyTrend.' '.TenantSettings::getWeightUnitLabel()),
-            Stat::make('Havi súlyváltozás', $monthlyTrend.' '.TenantSettings::getWeightUnitLabel()),
+            Stat::make('Heti súlyváltozás', TenantSettings::numberFormat($weeklyTrend, TenantSettings::getWeightUnitLabel())),
+            Stat::make('Havi súlyváltozás', TenantSettings::numberFormat($monthlyTrend, TenantSettings::getWeightUnitLabel())),
+            Stat::make('Hátralévő napok a célig', TenantSettings::numberFormat($neededChange)),
         ];
     }
 

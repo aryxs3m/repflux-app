@@ -60,6 +60,9 @@ return [
         'widgets' => [
             'weight_history' => 'Testúly történet',
             'no_weight_recorded' => 'Még nem rögzítetted a súlyodat',
+            'weekly_change' => 'Heti súlyváltozás',
+            'monthly_change' => 'Havi súlyváltozás',
+            'days_until_target' => 'Hátralévő napok a célig',
         ],
     ],
     'progression' => [

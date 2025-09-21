@@ -44,6 +44,17 @@ class TenantSettingsService
         return $this->getUnitType() === UnitType::METRIC ? 'cm' : 'in';
     }
 
+    public function numberFormat(int|float $number, $suffix = null): string
+    {
+        $format = number_format($number, 2, ',', '');
+
+        if ($suffix !== null) {
+            $format .= ' ' . $suffix;
+        }
+
+        return $format;
+    }
+
     public function removeUser(User $user): void
     {
         $this->getTenant()->users()->detach($user);

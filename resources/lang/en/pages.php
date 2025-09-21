@@ -60,6 +60,9 @@ return [
         'widgets' => [
             'weight_history' => 'Weight history',
             'no_weight_recorded' => 'No weight recorded yet',
+            'weekly_change' => 'Weekly weight change',
+            'monthly_change' => 'Monthy weight change',
+            'days_until_target' => 'Days until weight target',
         ],
     ],
     'progression' => [
