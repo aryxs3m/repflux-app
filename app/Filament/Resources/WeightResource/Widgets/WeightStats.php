@@ -16,7 +16,7 @@ class WeightStats extends StatsOverviewWidget
         $this->getWeeklyWeightProgression();
         $bmiStat = $this->getBmiStat();
 
-        return $this->getWeeklyWeightProgression() + [$bmiStat];
+        return array_merge($this->getWeeklyWeightProgression(), [$bmiStat]);
     }
 
     protected function getWeeklyWeightProgression(): array
@@ -63,9 +63,9 @@ class WeightStats extends StatsOverviewWidget
         $neededChange *= -1;
 
         return [
-            Stat::make('Heti súlyváltozás', Tenant::numberFormat($weeklyTrend, Tenant::getWeightUnitLabel())),
-            Stat::make('Havi súlyváltozás', Tenant::numberFormat($monthlyTrend, Tenant::getWeightUnitLabel())),
-            Stat::make('Hátralévő napok a célig', Tenant::numberFormat($neededChange)),
+            Stat::make(__('pages.weight.widgets.weekly_change'), Tenant::numberFormat($weeklyTrend, Tenant::getWeightUnitLabel())),
+            Stat::make(__('pages.weight.widgets.monthly_change'), Tenant::numberFormat($monthlyTrend, Tenant::getWeightUnitLabel())),
+            Stat::make(__('pages.weight.widgets.days_until_target'), Tenant::numberFormat($neededChange)),
         ];
     }
 
@@ -79,13 +79,9 @@ class WeightStats extends StatsOverviewWidget
             ->get()
             ->last();
 
-        if (! $weightRecord) {
+        if (! $weightRecord || empty(auth()->user()->height)) {
             return Stat::make('BMI', 'N/A')
                 ->description(__('pages.weight.widgets.no_weight_recorded'));
-        }
-
-        if (empty(auth()->user()->height)) {
-            return null;
         }
 
         $bmiService = app(BmiService::class);

@@ -11,4 +11,6 @@ class ProgressionResourceTest extends BaseResourceTestCase
     protected static string|Resource $resource = ProgressionResource::class;
 
     protected static bool $hasCreatePage = false;
+
+    protected static bool $hasEditPage = false;
 }

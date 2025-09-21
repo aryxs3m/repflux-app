@@ -124,7 +124,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasTenant
 
     public function tenants(): BelongsToMany
     {
-        return $this->belongsToMany(Tenant::class)->withPivot('is_admin', 'created_at');
+        return $this->belongsToMany(Tenant::class)->using(TenantUser::class);
     }
 
     public function canAccessTenant(Model $tenant): bool

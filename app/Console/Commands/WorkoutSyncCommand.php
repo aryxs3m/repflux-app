@@ -18,7 +18,7 @@ class WorkoutSyncCommand extends Command
             try {
                 $service->sync($recordSet);
             } catch (\Throwable $throwable) {
-                $this->error($recordSet->id.': '.$throwable->getMessage());
+                $this->warn($recordSet->id.': '.$throwable->getMessage());
             }
         });
     }

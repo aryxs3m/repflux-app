@@ -4,6 +4,7 @@ namespace Tests\Feature\FilamentResources;
 
 use Exception;
 use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\Resource;
@@ -21,6 +22,8 @@ abstract class BaseResourceTestCase extends TestCase
     protected static bool $hasListPage = true;
 
     protected static bool $hasCreatePage = true;
+
+    protected static bool $hasEditPage = true;
 
     protected static bool $hasViewPage = false;
 
@@ -97,6 +100,27 @@ abstract class BaseResourceTestCase extends TestCase
         }
 
         Livewire::test($this->getPageByType(CreateRecord::class))
+            ->assertOk();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function test_can_show_edit_page(): void
+    {
+        if (! static::$hasEditPage) {
+            $this->markTestSkipped('Resource does not have an edit page.');
+        }
+
+        if (! method_exists(static::$model, 'factory')) {
+            throw new Exception('Model should have a factory to test.');
+        }
+
+        $model = static::$model::factory()->create();
+
+        Livewire::test($this->getPageByType(EditRecord::class), [
+            'record' => $model->id,
+        ])
             ->assertOk();
     }
 

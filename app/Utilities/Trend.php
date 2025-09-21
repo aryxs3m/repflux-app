@@ -27,7 +27,7 @@ abstract class Trend
         if ($newerFirst) {
             $oneDayTrend = ($secondValue - $firstValue) / $diff * 1.0;
         } else {
-            $oneDayTrend = ($firstValue - $secondValue) / $diff * 1.0;
+            $oneDayTrend = ($firstValue - $secondValue) / $diff * (-1.0);
         }
 
         return $oneDayTrend * $progressionPerDay;

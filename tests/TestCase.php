@@ -21,7 +21,9 @@ abstract class TestCase extends BaseTestCase
 
         /** @var Tenant $tenant */
         $tenant = Tenant::factory()->create();
-        $tenant->users()->attach($user);
+        $tenant->users()->attach($user, [
+            'is_admin' => 1,
+        ]);
 
         $this->actingAs($user);
         Filament::setTenant($tenant);
