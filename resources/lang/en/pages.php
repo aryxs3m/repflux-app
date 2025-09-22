@@ -42,6 +42,10 @@ return [
                 'title' => 'Repetitions',
                 'description' => 'Total repetitions in this set',
             ],
+            'pr' => [
+                'title' => 'PR',
+                'description' => 'Heaviest weight ever reached',
+            ],
         ],
     ],
     'record_types' => [

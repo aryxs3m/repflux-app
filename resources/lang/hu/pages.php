@@ -42,6 +42,10 @@ return [
                 'title' => 'Ismétlések',
                 'description' => 'Összes ismétlés a sorozat során',
             ],
+            'pr' => [
+                'title' => 'PR',
+                'description' => 'Valaha elért legmagasabb súly',
+            ],
         ],
     ],
     'record_types' => [

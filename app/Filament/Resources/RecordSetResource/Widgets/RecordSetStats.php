@@ -3,7 +3,9 @@
 namespace App\Filament\Resources\RecordSetResource\Widgets;
 
 use App\Models\RecordSet;
+use App\Services\PersonalRecordsService;
 use App\Services\Settings\Tenant;
+use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -16,6 +18,7 @@ class RecordSetStats extends StatsOverviewWidget
         return [
             $this->totalMovedWeight($this->record),
             $this->totalReps($this->record),
+            $this->prStat($this->record),
         ];
     }
 
@@ -39,5 +42,17 @@ class RecordSetStats extends StatsOverviewWidget
         return Stat::make(__('pages.record_sets.widget.repetitions.title'), $repSum)
             ->description(__('pages.record_sets.widget.repetitions.description'))
             ->icon('heroicon-s-arrow-path');
+    }
+
+    protected function prStat(RecordSet $record)
+    {
+        $records = app(PersonalRecordsService::class)->getRecords();
+
+        return Stat::make(
+            __('pages.record_sets.widget.pr.title'),
+            Tenant::numberFormat($records[$record->record_type_id] ?? null, Tenant::getWeightUnitLabel())
+        )
+            ->icon(Heroicon::OutlinedTrophy)
+            ->description(__('pages.record_sets.widget.pr.description'));
     }
 }

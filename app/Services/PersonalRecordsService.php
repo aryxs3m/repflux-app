@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Services\Settings\Tenant;
-use JetBrains\PhpStorm\NoReturn;
 
 class PersonalRecordsService
 {
