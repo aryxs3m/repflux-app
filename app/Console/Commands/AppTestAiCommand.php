@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Services\AiService;
+use App\Services\DisplayParserService;
 use Illuminate\Console\Command;
 
 class AppTestAiCommand extends Command
@@ -11,9 +12,14 @@ class AppTestAiCommand extends Command
 
     protected $description = 'Command description';
 
-    public function handle(AiService $service): void
+    public function handle(AiService $service, DisplayParserService $displayParserService): void
     {
-        $result = $service->parseThreadmill('IMG20250914133235.jpg');
-        dd($result);
+        $displayParserService->parseRectangle(
+            'IMG20250914133235.jpg',
+            370, 740,
+            780, 970
+        );
+        /*$result = $service->parseThreadmill('IMG20250914133235.jpg');
+        dd($result);*/
     }
 }
