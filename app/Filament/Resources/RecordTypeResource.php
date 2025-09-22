@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RecordTypeResource\Pages;
+use App\Filament\Resources\RecordTypeResource\RecordTypeForm;
 use App\Models\RecordType;
 use App\Services\Settings\Tenant;
 use BackedEnum;
@@ -47,34 +48,7 @@ class RecordTypeResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema
-            ->components([
-                Section::make(__('pages.record_types.basic_settings'))->schema([
-                    Select::make('record_category_id')
-                        ->relationship('recordCategory', 'name')
-                        ->required(),
-
-                    TextInput::make('name')
-                        ->required(),
-
-                    TextInput::make('base_weight')
-                        ->default(0)
-                        ->suffix(Tenant::getWeightUnitLabel())
-                        ->required(),
-                ]),
-                Section::make(__('pages.record_types.other'))->schema([
-                    Textarea::make('notes')
-                        ->nullable(),
-                ]),
-
-                TextEntry::make('created_at')
-                    ->label('Created Date')
-                    ->state(fn (?RecordType $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                TextEntry::make('updated_at')
-                    ->label('Last Modified Date')
-                    ->state(fn (?RecordType $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
-            ]);
+        return RecordTypeForm::configure($schema);
     }
 
     public static function table(Table $table): Table
