@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RecordType> $recordTypes
  * @property-read int|null $record_types_count
  * @property-read \App\Models\Tenant|null $tenant
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Workout> $workouts
+ * @property-read int|null $workouts_count
  *
  * @method static \Database\Factories\RecordCategoryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordCategory newModelQuery()

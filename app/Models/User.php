@@ -32,11 +32,15 @@ use Illuminate\Support\Collection;
  * @property int $notify_measurement_body_days
  * @property int $notify_measurement_weight_days
  * @property int|null $weight_target
+ * @property int $number_format_decimals
+ * @property string $number_format_decimal_separator
+ * @property string $number_format_thousands_separator
  * @property-read mixed $avatar_url
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Measurement> $measurements
  * @property-read int|null $measurements_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \App\Models\TenantUser|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tenant> $tenants
  * @property-read int|null $tenants_count
  *
@@ -55,6 +59,9 @@ use Illuminate\Support\Collection;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereNotifyMeasurementBodyDays($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereNotifyMeasurementWeight($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereNotifyMeasurementWeightDays($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereNumberFormatDecimalSeparator($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereNumberFormatDecimals($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereNumberFormatThousandsSeparator($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
@@ -79,10 +86,15 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasTenant
         'language',
         'height',
         'weight_target',
+
         'notify_measurement_weight',
         'notify_measurement_body',
         'notify_measurement_weight_days',
         'notify_measurement_body_days',
+
+        'number_format_decimals',
+        'number_format_decimal_separator',
+        'number_format_thousands_separator',
     ];
 
     protected $appends = [

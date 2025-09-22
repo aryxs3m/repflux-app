@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property float|null $calc_total_weight Calculated on updates
  * @property int|null $calc_total_reps Calculated on updates
  * @property int|null $calc_total_exercises Calculated on updates
+ * @property-read \App\Models\RecordCategory|null $dominantCategory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RecordSet> $recordSets
  * @property-read int|null $record_sets_count
  * @property-read \App\Models\Tenant|null $tenant

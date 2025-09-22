@@ -37,11 +37,26 @@ class EditProfile extends BaseEditProfile
                     Select::make('language')
                         ->options([
                             'en' => 'English',
-                            'hu' => 'Hungarian',
+                            'hu' => 'Magyar',
                         ])
                         ->nullable()
-                        ->placeholder('Automatic by browser')
+                        ->placeholder(__('pages.edit_profile.system_default'))
                         ->default(null),
+                    Fieldset::make('Number format')->schema([
+                        TextInput::make('number_format_decimals')
+                            ->label('Decimals')
+                            ->numeric()
+                            ->minValue(0)
+                            ->maxValue(6),
+                        TextInput::make('number_format_decimal_separator')
+                            ->label('Decimal separator')
+                            ->minLength(0)
+                            ->maxLength(1),
+                        TextInput::make('number_format_thousands_separator')
+                            ->label('Thousands separator')
+                            ->minLength(0)
+                            ->maxLength(1),
+                    ]),
                 ]),
                 Section::make('Notifications')->schema([
                     Fieldset::make('Weight')->schema([

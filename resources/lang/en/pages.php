@@ -132,4 +132,7 @@ return [
         'title' => 'Overview',
         'gym_greet' => 'Have a good workout!',
     ],
+    'edit_profile' => [
+        'system_default' => 'System default',
+    ],
 ];

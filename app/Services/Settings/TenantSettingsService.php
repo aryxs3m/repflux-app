@@ -50,7 +50,14 @@ class TenantSettingsService
             return '';
         }
 
-        $format = number_format($number, 2, ',', '');
+        $user = auth()->user();
+
+        $format = number_format(
+            $number,
+            $user->number_format_decimals,
+            $user->number_format_decimal_separator,
+            $user->number_format_thousands_separator
+        );
 
         if ($suffix !== null) {
             $format .= ' '.$suffix;

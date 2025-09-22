@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Tenant|null $tenant
  *
+ * @method static \Database\Factories\InviteFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invite newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invite newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invite query()

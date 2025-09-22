@@ -132,4 +132,7 @@ return [
         'title' => 'Áttekintés',
         'gym_greet' => 'Jó edzést!',
     ],
+    'edit_profile' => [
+        'system_default' => 'Rendszer alapértelmezett',
+    ],
 ];
