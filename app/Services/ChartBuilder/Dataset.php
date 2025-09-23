@@ -37,7 +37,7 @@ class Dataset
 
     public function addValues(array $values): static
     {
-        $this->data += $values;
+        $this->data = array_merge($this->data, $values);
 
         return $this;
     }
@@ -82,8 +82,15 @@ class Dataset
         return $this;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function toArray(): array
     {
+        if (empty($this->label)) {
+            throw new \Exception('Dataset needs a name.');
+        }
+
         return array_filter([
             'label' => $this->label,
             'fill' => $this->fill,

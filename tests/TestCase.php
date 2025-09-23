@@ -12,6 +12,8 @@ abstract class TestCase extends BaseTestCase
 {
     use RefreshDatabase;
 
+    protected Tenant $testTenant;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -19,13 +21,12 @@ abstract class TestCase extends BaseTestCase
         /** @var User $user */
         $user = User::factory()->create();
 
-        /** @var Tenant $tenant */
-        $tenant = Tenant::factory()->create();
-        $tenant->users()->attach($user, [
-            'is_admin' => 1,
+        $this->testTenant = Tenant::factory()->create();
+        $this->testTenant->users()->attach($user, [
+            'is_admin' => true,
         ]);
 
         $this->actingAs($user);
-        Filament::setTenant($tenant);
+        Filament::setTenant($this->testTenant);
     }
 }

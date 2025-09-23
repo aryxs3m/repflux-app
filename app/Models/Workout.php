@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Illuminate\Support\Carbon $workout_at
  * @property string|null $notes
  * @property int $tenant_id
- * @property int $pre_total_weight
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null $calc_dominant_category Calculated on updates
@@ -35,7 +34,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Workout whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Workout whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Workout whereNotes($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Workout wherePreTotalWeight($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Workout whereTenantId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Workout whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Workout whereWorkoutAt($value)

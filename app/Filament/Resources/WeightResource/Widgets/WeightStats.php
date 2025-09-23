@@ -55,12 +55,20 @@ class WeightStats extends StatsOverviewWidget
             ->get()
             ->last();
         $currentWeight = $weightRecord->weight;
-        $neededChange = ($currentWeight - auth()->user()->weight_target) / $dailyTrend;
+
+        if ($dailyTrend == 0) {
+            $neededChange = '-';
+        } else {
+            $neededChange = ($currentWeight - auth()->user()->weight_target) / $dailyTrend;
+        }
+
         if ($neededChange > 1) {
             $neededChange = '-';
         }
 
-        $neededChange *= -1;
+        if (is_numeric($neededChange)) {
+            $neededChange *= -1;
+        }
 
         return [
             Stat::make(__('pages.weight.widgets.weekly_change'), Tenant::numberFormat($weeklyTrend, Tenant::getWeightUnitLabel())),
