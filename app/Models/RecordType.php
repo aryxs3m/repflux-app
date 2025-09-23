@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property float $base_weight
  * @property int $tenant_id
  * @property string|null $notes
- * @property string $exercise_type
+ * @property ExerciseType $exercise_type
  * @property array<array-key, mixed>|null $cardio_measurements
  * @property-read \App\Models\RecordCategory|null $recordCategory
  * @property-read \App\Models\Tenant|null $tenant

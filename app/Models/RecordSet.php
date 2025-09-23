@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int|null $cardio_measurement_speed_distance
  * @property int|null $cardio_measurement_speed_rotation
  * @property int|null $cardio_measurement_speed_climbed
+ * @property int|null $cardio_measurement_heart_rate
  * @property-read \App\Models\RecordType|null $recordType
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Record> $records
  * @property-read int|null $records_count
@@ -39,6 +40,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementCalories($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementDistance($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementHeartRate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementSpeedClimbed($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementSpeedDistance($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementSpeedRotation($value)
@@ -70,6 +72,7 @@ class RecordSet extends Model
         'cardio_measurement_speed_distance',
         'cardio_measurement_speed_rotation',
         'cardio_measurement_speed_climbed',
+        'cardio_measurement_heart_rate',
     ];
 
     public function recordType(): BelongsTo

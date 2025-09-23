@@ -7,4 +7,5 @@ return [
     'speed_distance' => 'Átlagos sebesség (kmh/mph)',
     'speed_rotation' => 'Átlagos sebesség (rpm)',
     'climbed' => 'Mászás',
+    'heart_rate' => 'Szívverés',
 ];
