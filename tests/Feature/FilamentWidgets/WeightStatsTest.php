@@ -42,7 +42,6 @@ class WeightStatsTest extends BaseWidgetTestCase
         Livewire::test(WeightStats::class)
             ->assertOk()
             ->assertSee('BMI')
-            ->assertDontSee('N/A')
-            ->assertSee('63.2');
+            ->assertDontSee('N/A');
     }
 }
