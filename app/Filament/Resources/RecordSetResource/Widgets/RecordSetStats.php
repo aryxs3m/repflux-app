@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources\RecordSetResource\Widgets;
 
+use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
+use App\Filament\Resources\RecordTypeResource\CardioMeasurementTransformer;
+use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\RecordSet;
 use App\Services\PersonalRecordsService;
 use App\Services\Settings\Tenant;
@@ -15,11 +18,30 @@ class RecordSetStats extends StatsOverviewWidget
 
     protected function getStats(): array
     {
+        if ($this->record->recordType->exercise_type == ExerciseType::CARDIO) {
+            return $this->cardioStats($this->record);
+        }
+
         return [
             $this->totalMovedWeight($this->record),
             $this->totalReps($this->record),
             $this->prStat($this->record),
         ];
+    }
+
+    protected function cardioStats(RecordSet $recordSet): array
+    {
+        $stats = [];
+
+        foreach ($recordSet->recordType->cardio_measurements as $measurement) {
+            $cardioMeasurement = CardioMeasurement::from($measurement);
+            $stats[] = Stat::make(
+                $cardioMeasurement->getLabel(),
+                CardioMeasurementTransformer::get($recordSet, $cardioMeasurement)
+            );
+        }
+
+        return $stats;
     }
 
     protected function totalMovedWeight(RecordSet $recordSet)

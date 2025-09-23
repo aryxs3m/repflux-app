@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RecordTypeResource\Pages;
-use App\Filament\Resources\RecordTypeResource\RecordTypeForm;
+use App\Filament\Resources\RecordTypeResource\Schemas\RecordTypeForm;
 use App\Models\RecordType;
 use App\Services\Settings\Tenant;
 use BackedEnum;
@@ -11,12 +11,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
-use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;

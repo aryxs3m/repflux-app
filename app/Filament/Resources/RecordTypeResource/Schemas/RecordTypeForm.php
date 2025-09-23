@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\RecordTypeResource;
+namespace App\Filament\Resources\RecordTypeResource\Schemas;
 
 use App\Filament\AbstractFormSchema;
+use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
 use App\Models\RecordType;
 use App\Services\Settings\Tenant;
 use Filament\Forms\Components\Radio;
@@ -16,7 +17,6 @@ use Filament\Schemas\Schema;
 
 class RecordTypeForm extends AbstractFormSchema
 {
-
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -29,7 +29,7 @@ class RecordTypeForm extends AbstractFormSchema
                     TextInput::make('name')
                         ->required(),
 
-                    Radio::make('type')
+                    Radio::make('exercise_type')
                         ->live()
                         ->options([
                             'weight' => 'Weight',
@@ -39,9 +39,8 @@ class RecordTypeForm extends AbstractFormSchema
                         ->descriptions([
                             'weight' => 'Súlyzós gyakorlat, pl. bench press, oldalemelés vagy kötél',
                             'cardio' => 'Kardió, pl. futás, airbike, evezőgép, futópad',
-                            'other' => 'Egyéb, pl. saját testsúlyos gyakorlat, TRX'
-                        ])
-                        ->default('weight')
+                            'other' => 'Egyéb, pl. saját testsúlyos gyakorlat, TRX',
+                        ]),
                 ]),
 
                 Section::make(__('pages.record_types.other'))->schema([
@@ -53,17 +52,12 @@ class RecordTypeForm extends AbstractFormSchema
                     TextInput::make('base_weight')
                         ->default(0)
                         ->suffix(Tenant::getWeightUnitLabel())
-                        ->visible(fn(Get $get) => $get('type') === 'weight'),
+                        ->visible(fn (Get $get) => $get('exercise_type') === 'weight'),
 
-                    Select::make('measurements')
+                    Select::make('cardio_measurements')
                         ->multiple()
-                        ->options([
-                            'calories' => 'Calories',
-                            'time' => 'Time',
-                            'speed' => 'Average speed',
-                            'climbed' => 'Climbed',
-                        ])
-                        ->visible(fn(Get $get) => $get('type') === 'cardio'),
+                        ->options(CardioMeasurement::class)
+                        ->visible(fn (Get $get) => $get('exercise_type') === 'cardio'),
                 ])->columnSpanFull(),
 
                 TextEntry::make('created_at')

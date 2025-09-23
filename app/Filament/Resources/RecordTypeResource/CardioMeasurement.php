@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Filament\Resources\RecordTypeResource;
+
+use Filament\Support\Contracts\HasLabel;
+
+enum CardioMeasurement: string implements HasLabel
+{
+    case CALORIES = 'calories';
+    case TIME = 'time';
+    case DISTANCE = 'distance';
+    case SPEED_DISTANCE = 'speed_distance';
+    case SPEED_ROTATION = 'speed_rotation';
+    case CLIMBED = 'climbed';
+
+    public function getLabel(): string
+    {
+        return __(sprintf('measurement.%s', $this->value));
+    }
+
+    public function getMeasurementUnit(): string
+    {
+        return match ($this) {
+            self::CALORIES => 'kcal',
+            self::TIME, self::CLIMBED, self::DISTANCE => 'm',
+            self::SPEED_DISTANCE => 'km/h',
+            self::SPEED_ROTATION => 'rpm',
+        };
+    }
+}
