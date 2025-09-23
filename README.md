@@ -31,3 +31,21 @@ Installation for php-fpm + web server:
 ## Docker Compose
 
 TBD.
+
+## Demo data
+
+After installation enable the demo mode and set up the demo credentials in the .env file:
+
+```dotenv
+APP_DEMO=true
+APP_DEMO_EMAIL=demo@repflux.app
+APP_DEMO_PASSWORD=Repflux12345678
+```
+
+Then run the following command:
+
+```sh
+php artisan migrate:fresh --seed --seeder=DemoSeeder
+```
+
+This will recreate all database tables and create a single user with a tenant and some fake data.

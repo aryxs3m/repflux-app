@@ -1,0 +1,22 @@
+category,name,exercise_type,base_weight
+Leg,Squat,weight,20
+Leg,Leg press,weight,0
+Leg,Hack squat,weight,27.3
+Leg,Bulgarian squat,weight,0
+Leg,Leg extension,weight,0
+Leg,Leg curl,weight,0
+Leg,Smith machine – squat,weight,9
+Leg,Smith machine – goblet,weight,9
+Back/bicep,Low row,weight,0
+Back/bicep,Cable – chest pull,weight,0
+Back/bicep,Cable – forehead pull,weight,0
+Back/bicep,Lat pulldown,weight,0
+Back/bicep,One hand pulldown,weight,0
+Back/bicep,Bicep curl,weight,0
+Chest/shoulders,Bench press,weight,0
+Chest/shoulders,Bench press (angled),weight,0
+Chest/shoulders,Pec fly,weight,0
+Chest/shoulders,Cable – tricep press,weight,0
+Chest/shoulders,Tricep curl,weight,0
+Chest/shoulders,Chest press,weight,0
+Chest/shoulders,Shoulder press,weight,0
