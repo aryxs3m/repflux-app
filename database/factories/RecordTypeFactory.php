@@ -22,7 +22,7 @@ class RecordTypeFactory extends Factory
             'notes' => $this->faker->word(),
 
             'record_category_id' => RecordCategory::factory(),
-            'tenant_id' => Filament::getTenant()->id,
+            'tenant_id' => Filament::getTenant()?->id,
         ];
     }
 }
