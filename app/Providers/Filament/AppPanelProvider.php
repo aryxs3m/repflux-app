@@ -92,6 +92,16 @@ class AppPanelProvider extends PanelProvider
                 function (): string {
                     return Blade::render('@laravelPWA');
                 }
+            )
+            ->renderHook(
+                PanelsRenderHook::BODY_START,
+                function (): string {
+                    if (! config('app.demo.enabled')) {
+                        return '';
+                    }
+
+                    return Blade::render('demo-warning');
+                }
             );
     }
 }
