@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\EditProfile;
 use App\Filament\Pages\LoginPage;
+use App\Filament\Pages\RegisterPage;
 use App\Filament\Pages\Tenancy\EditTenantProfile;
 use App\Filament\Pages\Tenancy\RegisterTenant;
 use App\Filament\Resources\TenantResources\UserResource;
@@ -45,7 +46,7 @@ class AppPanelProvider extends PanelProvider
             ->id('app')
             ->path('app')
             ->login(LoginPage::class)
-            ->registration()
+            ->registration(RegisterPage::class)
             ->passwordReset()
             ->emailVerification()
             ->profile(EditProfile::class)

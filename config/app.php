@@ -130,4 +130,8 @@ return [
         'email' => env('APP_DEMO_EMAIL', 'demo@repflux.app'),
         'password' => env('APP_DEMO_PASSWORD', 'RepfluxFTW987654321'),
     ],
+
+    'ratelimit' => [
+        'register' => (int) env('APP_RATELIMIT_REGISTER', 5),
+    ],
 ];
