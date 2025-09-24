@@ -30,6 +30,7 @@ return [
         'add_set' => 'Sorozat hozzáadása',
         'clone_set' => 'Klónozás',
         'new_user' => 'Új felhasználó',
+        'workout' => 'Edzés',
         'widget' => [
             'weight' => 'Súly',
             'repeats' => 'Ismétlések',

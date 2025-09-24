@@ -3,25 +3,20 @@
 namespace App\Filament\Resources\RecordSetResource\Pages;
 
 use App\Filament\Resources\RecordSetResource;
+use App\Filament\Resources\RecordSetResource\Actions\ReplicateRecordSetAction;
 use App\Filament\Resources\RecordSetResource\Widgets\RecordSetChart;
-use App\Models\Record;
+use App\Filament\Resources\WorkoutResource\Pages\ViewWorkout;
 use App\Services\Settings\Tenant;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ReplicateAction;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Database\Eloquent\Model;
 
 class ViewRecordSet extends ViewRecord
 {
@@ -53,6 +48,11 @@ class ViewRecordSet extends ViewRecord
                 ->label(__('pages.record_sets.back'))
                 ->icon(Heroicon::OutlinedArrowLeft)
                 ->url(ListRecordSets::getUrl())
+                ->color('gray'),
+            Action::make('workout')
+                ->label(__('pages.record_sets.workout'))
+                ->icon(Heroicon::OutlinedBolt)
+                ->url(ViewWorkout::getUrl(['record' => $this->getRecord()->workout]))
                 ->color('gray'),
             CreateAction::make()
                 ->label(__('pages.record_sets.add_set')),

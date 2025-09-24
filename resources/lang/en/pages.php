@@ -30,6 +30,7 @@ return [
         'add_set' => 'Add set',
         'clone_set' => 'Clone',
         'new_user' => 'New user',
+        'workout' => 'Workout',
         'widget' => [
             'weight' => 'Weight',
             'repeats' => 'Reps',
