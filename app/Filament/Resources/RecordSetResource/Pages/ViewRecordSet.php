@@ -57,68 +57,7 @@ class ViewRecordSet extends ViewRecord
             CreateAction::make()
                 ->label(__('pages.record_sets.add_set')),
             EditAction::make(),
-            ReplicateAction::make()
-                ->color('success')
-                ->icon(Heroicon::OutlinedClipboardDocument)
-                ->modalHeading(__('pages.record_sets.clone_set'))
-                ->modalSubmitActionLabel(__('pages.record_sets.clone_set'))
-                ->schema([
-                    Select::make('user_id')
-                        ->label(__('pages.record_sets.new_user'))
-                        ->options(Tenant::getTenant()->users->pluck('name', 'id'))
-                        ->searchable()
-                        ->preload()
-                        ->required(),
-                    Repeater::make('records')
-                        ->hiddenLabel()
-                        ->cloneable()
-                        ->afterStateHydrated(function (Set $set) {
-                            $records = $this->getRecord()->records->toArray();
-
-                            $defaults = array_map(function ($record) {
-                                return [
-                                    'repeat_count' => $record['repeat_count'],
-                                    'weight' => $record['weight'],
-                                ];
-                            }, $records);
-
-                            $set('records', $defaults);
-                        })
-                        ->orderColumn('repeat_index')
-                        ->reorderableWithButtons()
-                        ->reorderableWithDragAndDrop(false)
-                        ->minItems(1)
-                        ->addActionLabel('Add repetition')
-                        ->schema([
-                            TextInput::make('repeat_count')
-                                ->suffix('reps')
-                                ->numeric()
-                                ->minValue(0)
-                                ->columnSpan(1),
-                            TextInput::make('weight')
-                                ->suffix(Tenant::getWeightUnitLabel())
-                                ->numeric()
-                                ->minValue(0)
-                                ->columnSpan(1),
-                        ])
-                        ->columns([
-                            'default' => 2,
-                        ]),
-                ])
-                ->after(function (Model $replica, array $data) {
-                    $id = $replica->id;
-
-                    $index = 0;
-                    Record::query()->insert(array_map(function ($record) use ($id, $index) {
-                        $index++;
-
-                        return array_merge($record, [
-                            'repeat_index' => $index,
-                            'record_set_id' => $id,
-                        ]);
-                    }, $data['records']));
-                })
-                ->label(__('pages.record_sets.clone_set')),
+            ReplicateRecordSetAction::make(),
         ];
     }
 

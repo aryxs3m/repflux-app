@@ -26,7 +26,7 @@ class WorkoutResource extends Resource
 
     protected static ?string $slug = 'workouts';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::Bolt;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBolt;
 
     public static function getNavigationLabel(): string
     {
