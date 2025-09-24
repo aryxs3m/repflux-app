@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources\WorkoutResource\Pages;
 
+use App\Filament\Resources\RecordSetResource\Pages\ViewRecordSet;
 use App\Filament\Resources\WorkoutResource;
 use App\Filament\Resources\WorkoutResource\Widgets\WorkoutStats;
+use App\Models\RecordSet;
 use App\Services\Settings\Tenant;
 use Filament\Actions\EditAction;
 use Filament\Infolists\Components\RepeatableEntry;
@@ -63,6 +65,7 @@ class ViewWorkout extends ViewRecord
                                         ->hiddenLabel()
                                         ->suffix(' '.Tenant::getWeightUnitLabel()),
                                 ])
+                                ->url(fn (RecordSet $recordSet) => ViewRecordSet::getUrl(['record' => $recordSet]))
                                 ->columns(2)
                                 ->columnSpanFull(),
                         ]),
