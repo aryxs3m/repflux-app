@@ -22,7 +22,7 @@ class RecordSetFactory extends Factory
 
             'record_type_id' => RecordType::factory(),
             'user_id' => User::factory(),
-            'tenant_id' => Filament::getTenant()->id,
+            'tenant_id' => Filament::getTenant()?->id,
         ];
     }
 }

@@ -124,4 +124,14 @@ return [
     ],
 
     'version' => env('APP_VERSION', 'local'),
+
+    'demo' => [
+        'enabled' => (bool) env('APP_DEMO', false),
+        'email' => env('APP_DEMO_EMAIL', 'demo@repflux.app'),
+        'password' => env('APP_DEMO_PASSWORD', 'RepfluxFTW987654321'),
+    ],
+
+    'ratelimit' => [
+        'register' => (int) env('APP_RATELIMIT_REGISTER', 5),
+    ],
 ];

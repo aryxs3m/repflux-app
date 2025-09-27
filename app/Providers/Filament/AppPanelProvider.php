@@ -3,12 +3,15 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\EditProfile;
+use App\Filament\Pages\LoginPage;
+use App\Filament\Pages\RegisterPage;
 use App\Filament\Pages\Tenancy\EditTenantProfile;
 use App\Filament\Pages\Tenancy\RegisterTenant;
 use App\Filament\Resources\TenantResources\UserResource;
 use App\Filament\Resources\WeightResource\Widgets\WeightChart;
 use App\Filament\Resources\WeightResource\Widgets\WeightStats;
 use App\Filament\Resources\WorkoutResource\Widgets\WorkoutCategoryChart;
+use App\Filament\Widgets\WorkoutHeatmapChart;
 use App\Http\Middlewares\LanguageHandlerMiddleware;
 use App\Models\Tenant;
 use Blade;
@@ -29,6 +32,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
 
 class AppPanelProvider extends PanelProvider
 {
@@ -43,8 +47,8 @@ class AppPanelProvider extends PanelProvider
             ->spa()
             ->id('app')
             ->path('app')
-            ->login()
-            ->registration()
+            ->login(LoginPage::class)
+            ->registration(RegisterPage::class)
             ->passwordReset()
             ->emailVerification()
             ->profile(EditProfile::class)
@@ -66,6 +70,7 @@ class AppPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,
+                WorkoutHeatmapChart::class,
                 WeightStats::class,
                 WeightChart::class,
                 WorkoutCategoryChart::class,
@@ -91,6 +96,19 @@ class AppPanelProvider extends PanelProvider
                 function (): string {
                     return Blade::render('@laravelPWA');
                 }
-            );
+            )
+            ->renderHook(
+                PanelsRenderHook::BODY_START,
+                function (): string {
+                    if (! config('app.demo.enabled')) {
+                        return '';
+                    }
+
+                    return Blade::render('demo-warning');
+                }
+            )
+            ->plugins([
+                FilamentApexChartsPlugin::make(),
+            ]);
     }
 }

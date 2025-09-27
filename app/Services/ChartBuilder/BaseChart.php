@@ -22,7 +22,7 @@ class BaseChart
 
     public function addLabels(array $labels): self
     {
-        $this->labels += $labels;
+        $this->labels = array_merge($this->labels, $labels);
 
         return $this;
     }

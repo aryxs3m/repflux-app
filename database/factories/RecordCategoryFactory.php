@@ -18,7 +18,7 @@ class RecordCategoryFactory extends Factory
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
 
-            'tenant_id' => Filament::getTenant()->id,
+            'tenant_id' => Filament::getTenant()?->id,
         ];
     }
 }

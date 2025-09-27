@@ -17,13 +17,13 @@ class MeasurementFactory extends Factory
     {
         return [
             'measured_at' => Carbon::now(),
-            'value' => $this->faker->randomNumber(),
+            'value' => random_int(10, 20),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
 
             'measurement_type_id' => MeasurementType::factory(),
             'user_id' => User::factory(),
-            'tenant_id' => Filament::getTenant()->id,
+            'tenant_id' => Filament::getTenant()?->id,
         ];
     }
 }
