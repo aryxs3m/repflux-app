@@ -5,9 +5,7 @@ use App\Http\Controllers\InviteJoinController;
 use Filament\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/app');
 
 Route::middleware(Authenticate::class)
     ->get('/join', [InviteJoinController::class, 'join'])
