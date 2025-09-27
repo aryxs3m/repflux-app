@@ -4,8 +4,10 @@ namespace App\Filament\Resources\RecordTypeResource\Schemas;
 
 use App\Filament\AbstractFormSchema;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
+use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\RecordType;
 use App\Services\Settings\Tenant;
+use App\Utilities\EnumDescriptor;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -17,6 +19,9 @@ use Filament\Schemas\Schema;
 
 class RecordTypeForm extends AbstractFormSchema
 {
+    /**
+     * @throws \Exception
+     */
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -31,16 +36,8 @@ class RecordTypeForm extends AbstractFormSchema
 
                     Radio::make('exercise_type')
                         ->live()
-                        ->options([
-                            'weight' => 'Weight',
-                            'cardio' => 'Cardio',
-                            'other' => 'Other',
-                        ])
-                        ->descriptions([
-                            'weight' => 'Súlyzós gyakorlat, pl. bench press, oldalemelés vagy kötél',
-                            'cardio' => 'Kardió, pl. futás, airbike, evezőgép, futópad',
-                            'other' => 'Egyéb, pl. saját testsúlyos gyakorlat, TRX',
-                        ]),
+                        ->options(ExerciseType::class)
+                        ->descriptions(EnumDescriptor::getAll(ExerciseType::class)),
                 ]),
 
                 Section::make(__('pages.record_types.other'))->schema([
@@ -48,17 +45,19 @@ class RecordTypeForm extends AbstractFormSchema
                         ->nullable(),
                 ]),
 
-                Section::make('Részletek')->schema([
-                    TextInput::make('base_weight')
-                        ->default(0)
-                        ->suffix(Tenant::getWeightUnitLabel())
-                        ->visible(fn (Get $get) => $get('exercise_type') === 'weight'),
+                Section::make('Részletek')
+                    ->visible(fn (Get $get) => $get('exercise_type') !== ExerciseType::OTHER)
+                    ->schema([
+                        TextInput::make('base_weight')
+                            ->default(0)
+                            ->suffix(Tenant::getWeightUnitLabel())
+                            ->visible(fn (Get $get) => $get('exercise_type') === ExerciseType::WEIGHT),
 
-                    Select::make('cardio_measurements')
-                        ->multiple()
-                        ->options(CardioMeasurement::class)
-                        ->visible(fn (Get $get) => $get('exercise_type') === 'cardio'),
-                ])->columnSpanFull(),
+                        Select::make('cardio_measurements')
+                            ->multiple()
+                            ->options(CardioMeasurement::class)
+                            ->visible(fn (Get $get) => $get('exercise_type') === ExerciseType::CARDIO),
+                    ])->columnSpanFull(),
 
                 TextEntry::make('created_at')
                     ->label('Created Date')

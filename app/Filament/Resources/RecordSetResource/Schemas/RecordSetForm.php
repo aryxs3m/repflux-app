@@ -109,7 +109,7 @@ class RecordSetForm extends AbstractFormSchema
             ]);
     }
 
-    protected static function getRepsWizardStep(): Wizard\Step
+    protected static function getWeightRepsWizardStep(): Wizard\Step
     {
         return Wizard\Step::make('Repetitions')
             ->visible(fn (Get $get) => $get('exercise_type') === ExerciseType::WEIGHT)
@@ -135,6 +135,33 @@ class RecordSetForm extends AbstractFormSchema
                             ->minValue(0)
                             ->required()
                             ->columnSpan(1),
+                    ])
+                    ->columns([
+                        'default' => 2,
+                    ]),
+            ]);
+    }
+
+    protected static function getOtherRepsWizardStep(): Wizard\Step
+    {
+        return Wizard\Step::make('Repetitions')
+            ->visible(fn (Get $get) => $get('exercise_type') === ExerciseType::OTHER)
+            ->schema([
+                Repeater::make('records')
+                    ->relationship('records')
+                    ->hiddenLabel()
+                    ->cloneable()
+                    ->orderColumn('repeat_index')
+                    ->reorderableWithButtons()
+                    ->reorderableWithDragAndDrop(false)
+                    ->addActionLabel('Add repetition')
+                    ->schema([
+                        TextInput::make('repeat_count')
+                            ->suffix('reps')
+                            ->numeric()
+                            ->minValue(1)
+                            ->required()
+                            ->columnSpanFull(),
                     ])
                     ->columns([
                         'default' => 2,
@@ -174,7 +201,8 @@ class RecordSetForm extends AbstractFormSchema
             ->components([
                 Wizard::make([
                     self::getSetWizardStep(),
-                    self::getRepsWizardStep(),
+                    self::getWeightRepsWizardStep(),
+                    self::getOtherRepsWizardStep(),
                     self::getResultsWizardStep(),
                 ]),
             ])

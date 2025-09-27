@@ -6,9 +6,9 @@ use App\Filament\Resources\RecordSetResource;
 use App\Filament\Resources\RecordSetResource\Actions\ReplicateRecordSetAction;
 use App\Filament\Resources\RecordSetResource\Widgets\RecordSetChart;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
+use App\Filament\Resources\WorkoutResource\Pages\ViewWorkout;
 use App\Models\Record;
 use App\Models\RecordSet;
-use App\Filament\Resources\WorkoutResource\Pages\ViewWorkout;
 use App\Services\Settings\Tenant;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
@@ -72,7 +72,7 @@ class ViewRecordSet extends ViewRecord
     {
         return $schema->schema([
             Section::make('Weights and repeats')
-                ->visible(fn (RecordSet $record) => $record->recordType->exercise_type === 'weight')
+                ->visible(fn (RecordSet $record) => $record->recordType->exercise_type !== ExerciseType::CARDIO)
                 ->schema([
                     RepeatableEntry::make('records')
                         ->hiddenLabel()
@@ -84,6 +84,7 @@ class ViewRecordSet extends ViewRecord
                                 ->suffix('x')
                                 ->hiddenLabel(),
                             TextEntry::make('weight_with_base')
+                                ->visible(fn (Record $record) => $record->recordSet->recordType->exercise_type === ExerciseType::WEIGHT)
                                 ->hiddenLabel()
                                 ->suffix(' '.Tenant::getWeightUnitLabel()),
                         ])->columns([

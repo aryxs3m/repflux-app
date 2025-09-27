@@ -22,10 +22,16 @@ class RecordSetStats extends StatsOverviewWidget
             return $this->cardioStats($this->record);
         }
 
+        if ($this->record->recordType->exercise_type == ExerciseType::WEIGHT) {
+            return [
+                $this->totalMovedWeight($this->record),
+                $this->totalReps($this->record),
+                $this->prStat($this->record),
+            ];
+        }
+
         return [
-            $this->totalMovedWeight($this->record),
             $this->totalReps($this->record),
-            $this->prStat($this->record),
         ];
     }
 

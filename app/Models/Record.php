@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $record_set_id
  * @property int $repeat_index
  * @property int $repeat_count
- * @property float $weight
+ * @property float|null $weight
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\RecordSet|null $recordSet

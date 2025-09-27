@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RecordSetResource\Pages;
 use App\Filament\Resources\RecordSetResource\Schemas\RecordSetForm;
+use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\RecordSet;
 use App\Services\Settings\Tenant;
 use BackedEnum;
@@ -78,6 +79,13 @@ class RecordSetResource extends Resource
                     ]),
 
                     TextColumn::make('records.weight_with_base')
+                        ->state(function (RecordSet $recordSet) {
+                            if ($recordSet->recordType->exercise_type !== ExerciseType::WEIGHT) {
+                                return null;
+                            }
+
+                            return $recordSet->records->pluck('weight_with_base');
+                        })
                         ->label('Rep weights')
                         ->badge(),
 

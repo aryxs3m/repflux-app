@@ -14,7 +14,7 @@ return new class extends Migration
             $table->unsignedInteger('cardio_measurement_distance')->nullable();
             $table->unsignedInteger('cardio_measurement_speed_distance')->nullable();
             $table->unsignedInteger('cardio_measurement_speed_rotation')->nullable();
-            $table->unsignedInteger('cardio_measurement_speed_climbed')->nullable();
+            $table->unsignedInteger('cardio_measurement_climbed')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->dropColumn('cardio_measurement_distance');
             $table->dropColumn('cardio_measurement_speed_distance');
             $table->dropColumn('cardio_measurement_speed_rotation');
-            $table->dropColumn('cardio_measurement_speed_climbed');
+            $table->dropColumn('cardio_measurement_climbed');
         });
     }
 };
