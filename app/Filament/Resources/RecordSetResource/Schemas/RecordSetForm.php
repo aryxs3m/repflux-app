@@ -3,6 +3,9 @@
 namespace App\Filament\Resources\RecordSetResource\Schemas;
 
 use App\Filament\AbstractFormSchema;
+use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
+use App\Filament\Resources\RecordTypeResource\CardioMeasurementTransformer;
+use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\RecordCategory;
 use App\Models\RecordSet;
 use App\Models\RecordType;
@@ -10,6 +13,7 @@ use App\Services\RecordSetSessionService;
 use App\Services\Settings\Tenant;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Field;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -61,12 +65,14 @@ class RecordSetForm extends AbstractFormSchema
                 ->afterStateHydrated(function ($state, Field $component) {
                     $component->callAfterStateUpdated();
                 })
-                ->afterStateUpdated(function ($state, Field $component) {
+                ->afterStateUpdated(function ($state, Set $set, Field $component) {
                     $component->hint(null);
                     $component->hintIcon(null);
 
                     if (! empty($state)) {
                         $recordType = RecordType::query()->find($state);
+
+                        $set('exercise_type', $recordType->exercise_type);
 
                         if (empty($recordType?->notes)) {
                             return;
@@ -77,6 +83,9 @@ class RecordSetForm extends AbstractFormSchema
                     }
                 })
                 ->required(),
+            Hidden::make('exercise_type')
+                ->live()
+                ->default(ExerciseType::WEIGHT),
         ]);
     }
 
@@ -100,9 +109,10 @@ class RecordSetForm extends AbstractFormSchema
             ]);
     }
 
-    protected static function getRepsWizardStep(): Wizard\Step
+    protected static function getWeightRepsWizardStep(): Wizard\Step
     {
         return Wizard\Step::make('Repetitions')
+            ->visible(fn (Get $get) => $get('exercise_type') === ExerciseType::WEIGHT)
             ->schema([
                 Repeater::make('records')
                     ->relationship('records')
@@ -111,7 +121,6 @@ class RecordSetForm extends AbstractFormSchema
                     ->orderColumn('repeat_index')
                     ->reorderableWithButtons()
                     ->reorderableWithDragAndDrop(false)
-                    ->minItems(1)
                     ->addActionLabel('Add repetition')
                     ->schema([
                         TextInput::make('repeat_count')
@@ -133,13 +142,68 @@ class RecordSetForm extends AbstractFormSchema
             ]);
     }
 
+    protected static function getOtherRepsWizardStep(): Wizard\Step
+    {
+        return Wizard\Step::make('Repetitions')
+            ->visible(fn (Get $get) => $get('exercise_type') === ExerciseType::OTHER)
+            ->schema([
+                Repeater::make('records')
+                    ->relationship('records')
+                    ->hiddenLabel()
+                    ->cloneable()
+                    ->orderColumn('repeat_index')
+                    ->reorderableWithButtons()
+                    ->reorderableWithDragAndDrop(false)
+                    ->addActionLabel('Add repetition')
+                    ->schema([
+                        TextInput::make('repeat_count')
+                            ->suffix('reps')
+                            ->numeric()
+                            ->minValue(1)
+                            ->required()
+                            ->columnSpanFull(),
+                    ])
+                    ->columns([
+                        'default' => 2,
+                    ]),
+            ]);
+    }
+
+    protected static function getResultsWizardStep(): Wizard\Step
+    {
+        return Wizard\Step::make('Results')
+            ->visible(fn (Get $get) => $get('exercise_type') === ExerciseType::CARDIO)
+            ->schema(function (Get $get) {
+                $recordTypeId = $get('record_type_id');
+
+                if ($recordTypeId == null) {
+                    return [];
+                }
+
+                $recordType = RecordType::query()->find($recordTypeId);
+
+                if (! $recordType->cardio_measurements) {
+                    return [];
+                }
+
+                $items = [];
+                foreach ($recordType->cardio_measurements as $item) {
+                    $items[] = CardioMeasurementTransformer::getInput(CardioMeasurement::from($item));
+                }
+
+                return $items;
+            });
+    }
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
                 Wizard::make([
                     self::getSetWizardStep(),
-                    self::getRepsWizardStep(),
+                    self::getWeightRepsWizardStep(),
+                    self::getOtherRepsWizardStep(),
+                    self::getResultsWizardStep(),
                 ]),
             ])
             ->columns(1);

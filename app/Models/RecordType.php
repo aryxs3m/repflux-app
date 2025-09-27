@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\Traits\HasTenantRelationship;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property float $base_weight
  * @property int $tenant_id
  * @property string|null $notes
+ * @property ExerciseType $exercise_type
+ * @property array<array-key, mixed>|null $cardio_measurements
  * @property-read \App\Models\RecordCategory|null $recordCategory
  * @property-read \App\Models\Tenant|null $tenant
  *
@@ -24,7 +27,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereBaseWeight($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereCardioMeasurements($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereExerciseType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereNotes($value)
@@ -44,7 +49,17 @@ class RecordType extends Model
         'record_category_id',
         'base_weight',
         'notes',
+        'exercise_type',
+        'cardio_measurements',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'cardio_measurements' => 'json',
+            'exercise_type' => ExerciseType::class,
+        ];
+    }
 
     public function recordCategory(): BelongsTo
     {

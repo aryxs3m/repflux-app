@@ -24,6 +24,9 @@ class WorkoutHeatmapChart extends ApexChartWidget
 
     protected int|string|array $columnSpan = 'full';
 
+    /**
+     * @SuppressWarnings(PHPMD) FIXME: if you can do better, pls fix this :)
+     */
     protected function getSeries(): array
     {
         $data = [];
@@ -47,11 +50,12 @@ class WorkoutHeatmapChart extends ApexChartWidget
                 workout_at_month,
                 workout_at_day;", ['tenant' => Tenant::getTenant()->id]);
 
-        // Copy data, fix missing values
+        // Move data to the "$data" array in a different format, fix missing values
         $lastMonth = null;
         $lastDay = null;
+
         foreach ($results as $result) {
-            // Add missing days to the previous months' series'
+            // Add missing days to the last month's series
             if ($lastMonth !== null && $lastMonth != $result->workout_at_month) {
                 for ($i = $lastDay + 1; $i <= 31; $i++) {
                     $data[$lastMonth]['data'][] = [$i, 0];
@@ -62,6 +66,7 @@ class WorkoutHeatmapChart extends ApexChartWidget
                 $lastDay = 0;
             }
 
+            // Add missing values before the first day of the current month (if any)
             for ($i = $lastDay + 1; $i < $result->workout_at_day; $i++) {
                 $data[$result->workout_at_month]['data'][] = [$i, 0];
             }
