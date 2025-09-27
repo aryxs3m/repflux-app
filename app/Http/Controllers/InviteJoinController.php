@@ -12,6 +12,7 @@ class InviteJoinController extends Controller
 {
     public function join(Request $request, InvitationService $service)
     {
+        throw new \Exception('My first GlitchTip error!');
         $invitation = Invite::query()
             ->where('hash', $request->hash)
             ->first();
