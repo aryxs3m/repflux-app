@@ -91,6 +91,9 @@ return [
             'last_dominant_category' => 'Utolsó domináns csoport',
             'last_total_weight' => 'Utolsó edzés megmozgatott tömeg',
             'last_total_reps' => 'Utolsó edzés ismétlései',
+            'heatmap_chart' => [
+                'title' => 'Grind az elmúlt évben',
+            ],
         ],
     ],
     'tenancy' => [

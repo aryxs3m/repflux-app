@@ -11,6 +11,7 @@ use App\Filament\Resources\TenantResources\UserResource;
 use App\Filament\Resources\WeightResource\Widgets\WeightChart;
 use App\Filament\Resources\WeightResource\Widgets\WeightStats;
 use App\Filament\Resources\WorkoutResource\Widgets\WorkoutCategoryChart;
+use App\Filament\Widgets\WorkoutHeatmapChart;
 use App\Http\Middlewares\LanguageHandlerMiddleware;
 use App\Models\Tenant;
 use Blade;
@@ -31,6 +32,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
 
 class AppPanelProvider extends PanelProvider
 {
@@ -68,6 +70,7 @@ class AppPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,
+                WorkoutHeatmapChart::class,
                 WeightStats::class,
                 WeightChart::class,
                 WorkoutCategoryChart::class,
@@ -103,6 +106,9 @@ class AppPanelProvider extends PanelProvider
 
                     return Blade::render('demo-warning');
                 }
-            );
+            )
+            ->plugins([
+                FilamentApexChartsPlugin::make(),
+            ]);
     }
 }

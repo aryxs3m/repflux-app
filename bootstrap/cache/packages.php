@@ -102,6 +102,14 @@ return [
             0 => 'Larswiegers\\LaravelTranslationsChecker\\LaravelTranslationsCheckerServiceProvider',
         ],
     ],
+    'leandrocfe/filament-apex-charts' => [
+        'aliases' => [
+            'FilamentApexCharts' => 'Leandrocfe\\FilamentApexCharts\\Facades\\FilamentApexCharts',
+        ],
+        'providers' => [
+            0 => 'Leandrocfe\\FilamentApexCharts\\FilamentApexChartsServiceProvider',
+        ],
+    ],
     'livewire/livewire' => [
         'aliases' => [
             'Livewire' => 'Livewire\\Livewire',

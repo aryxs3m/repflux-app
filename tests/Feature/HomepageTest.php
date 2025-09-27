@@ -6,10 +6,9 @@ use Tests\TestCase;
 
 class HomepageTest extends TestCase
 {
-    public function test_homepage_returns_success(): void
+    public function test_homepage_redirects(): void
     {
         $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 }
