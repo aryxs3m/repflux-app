@@ -21,6 +21,14 @@ return [
             0 => 'BladeUI\\Icons\\BladeIconsServiceProvider',
         ],
     ],
+    'dutchcodingcompany/filament-socialite' => [
+        'aliases' => [
+            'FilamentSocialite' => 'DutchCodingCompany\\FilamentSocialite\\Facades\\FilamentSocialite',
+        ],
+        'providers' => [
+            0 => 'DutchCodingCompany\\FilamentSocialite\\FilamentSocialiteServiceProvider',
+        ],
+    ],
     'filament/actions' => [
         'providers' => [
             0 => 'Filament\\Actions\\ActionsServiceProvider',
@@ -89,6 +97,14 @@ return [
             0 => 'Laravel\\Sail\\SailServiceProvider',
         ],
     ],
+    'laravel/socialite' => [
+        'aliases' => [
+            'Socialite' => 'Laravel\\Socialite\\Facades\\Socialite',
+        ],
+        'providers' => [
+            0 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+        ],
+    ],
     'laravel/tinker' => [
         'providers' => [
             0 => 'Laravel\\Tinker\\TinkerServiceProvider',
@@ -131,6 +147,11 @@ return [
     'nunomaduro/termwind' => [
         'providers' => [
             0 => 'Termwind\\Laravel\\TermwindServiceProvider',
+        ],
+    ],
+    'owenvoke/blade-fontawesome' => [
+        'providers' => [
+            0 => 'OwenVoke\\BladeFontAwesome\\BladeFontAwesomeServiceProvider',
         ],
     ],
     'ryangjchandler/blade-capture-directive' => [

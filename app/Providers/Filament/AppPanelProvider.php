@@ -15,6 +15,8 @@ use App\Filament\Widgets\WorkoutHeatmapChart;
 use App\Http\Middlewares\LanguageHandlerMiddleware;
 use App\Models\Tenant;
 use Blade;
+use DutchCodingCompany\FilamentSocialite\FilamentSocialitePlugin;
+use DutchCodingCompany\FilamentSocialite\Provider;
 use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -109,6 +111,28 @@ class AppPanelProvider extends PanelProvider
             )
             ->plugins([
                 FilamentApexChartsPlugin::make(),
+                FilamentSocialitePlugin::make()
+                    ->providers([
+                        Provider::make('google')
+                            ->label('Google')
+                            ->icon('fab-google')
+                            ->color(Color::Red)
+                            ->stateless(false)
+                            ->visible(! empty(config('services.google.client_id'))),
+                        Provider::make('facebook')
+                            ->label('Facebook')
+                            ->icon('fab-facebook')
+                            ->color(Color::Blue)
+                            ->stateless(false)
+                            ->visible(! empty(config('services.facebook.client_id'))),
+                        Provider::make('github')
+                            ->label('GitHub')
+                            ->icon('fab-github')
+                            ->color(Color::Slate)
+                            ->stateless(false)
+                            ->visible(! empty(config('services.github.client_id'))),
+                    ])
+                    ->registration(),
             ]);
     }
 }
