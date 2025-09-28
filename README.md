@@ -1,6 +1,10 @@
-[![Code Quality](https://github.com/aryxs3m/gymbro/actions/workflows/code-quality.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/code-quality.yml) [![Laravel test](https://github.com/aryxs3m/gymbro/actions/workflows/laravel.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/laravel.yml) [![Translations Check](https://github.com/aryxs3m/gymbro/actions/workflows/translations.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/translations.yml)
+<p align="center">
+    <img src="/public/logos/repflux_logo_black_transparent.png#gh-light-mode-only" width="400"/>
+    <img src="/public/logos/repflux_logo_transparent.png#gh-dark-mode-only" width="400"/>
+</p>
 
-<img src="/public/logos/repflux_logo_transparent.png" alt="drawing" width="200"/>
+[![Code Quality](https://github.com/aryxs3m/gymbro/actions/workflows/code-quality.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/code-quality.yml) [![Laravel test](https://github.com/aryxs3m/gymbro/actions/workflows/laravel.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/laravel.yml) [![Translations Check](https://github.com/aryxs3m/gymbro/actions/workflows/translations.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/translations.yml) [![Discord](https://img.shields.io/discord/1421202193633251561?logo=discord&label=Discord)](https://discord.gg/8DNa7YGkEY) 
+
 
 A simple fitness tracker app built with Laravel and Filament.
 
@@ -8,8 +12,18 @@ A simple fitness tracker app built with Laravel and Filament.
 - 💪 view your progress over time with charts and graphs
 - 📐 save body measurements and track your weight
 
+## 🔥 Quickstart
+
+- **DEMO site**: [demo.repflux.app](https://demo.repflux.app)
+- **FREE cloud version** is available at [repflux.app](https://repflux.app)
+
 ## 🚀 Features
 
+- [x] workout logging
+- [x] body measurements
+- [x] weight tracking
+- [x] progression widgets/charts/reports
+- [x] PR tracking
 - [x] PWA
 - [x] full dark mode support
 - [x] multilingual (English, Hungarian)
@@ -22,24 +36,27 @@ A simple fitness tracker app built with Laravel and Filament.
 Installation for php-fpm + web server:
 
 1. Clone the repository
-2. Run `composer install`
-3. Copy `.env.example` to `.env`
-4. Run `php artisan key:generate`
-5. Run `php artisan migrate --seed`
-6. Profit!
+2. Run `npm install`
+3. Run `npm run build`
+4. Run `composer install`
+5. Copy `.env.example` to `.env`
+6. Modify `.env` according to your taste
+7. Run `php artisan key:generate`
+8. Run `php artisan migrate`
+9. Profit!
 
-## Docker Compose
+### Docker Compose
 
 TBD.
 
 ## Demo data
 
-After installation enable the demo mode and set up the demo credentials in the .env file:
+You can enable demo mode by adding the following lines to your `.env` file:
 
 ```dotenv
 APP_DEMO=true
 APP_DEMO_EMAIL=demo@repflux.app
-APP_DEMO_PASSWORD=Repflux12345678
+APP_DEMO_PASSWORD=YOUR_DEMO_PASSWORD_CAN_BE_ANYTHING
 ```
 
 Then run the following command:
