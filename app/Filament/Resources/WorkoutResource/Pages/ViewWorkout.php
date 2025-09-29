@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\WorkoutResource\Pages;
 
+use App\Filament\Resources\RecordSetResource\Pages\CreateRecordSet;
 use App\Filament\Resources\RecordSetResource\Pages\ViewRecordSet;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurementTransformer;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
@@ -9,6 +10,7 @@ use App\Filament\Resources\WorkoutResource;
 use App\Filament\Resources\WorkoutResource\Widgets\WorkoutStats;
 use App\Models\RecordSet;
 use App\Services\Settings\Tenant;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
@@ -17,6 +19,7 @@ use Filament\Schemas\Components\Flex;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
 
 class ViewWorkout extends ViewRecord
@@ -31,6 +34,11 @@ class ViewWorkout extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
+            Action::make('create_record_set')
+                ->label(__('pages.record_sets.add_set'))
+                ->color('success')
+                ->icon(Heroicon::OutlinedPlusCircle)
+                ->url(CreateRecordSet::getUrl()),
             EditAction::make(),
         ];
     }
