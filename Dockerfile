@@ -1,15 +1,18 @@
-FROM dunglas/frankenphp
+FROM serversideup/php:8.4-fpm-nginx
 
-RUN install-php-extensions \
-    pcntl \
-    pdo \
-    gd \
-    curl \
-    mbstring \
-    pdo_mysql \
-    redis \
-    intl
+USER root
 
-COPY . /app
+ENV PHP_MAX_EXECUTION_TIME=30 \
+    PHP_OPCACHE_ENABLE=1 \
+    AUTORUN_ENABLED=true \
+    AUTORUN_LARAVEL_CONFIG_CACHE=true \
+    AUTORUN_LARAVEL_ROUTE_CACHE=true \
+    AUTORUN_LARAVEL_VIEW_CACHE=true \
+    AUTORUN_LARAVEL_MIGRATION=true \
+    AUTORUN_LARAVEL_STORAGE_LINK=true
 
-ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
+RUN install-php-extensions intl
+USER www-data
+
+COPY --chown=www-data:www-data . /var/www/html
+VOLUME /var/www/html/storage/app

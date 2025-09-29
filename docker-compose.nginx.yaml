@@ -1,0 +1,56 @@
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8001:8080"
+    depends_on:
+      - redis
+      - mysql
+  task:
+    build:
+      context: .
+    command: ["php", "/var/www/html/artisan", "schedule:work"]
+    depends_on:
+      - gymbro
+    stop_signal: SIGTERM
+    healthcheck:
+      test: ["CMD", "healthcheck-schedule"]
+      start_period: 10s
+  queue:
+    build:
+      context: .
+    command: ["php", "/var/www/html/artisan", "queue:work", "--tries=3"]
+    depends_on:
+      - gymbro
+    stop_signal: SIGTERM
+    healthcheck:
+      test: ["CMD", "healthcheck-queue"]
+      start_period: 10s
+  redis:
+    image: 'redis:alpine'
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      retries: 3
+      timeout: 5s
+  mysql:
+    image: 'mysql/mysql-server:8.0'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_EXTRA_OPTIONS: '${MYSQL_EXTRA_OPTIONS}'
+    healthcheck:
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - '-p${DB_PASSWORD}'
+      retries: 3
+      timeout: 5s
