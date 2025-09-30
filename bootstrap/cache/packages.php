@@ -134,6 +134,11 @@ return [
             0 => 'Livewire\\LivewireServiceProvider',
         ],
     ],
+    'martinbean/socialite-discord-provider' => [
+        'providers' => [
+            0 => 'MartinBean\\Laravel\\Socialite\\DiscordServiceProvider',
+        ],
+    ],
     'nesbot/carbon' => [
         'providers' => [
             0 => 'Carbon\\Laravel\\ServiceProvider',

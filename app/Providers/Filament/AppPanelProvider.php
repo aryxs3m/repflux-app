@@ -119,6 +119,12 @@ class AppPanelProvider extends PanelProvider
                             ->color(Color::Red)
                             ->stateless(false)
                             ->visible(! empty(config('services.google.client_id'))),
+                        Provider::make('discord')
+                            ->label('Discord')
+                            ->icon('fab-discord')
+                            ->color(Color::Indigo)
+                            ->stateless(false)
+                            ->visible(! empty(config('services.discord.client_id'))),
                         Provider::make('facebook')
                             ->label('Facebook')
                             ->icon('fab-facebook')
