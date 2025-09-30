@@ -12,6 +12,8 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class WorkoutCategoryChart extends ChartWidget
 {
+    protected ?string $pollingInterval = null;
+
     public ?Workout $record = null;
 
     public function getHeading(): string|Htmlable|null

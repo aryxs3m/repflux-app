@@ -8,10 +8,13 @@ use DateTime;
 use DB;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 use Leandrocfe\FilamentApexCharts\Widgets\ApexChartWidget;
 
 class WorkoutHeatmapChart extends ApexChartWidget
 {
+    protected ?string $pollingInterval = null;
+
     /**
      * Chart Id
      */
@@ -102,7 +105,9 @@ class WorkoutHeatmapChart extends ApexChartWidget
      */
     protected function getOptions(): array
     {
-        $this->getSeries();
+        $series = Cache::remember(sprintf('%d-workout-heatmap-chart-series', auth()->user()->id), 3600, function () {
+            return $this->getSeries();
+        });
 
         return [
             'chart' => [
@@ -131,7 +136,7 @@ class WorkoutHeatmapChart extends ApexChartWidget
                     ],*/
                 ],
             ],
-            'series' => array_values($this->getSeries()),
+            'series' => array_values($series),
             'xaxis' => [
                 'type' => 'category',
                 'labels' => [

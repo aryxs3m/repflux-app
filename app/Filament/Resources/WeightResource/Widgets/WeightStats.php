@@ -11,6 +11,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class WeightStats extends StatsOverviewWidget
 {
+    protected ?string $pollingInterval = null;
+
     protected function getStats(): array
     {
         $this->getWeeklyWeightProgression();

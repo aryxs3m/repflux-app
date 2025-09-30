@@ -10,6 +10,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class MeasurementStats extends StatsOverviewWidget
 {
+    protected ?string $pollingInterval = null;
+
     protected function getStats(): array
     {
         return \Cache::tags(['measurement-stats'])->remember(auth()->id().'-measurement-stats', 10, function () {

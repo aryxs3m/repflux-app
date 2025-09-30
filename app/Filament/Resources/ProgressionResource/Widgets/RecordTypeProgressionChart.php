@@ -11,6 +11,8 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class RecordTypeProgressionChart extends ChartWidget
 {
+    protected ?string $pollingInterval = null;
+
     public ?RecordType $record = null;
 
     public function getHeading(): string|Htmlable|null

@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class LastRecordsWidget extends TableWidget
 {
+    protected ?string $pollingInterval = null;
+
     protected int|string|array $columnSpan = 'full';
 
     public function table(Table $table): Table

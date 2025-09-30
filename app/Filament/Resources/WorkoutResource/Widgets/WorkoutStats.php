@@ -11,6 +11,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class WorkoutStats extends StatsOverviewWidget
 {
+    protected ?string $pollingInterval = null;
+
     public Workout $record;
 
     protected ?Workout $previous = null;

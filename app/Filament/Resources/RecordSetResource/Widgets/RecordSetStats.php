@@ -14,6 +14,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class RecordSetStats extends StatsOverviewWidget
 {
+    protected ?string $pollingInterval = null;
+
     public ?RecordSet $record = null;
 
     protected function getStats(): array

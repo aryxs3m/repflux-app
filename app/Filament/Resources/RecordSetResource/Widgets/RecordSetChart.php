@@ -10,6 +10,8 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class RecordSetChart extends ChartWidget
 {
+    protected ?string $pollingInterval = null;
+
     public ?RecordSet $record = null;
 
     public function getHeading(): string|Htmlable|null

@@ -9,6 +9,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class LastWorkoutStats extends StatsOverviewWidget
 {
+    protected ?string $pollingInterval = null;
+
     protected function getStats(): array
     {
         $workout = Workout::query()

@@ -13,6 +13,8 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class WeightChart extends ChartWidget
 {
+    protected ?string $pollingInterval = null;
+
     protected ?string $heading = 'Weight Chart';
 
     public function getHeading(): string|Htmlable|null
