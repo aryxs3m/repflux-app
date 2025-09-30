@@ -20,7 +20,7 @@ class WeightFactory extends Factory
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
 
-            'user_id' => User::factory(),
+            'user_id' => auth()->user()?->id ?? User::factory(),
             'tenant_id' => Filament::getTenant()->id,
         ];
     }

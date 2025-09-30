@@ -22,7 +22,7 @@ class MeasurementFactory extends Factory
             'updated_at' => Carbon::now(),
 
             'measurement_type_id' => MeasurementType::factory(),
-            'user_id' => User::factory(),
+            'user_id' => auth()->user()?->id ?? User::factory(),
             'tenant_id' => Filament::getTenant()?->id,
         ];
     }

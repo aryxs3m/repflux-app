@@ -3,18 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RecordCategoryResource\Pages;
+use App\Filament\Resources\RecordCategoryResource\Schemas\RecordCategoryForm;
+use App\Filament\Resources\RecordCategoryResource\Schemas\RecordCategoryTable;
 use App\Models\RecordCategory;
 use BackedEnum;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Forms\Components\TextInput;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use UnitEnum;
 
@@ -43,46 +38,12 @@ class RecordCategoryResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema
-            ->components([
-                TextInput::make('name')
-                    ->required(),
-
-                TextEntry::make('created_at')
-                    ->label('Created Date')
-                    ->state(fn (?RecordCategory $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                TextEntry::make('updated_at')
-                    ->label('Last Modified Date')
-                    ->state(fn (?RecordCategory $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
-            ]);
+        return RecordCategoryForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                TextColumn::make('name')
-                    ->label(__('columns.name'))
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('created_at')
-                    ->label(__('columns.created_at'))
-                    ->date()
-                    ->sortable(),
-            ])
-            ->filters([
-                //
-            ])
-            ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ]);
+        return RecordCategoryTable::configure($table);
     }
 
     public static function getPages(): array

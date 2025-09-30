@@ -3,21 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MeasurementResource\Pages;
+use App\Filament\Resources\MeasurementResource\Schemas\MeasurementForm;
+use App\Filament\Resources\MeasurementResource\Schemas\MeasurementTable;
 use App\Models\Measurement;
-use App\Services\Settings\Tenant;
 use BackedEnum;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -48,67 +40,12 @@ class MeasurementResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema
-            ->components([
-                Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->searchable()
-                    ->default(auth()->id())
-                    ->required(),
-
-                Select::make('measurement_type_id')
-                    ->relationship('measurementType', 'name')
-                    ->required(),
-
-                DatePicker::make('measured_at')
-                    ->label('Measured Date')
-                    ->default(now()),
-
-                TextInput::make('value')
-                    ->required()
-                    ->suffix(Tenant::getLengthUnitLabel())
-                    ->integer(),
-
-                TextEntry::make('created_at')
-                    ->label('Created Date')
-                    ->state(fn (?Measurement $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                TextEntry::make('updated_at')
-                    ->label('Last Modified Date')
-                    ->state(fn (?Measurement $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
-            ]);
+        return MeasurementForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->defaultPaginationPageOption(5)
-            ->columns([
-                TextColumn::make('measurementType.name')
-                    ->label(__('columns.type'))
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('measured_at')
-                    ->label(__('columns.measured_at'))
-                    ->date(),
-
-                TextColumn::make('value')
-                    ->label(__('columns.value'))
-                    ->suffix(' '.Tenant::getLengthUnitLabel()),
-            ])
-            ->filters([
-                //
-            ])
-            ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ]);
+        return MeasurementTable::configure($table);
     }
 
     public static function getPages(): array

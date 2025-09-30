@@ -3,14 +3,11 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProgressionResource\Pages;
+use App\Filament\Resources\ProgressionResource\Schemas\ProgressionTable;
 use App\Models\RecordType;
-use App\Services\PersonalRecordsService;
-use App\Services\Settings\Tenant;
 use BackedEnum;
-use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use UnitEnum;
 
@@ -39,30 +36,7 @@ class ProgressionResource extends Resource
 
     public static function table(Table $table): Table
     {
-        $records = app(PersonalRecordsService::class)->getRecords();
-
-        return $table
-            ->columns([
-                TextColumn::make('recordCategory.name')
-                    ->label(__('columns.category'))
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('name')
-                    ->label(__('columns.exercise'))
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('pr')
-                    ->state(function (RecordType $record) use ($records): ?string {
-                        return Tenant::numberFormat($records[$record->id] ?? null, Tenant::getWeightUnitLabel());
-                    }),
-            ])
-            ->filters([
-                //
-            ])
-            ->recordActions([
-                ViewAction::make(),
-            ])
-            ->toolbarActions([]);
+        return ProgressionTable::configure($table);
     }
 
     public static function getPages(): array

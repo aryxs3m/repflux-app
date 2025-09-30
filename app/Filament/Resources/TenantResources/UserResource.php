@@ -3,13 +3,9 @@
 namespace App\Filament\Resources\TenantResources;
 
 use App\Filament\Resources\TenantResources\UserResource\Pages\ListUsers;
+use App\Filament\Resources\TenantResources\UserResource\Schemas\UsersTable;
 use App\Models\User;
-use App\Services\Settings\Tenant;
-use Filament\Actions\Action;
 use Filament\Resources\Resource;
-use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class UserResource extends Resource
@@ -29,38 +25,7 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-        $canAdminister = Tenant::canAdminister();
-
-        return $table
-            ->description($canAdminister ? __('pages.tenancy.users.has_admin') : '')
-            ->query(Tenant::getTenant()->users()->getQuery())
-            ->columns([
-                ImageColumn::make('avatar_url')
-                    ->label('Avatar')
-                    ->circular(),
-
-                TextColumn::make('name')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('email')
-                    ->searchable()
-                    ->sortable(),
-            ])
-            ->filters([
-                //
-            ])
-            ->recordActions([
-                Action::make('kick')
-                    ->label(__('pages.tenancy.users.kick'))
-                    ->color('danger')
-                    ->icon(Heroicon::UserMinus)
-                    ->visible(function (User $record) use ($canAdminister): bool {
-                        return $canAdminister && $record->id !== auth()->id();
-                    })
-                    ->requiresConfirmation()
-                    ->action(fn (User $record) => Tenant::removeUser($record)),
-            ]);
+        return UsersTable::configure($table);
     }
 
     public static function getPages(): array

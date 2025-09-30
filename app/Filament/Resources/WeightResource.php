@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\WeightResource\Pages;
+use App\Filament\Resources\WeightResource\Schemas\WeightForm;
+use App\Filament\Resources\WeightResource\Schemas\WeightTable;
 use App\Models\Weight;
-use App\Services\Settings\Tenant;
 use BackedEnum;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use UnitEnum;
 
@@ -40,51 +37,12 @@ class WeightResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema
-            ->schema([
-                Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->searchable()
-                    ->default(auth()->id())
-                    ->required(),
-
-                TextInput::make('weight')
-                    ->required()
-                    ->suffix(Tenant::getWeightUnitLabel())
-                    ->minValue(1)
-                    ->integer(),
-
-                DatePicker::make('measured_at')
-                    ->label('Measured Date')
-                    ->default(now())
-                    ->required(),
-            ]);
+        return WeightForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                TextColumn::make('measured_at')
-                    ->label(__('columns.measured_at'))
-                    ->date(),
-
-                TextColumn::make('weight')
-                    ->label(__('columns.weight'))
-                    ->suffix(' '.Tenant::getWeightUnitLabel()),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                \Filament\Actions\EditAction::make(),
-                \Filament\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                \Filament\Actions\BulkActionGroup::make([
-                    \Filament\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return WeightTable::configure($table);
     }
 
     public static function getPages(): array

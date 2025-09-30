@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\WorkoutResource;
+namespace App\Filament\Resources\WorkoutResource\Schemas;
 
 use App\Filament\AbstractFormSchema;
 use Filament\Forms\Components\DateTimePicker;

@@ -3,19 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\WorkoutResource\Pages;
-use App\Filament\Resources\WorkoutResource\WorkoutForm;
+use App\Filament\Resources\WorkoutResource\Schemas\WorkoutForm;
+use App\Filament\Resources\WorkoutResource\Schemas\WorkoutTable;
 use App\Models\Workout;
-use App\Services\Settings\Tenant;
 use BackedEnum;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -45,30 +39,7 @@ class WorkoutResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->defaultSort('workout_at', 'desc')
-            ->columns([
-                TextColumn::make('workout_at')
-                    ->label('Workout Date')
-                    ->date(),
-
-                TextColumn::make('dominantCategory.name'),
-                TextColumn::make('calc_total_weight')
-                    ->suffix(' '.Tenant::getWeightUnitLabel()),
-            ])
-            ->filters([
-                //
-            ])
-            ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
-                DeleteAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ]);
+        return WorkoutTable::configure($table);
     }
 
     public static function getPages(): array
