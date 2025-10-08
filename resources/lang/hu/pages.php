@@ -75,6 +75,14 @@ return [
         'widgets' => [
             'weight' => 'Súly',
             'weight_progression' => 'Megmozgatott súly változása (utolsó 30 sorozat)',
+            'brzycki' => [
+                'title' => 'Brzycki 1RM',
+                'description' => 'A Brzycki képlet alapján számított max súly',
+            ],
+            'epley' => [
+                'title' => 'Epley 1RM',
+                'description' => 'Az Epley képlet alapján számított max súly',
+            ],
         ],
     ],
     'workouts' => [

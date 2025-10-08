@@ -18,6 +18,7 @@ class ViewProgression extends ViewRecord
     protected function getHeaderWidgets(): array
     {
         return [
+            ProgressionResource\Widgets\ProgressionStatWidgets::class,
             ProgressionResource\Widgets\RecordTypeProgressionChart::class,
         ];
     }

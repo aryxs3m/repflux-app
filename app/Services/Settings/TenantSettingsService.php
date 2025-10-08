@@ -47,7 +47,7 @@ class TenantSettingsService
     public function numberFormat(int|float|null|string $number, $suffix = null): string
     {
         if ($number === null) {
-            return '';
+            return 'N/A';
         }
 
         if (is_string($number)) {
