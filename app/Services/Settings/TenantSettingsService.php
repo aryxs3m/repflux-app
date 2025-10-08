@@ -74,4 +74,12 @@ class TenantSettingsService
     {
         $this->getTenant()->users()->detach($user);
     }
+
+    /**
+     * Returns the next user in the tenant (that is not the current one), or null if there is no other user.
+     */
+    public function otherUser(): ?User
+    {
+        return $this->getTenant()->users()->where('id', '!=', auth()->id())->first();
+    }
 }

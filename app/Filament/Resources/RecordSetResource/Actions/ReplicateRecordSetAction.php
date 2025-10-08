@@ -31,6 +31,7 @@ class ReplicateRecordSetAction extends ReplicateAction
             Select::make('user_id')
                 ->label(__('pages.record_sets.new_user'))
                 ->options(Tenant::getTenant()->users->pluck('name', 'id'))
+                ->formatStateUsing(fn () => Tenant::otherUser()?->id)
                 ->searchable()
                 ->preload()
                 ->required(),
