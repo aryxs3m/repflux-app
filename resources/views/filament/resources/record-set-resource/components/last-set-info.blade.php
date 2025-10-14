@@ -1,7 +1,7 @@
 @php use App\Models\Record; @endphp
 
 <div>
-    @if($getState() === null)
+    @if($getState() === null || is_array($getState()))
         <div class="text-center text-gray-500">No records yet, make your first!</div>
     @else
         <div class="flex justify-center md:justify-between justify-content-center items-center gap-2 flex-wrap md:flex-nowrap">

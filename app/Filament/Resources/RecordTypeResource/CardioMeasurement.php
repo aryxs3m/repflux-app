@@ -29,4 +29,17 @@ enum CardioMeasurement: string implements HasLabel
             self::HEART_RATE => 'bpm',
         };
     }
+
+    public function getMeasurementType(): CardioMeasurementType
+    {
+        return match ($this) {
+            self::SPEED_DISTANCE => CardioMeasurementType::FLOAT,
+            default => CardioMeasurementType::INTEGER,
+        };
+    }
+
+    public function getFieldName(): string
+    {
+        return 'cardio_measurement_'.$this->value;
+    }
 }

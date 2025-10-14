@@ -106,7 +106,7 @@ abstract class BaseResourceTestCase extends TestCase
     /**
      * @throws Exception
      */
-    public function test_can_show_edit_page(): void
+    public function test_can_show_edit_page(?Model $model = null): void
     {
         if (! static::$hasEditPage) {
             $this->markTestSkipped('Resource does not have an edit page.');
@@ -116,7 +116,9 @@ abstract class BaseResourceTestCase extends TestCase
             throw new Exception('Model should have a factory to test.');
         }
 
-        $model = static::$model::factory()->create();
+        if ($model === null) {
+            $model = static::$model::factory()->create();
+        }
 
         Livewire::test($this->getPageByType(EditRecord::class), [
             'record' => $model->id,

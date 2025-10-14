@@ -3,7 +3,10 @@
 namespace Feature\FilamentResources;
 
 use App\Filament\Resources\RecordSetResource;
+use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\RecordSet;
+use App\Models\RecordType;
+use Exception;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Model;
 use Tests\Feature\FilamentResources\BaseResourceTestCase;
@@ -23,5 +26,27 @@ class RecordSetResourceTest extends BaseResourceTestCase
             'recordType.name' => $model->recordType->name,
             'recordType.recordCategory.name' => $model->recordType->recordCategory->name,
         ];
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function test_can_show_edit_page_for_cardio()
+    {
+        $type = RecordType::factory()->create(['name' => 'Cardio', 'exercise_type' => ExerciseType::CARDIO]);
+        $recordSet = RecordSet::factory()->create(['record_type_id' => $type->id]);
+
+        $this->test_can_show_edit_page($recordSet);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function test_can_show_edit_page_for_other()
+    {
+        $type = RecordType::factory()->create(['name' => 'Other', 'exercise_type' => ExerciseType::OTHER]);
+        $recordSet = RecordSet::factory()->create(['record_type_id' => $type->id]);
+
+        $this->test_can_show_edit_page($recordSet);
     }
 }
