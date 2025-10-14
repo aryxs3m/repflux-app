@@ -7,6 +7,7 @@ use App\Models\RecordSet;
 use App\Services\Settings\Tenant;
 use App\Services\Workout\WorkoutService;
 use Filament\Actions\ReplicateAction;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -35,6 +36,7 @@ class ReplicateRecordSetAction extends ReplicateAction
                 ->searchable()
                 ->preload()
                 ->required(),
+            DatePicker::make('set_done_at'),
             Repeater::make('records')
                 ->hiddenLabel()
                 ->cloneable()
