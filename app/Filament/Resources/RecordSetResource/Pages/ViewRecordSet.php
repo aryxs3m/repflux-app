@@ -30,6 +30,16 @@ class ViewRecordSet extends ViewRecord
         return __('pages.record_sets.view_title');
     }
 
+    public function getSubheading(): string|Htmlable|null
+    {
+        return sprintf(
+            '%s, %s (%s)',
+            $this->record->recordType->name,
+            $this->record->set_done_at->diffForHumans(),
+            $this->record->user->name
+        );
+    }
+
     protected function getHeaderWidgets(): array
     {
         return [
