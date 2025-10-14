@@ -6,6 +6,14 @@ return [
             'EloquentSerialize' => 'AnourValar\\EloquentSerialize\\Facades\\EloquentSerializeFacade',
         ],
     ],
+    'barryvdh/laravel-debugbar' => [
+        'aliases' => [
+            'Debugbar' => 'Barryvdh\\Debugbar\\Facades\\Debugbar',
+        ],
+        'providers' => [
+            0 => 'Barryvdh\\Debugbar\\ServiceProvider',
+        ],
+    ],
     'barryvdh/laravel-ide-helper' => [
         'providers' => [
             0 => 'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
