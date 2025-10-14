@@ -38,6 +38,9 @@ use Leandrocfe\FilamentApexCharts\FilamentApexChartsPlugin;
 
 class AppPanelProvider extends PanelProvider
 {
+    /**
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     */
     public function panel(Panel $panel): Panel
     {
         return $panel
