@@ -35,12 +35,12 @@ return [
             [
                 'name' => 'Add weight',
                 'description' => 'Add new weight measurement',
-                'url' => '/app/weights/create',
+                'url' => '/shortcut/weights/create',
             ],
             [
                 'name' => 'Record a set',
                 'description' => 'Add new exercise set',
-                'url' => '/app/record-sets/create',
+                'url' => '/shortcut/record-sets/create',
             ],
         ],
         'custom' => [],
