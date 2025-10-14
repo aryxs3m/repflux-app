@@ -75,6 +75,14 @@ return [
         'widgets' => [
             'weight' => 'Weight',
             'weight_progression' => 'Max weight (last 30 set)',
+            'brzycki' => [
+                'title' => 'Brzycki 1RM',
+                'description' => 'One rep max by Brzycki formula',
+            ],
+            'epley' => [
+                'title' => 'Epley 1RM',
+                'description' => 'One rep max by Epley formula',
+            ],
         ],
     ],
     'workouts' => [

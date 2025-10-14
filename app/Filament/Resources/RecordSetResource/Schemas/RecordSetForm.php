@@ -19,6 +19,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Components\Wizard;
@@ -65,11 +66,13 @@ class RecordSetForm extends AbstractFormSchema
                 ->afterStateHydrated(function ($state, Field $component) {
                     $component->callAfterStateUpdated();
                 })
-                ->afterStateUpdated(function ($state, Set $set, Field $component) {
+                ->afterStateUpdated(function ($state, Set $set, Get $get, Field $component) {
                     $component->hint(null);
                     $component->hintIcon(null);
 
                     if (! empty($state)) {
+                        $set('last_set_info', self::getLastRecordSet($state));
+
                         $recordType = RecordType::query()->find($state);
 
                         $set('exercise_type', $recordType->exercise_type);
@@ -195,10 +198,41 @@ class RecordSetForm extends AbstractFormSchema
             });
     }
 
+    protected static function getLastRecordSet(RecordType|int|null $recordTypeId)
+    {
+        $recordSetSession = app(RecordSetSessionService::class);
+
+        if ($recordTypeId === null && $recordSetSession->hasLastRecord()) {
+            $recordTypeId = $recordSetSession->getLastRecordTypeId();
+        }
+
+        if ($recordTypeId === null) {
+            return null;
+        }
+
+        if ($recordTypeId instanceof RecordType) {
+            $recordTypeId = $recordTypeId->id;
+        }
+
+        return RecordSet::query()
+            ->where('tenant_id', Tenant::getTenant()->id)
+            ->where('user_id', auth()->user()->id)
+            ->where('record_type_id', $recordTypeId)
+            ->latest('set_done_at')
+            ->first();
+    }
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
+                Section::make('Last Set')
+                    ->schema([
+                        Field::make('last_set_info')
+                            ->hiddenLabel()
+                            ->default(self::getLastRecordSet(null))
+                            ->view('filament.resources.record-set-resource.components.last-set-info'),
+                    ]),
                 Wizard::make([
                     self::getSetWizardStep(),
                     self::getWeightRepsWizardStep(),
