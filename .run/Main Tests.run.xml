@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Main Tests" type="PestRunConfigurationType">
+    <option name="pestRunnerSettings">
+      <PestRunner configuration_file="$PROJECT_DIR$/phpunit.xml" method="" scope="ConfigurationFile" options="--exclude-group=smoke --exclude-group=stress" use_alternative_configuration_file="true" />
+    </option>
+    <option name="runnerSettings">
+      <PhpTestRunnerSettings configuration_file="$PROJECT_DIR$/phpunit.xml" method="" scope="ConfigurationFile" options="--exclude-group=smoke --exclude-group=stress" use_alternative_configuration_file="true" />
+    </option>
+    <method v="2" />
+  </configuration>
+</component>

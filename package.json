@@ -30,6 +30,7 @@
     "@fullcalendar/daygrid": "^6.1.19",
     "@fullcalendar/list": "^6.1.19",
     "@fullcalendar/timegrid": "^6.1.19",
+    "playwright": "^1.56.0",
     "sass-embedded": "^1.92.1"
   }
 }

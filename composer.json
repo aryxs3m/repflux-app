@@ -29,9 +29,13 @@
         "larswiegers/laravel-translations-checker": "^0.9.3",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
+        "pestphp/pest": "^4.1",
+        "pestphp/pest-plugin-browser": "^4.0",
+        "pestphp/pest-plugin-drift": "^4.0",
+        "pestphp/pest-plugin-profanity": "^4.1",
+        "pestphp/pest-plugin-stressless": "^4.0",
         "php-parallel-lint/php-parallel-lint": "^1.4",
-        "phpmd/phpmd": "^2.15",
-        "phpunit/phpunit": "^11.5.3"
+        "phpmd/phpmd": "^2.15"
     },
     "autoload": {
         "psr-4": {
