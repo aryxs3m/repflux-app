@@ -33,10 +33,12 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
+      - name: 'Tar files'
+        run: tar -cvf repflux-test.tar ./
       - uses: actions/upload-artifact@v4
         with:
           name: 'repflux-test'
-          path: './'
+          path: 'repflux-test.tar'
           if-no-files-found: error
           retention-days: 1
           overwrite: true
@@ -49,6 +51,8 @@ jobs:
       - uses: actions/download-artifact@v5
         with:
           name: 'repflux-test'
+      - name: 'Extract files'
+        run: tar -xvf repflux-test.tar
       - name: Check for profanity
         run: ./vendor/bin/pest --profanity
   app-tests:
@@ -59,6 +63,8 @@ jobs:
       - uses: actions/download-artifact@v5
         with:
           name: 'repflux-test'
+      - name: 'Extract files'
+        run: tar -xvf repflux-test.tar
       - name: Unit, Feature, Architecture tests
         env:
           DB_CONNECTION: sqlite
@@ -72,6 +78,8 @@ jobs:
       - uses: actions/download-artifact@v5
         with:
           name: 'repflux-test'
+      - name: 'Extract files'
+        run: tar -xvf repflux-test.tar
       - name: Smoke tests
         env:
           DB_CONNECTION: sqlite
@@ -85,7 +93,9 @@ jobs:
       - uses: actions/download-artifact@v5
         with:
           name: 'repflux-test'
-      - name: Smoke tests
+      - name: 'Extract files'
+        run: tar -xvf repflux-test.tar
+      - name: Stress tests
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
