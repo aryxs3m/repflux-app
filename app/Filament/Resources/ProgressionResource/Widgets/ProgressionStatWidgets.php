@@ -41,6 +41,7 @@ class ProgressionStatWidgets extends StatsOverviewWidget
         $records = app(PersonalRecordsService::class)->getRecords();
         $maxWeight = $records[$record->id] ?? null;
         $brzyczkiWeight = null;
+        $epleyWeight = null;
 
         if ($maxWeight) {
             $prRecord = Record::query()
