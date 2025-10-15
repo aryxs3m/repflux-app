@@ -67,8 +67,9 @@ class AppPanelProvider extends PanelProvider
                     ->icon(Heroicon::UserGroup),
             ])
             ->colors([
-                'primary' => Color::Orange,
+                'primary' => Color::generateV3Palette('#ff0000'),
             ])
+            ->font('Farro')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([])
