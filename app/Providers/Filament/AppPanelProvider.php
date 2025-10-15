@@ -113,6 +113,10 @@ class AppPanelProvider extends PanelProvider
                     return Blade::render('demo-warning');
                 }
             )
+            ->renderHook(
+                PanelsRenderHook::SIDEBAR_NAV_END,
+                fn () => Blade::render('version-info'),
+            )
             ->plugins([
                 FilamentApexChartsPlugin::make(),
                 FilamentSocialitePlugin::make()

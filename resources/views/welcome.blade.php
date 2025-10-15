@@ -13,6 +13,6 @@
 
         <hr class="my-4">
 
-        <p>{{ config('app.version') }} | {{ \App\Services\VersionService::getCurrentBranch() }}</p>
+        <p>{{ config('app.version') }} | {{ \App\Services\VersionService::getVersion() }}</p>
     </div>
 @endsection
