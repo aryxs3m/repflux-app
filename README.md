@@ -3,7 +3,7 @@
     <img src="/public/logos/repflux_logo_transparent.png#gh-dark-mode-only" width="400"/>
 </p>
 
-[![Code Quality](https://github.com/aryxs3m/gymbro/actions/workflows/code-quality.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/code-quality.yml) [![Laravel test](https://github.com/aryxs3m/gymbro/actions/workflows/laravel.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/laravel.yml) [![Translations Check](https://github.com/aryxs3m/gymbro/actions/workflows/translations.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/translations.yml) [![Discord](https://img.shields.io/discord/1421202193633251561?logo=discord&label=Discord)](https://discord.gg/8DNa7YGkEY) 
+[![Code Quality](https://github.com/aryxs3m/gymbro/actions/workflows/code-quality.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/code-quality.yml) [![Pest Tests](https://github.com/aryxs3m/repflux-app/actions/workflows/pest.yml/badge.svg)](https://github.com/aryxs3m/repflux-app/actions/workflows/pest.yml) [![Translations Check](https://github.com/aryxs3m/gymbro/actions/workflows/translations.yml/badge.svg)](https://github.com/aryxs3m/gymbro/actions/workflows/translations.yml) [![Discord](https://img.shields.io/discord/1421202193633251561?logo=discord&label=Discord)](https://discord.gg/8DNa7YGkEY) 
 
 
 A simple fitness tracker app built with Laravel and Filament.
