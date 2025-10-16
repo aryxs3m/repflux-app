@@ -6,9 +6,9 @@ class VersionService
 {
     public static function getVersion(): ?string
     {
-        return \Cache::remember('version_string', 60, function () {
-            if (file_exists('version.txt')) {
-                return trim(file_get_contents('version.txt'));
+        return \Cache::remember('version_string', 600, function () {
+            if (file_exists(base_path('version.txt'))) {
+                return trim(file_get_contents(base_path('version.txt')));
             }
 
             if (file_exists(base_path('.git/HEAD'))) {
@@ -17,5 +17,10 @@ class VersionService
 
             return null;
         });
+    }
+
+    public static function clearCache(): void
+    {
+        \Cache::forget('version_string');
     }
 }
