@@ -35,6 +35,13 @@ return [
         ],
     ],
 
+    'youtrack' => [
+        'base_uri' => env('YOUTRACK_BASE_URI'),
+        'token' => env('YOUTRACK_TOKEN'),
+        'issue_tag' => env('YOUTRACK_ISSUE_TAG'),
+        'project_shortname' => env('YOUTRACK_PROJECT_SHORTNAME'),
+    ],
+
     // Socialite
     'github' => [
         'client_id' => env('GITHUB_CLIENT_ID'),

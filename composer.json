@@ -17,7 +17,8 @@
         "martinbean/socialite-discord-provider": "^1.2",
         "owenvoke/blade-fontawesome": "^2.9",
         "sentry/sentry-laravel": "^4.16",
-        "silviolleite/laravelpwa": "^2.0"
+        "silviolleite/laravelpwa": "^2.0",
+        "spatie/laravel-discord-alerts": "^1.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16",

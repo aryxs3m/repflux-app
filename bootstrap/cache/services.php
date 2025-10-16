@@ -57,8 +57,9 @@ return [
         52 => 'Sentry\\Laravel\\ServiceProvider',
         53 => 'Sentry\\Laravel\\Tracing\\ServiceProvider',
         54 => 'LaravelPWA\\Providers\\LaravelPWAServiceProvider',
-        55 => 'App\\Providers\\AppServiceProvider',
-        56 => 'App\\Providers\\Filament\\AppPanelProvider',
+        55 => 'Spatie\\DiscordAlerts\\DiscordAlertsServiceProvider',
+        56 => 'App\\Providers\\AppServiceProvider',
+        57 => 'App\\Providers\\Filament\\AppPanelProvider',
     ],
     'eager' => [
         0 => 'Illuminate\\Auth\\AuthServiceProvider',
@@ -99,8 +100,9 @@ return [
         35 => 'Sentry\\Laravel\\ServiceProvider',
         36 => 'Sentry\\Laravel\\Tracing\\ServiceProvider',
         37 => 'LaravelPWA\\Providers\\LaravelPWAServiceProvider',
-        38 => 'App\\Providers\\AppServiceProvider',
-        39 => 'App\\Providers\\Filament\\AppPanelProvider',
+        38 => 'Spatie\\DiscordAlerts\\DiscordAlertsServiceProvider',
+        39 => 'App\\Providers\\AppServiceProvider',
+        40 => 'App\\Providers\\Filament\\AppPanelProvider',
     ],
     'deferred' => [
         'Illuminate\\Broadcasting\\BroadcastManager' => 'Illuminate\\Broadcasting\\BroadcastServiceProvider',

@@ -134,4 +134,6 @@ return [
     'ratelimit' => [
         'register' => (int) env('APP_RATELIMIT_REGISTER', 5),
     ],
+
+    'allow_feedback' => (bool) env('ALLOW_FEEDBACK', false),
 ];

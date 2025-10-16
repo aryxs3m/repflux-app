@@ -189,4 +189,12 @@ return [
             0 => 'LaravelPWA\\Providers\\LaravelPWAServiceProvider',
         ],
     ],
+    'spatie/laravel-discord-alerts' => [
+        'aliases' => [
+            'Discord' => 'DiscordAlert',
+        ],
+        'providers' => [
+            0 => 'Spatie\\DiscordAlerts\\DiscordAlertsServiceProvider',
+        ],
+    ],
 ];
