@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Pages;
+namespace App\Filament\Pages\EditProfile;
 
 use App\Services\Settings\Tenant;
 use Filament\Auth\Pages\EditProfile as BaseEditProfile;
@@ -73,6 +73,9 @@ class EditProfile extends BaseEditProfile
                             ->label('After')
                             ->suffix('days'),
                     ]),
+                ]),
+                Section::make('Account deletion')->schema([
+                    DeleteProfileAction::make(),
                 ]),
             ]);
     }
