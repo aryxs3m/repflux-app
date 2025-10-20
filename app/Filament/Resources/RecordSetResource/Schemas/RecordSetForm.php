@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\RecordSetResource\Schemas;
 
 use App\Filament\AbstractFormSchema;
+use App\Filament\Fields\UserSelect;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurementTransformer;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
@@ -98,12 +99,8 @@ class RecordSetForm extends AbstractFormSchema
 
         return Wizard\Step::make('Set')
             ->schema([
-                Select::make('user_id')
-                    ->options(Tenant::getTenant()->users->pluck('name', 'id'))
-                    ->searchable()
-                    ->default(auth()->id())
-                    ->preload()
-                    ->required(),
+                UserSelect::make()
+                    ->defaultSelf(),
                 DatePicker::make('set_done_at')
                     ->label('Set Done Date')
                     ->default($recordSetSession->getLastSetDone() ?? now())

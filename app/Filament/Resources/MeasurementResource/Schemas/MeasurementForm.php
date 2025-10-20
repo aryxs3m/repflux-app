@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\MeasurementResource\Schemas;
 
 use App\Filament\AbstractFormSchema;
+use App\Filament\Fields\UserSelect;
 use App\Models\Measurement;
 use App\Services\Settings\Tenant;
 use Filament\Forms\Components\DatePicker;
@@ -17,11 +18,8 @@ class MeasurementForm extends AbstractFormSchema
     {
         return $schema
             ->components([
-                Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->searchable()
-                    ->default(auth()->id())
-                    ->required(),
+                UserSelect::make()
+                    ->defaultSelf(),
 
                 Select::make('measurement_type_id')
                     ->relationship('measurementType', 'name')

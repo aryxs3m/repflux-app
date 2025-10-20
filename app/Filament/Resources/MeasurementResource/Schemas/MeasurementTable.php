@@ -17,26 +17,27 @@ class MeasurementTable extends AbstractTableSchema
     public static function configure(Table $table): Table
     {
         return $table
-            ->defaultPaginationPageOption(5)
+            ->defaultPaginationPageOption(20)
+            ->defaultSort('measured_at', 'DESC')
             ->columns([
                 TextColumn::make('user.name')
                     ->label(__('columns.name'))
                     ->visibleFrom('md')
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('measurementType.name')
                     ->label(__('columns.type'))
-                    ->searchable()
-                    ->sortable(),
+                    ->searchable(),
 
                 TextColumn::make('measured_at')
                     ->label(__('columns.measured_at'))
-                    ->date(),
+                    ->date()
+                    ->sortable(),
 
                 TextColumn::make('value')
                     ->label(__('columns.value'))
-                    ->suffix(' '.Tenant::getLengthUnitLabel()),
+                    ->suffix(' '.Tenant::getLengthUnitLabel())
+                    ->sortable(),
             ])
             ->filters([
                 TenantUserFilter::make()->defaultSelf(),

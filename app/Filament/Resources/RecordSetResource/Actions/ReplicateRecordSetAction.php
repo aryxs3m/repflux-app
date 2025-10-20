@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\RecordSetResource\Actions;
 
+use App\Filament\Fields\UserSelect;
 use App\Models\Record;
 use App\Models\RecordSet;
 use App\Services\Settings\Tenant;
@@ -9,7 +10,6 @@ use App\Services\Workout\WorkoutService;
 use Filament\Actions\ReplicateAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Support\Icons\Heroicon;
@@ -29,13 +29,10 @@ class ReplicateRecordSetAction extends ReplicateAction
         $this->modalSubmitActionLabel(__('pages.record_sets.clone_set'));
 
         $this->schema([
-            Select::make('user_id')
+            UserSelect::make()
                 ->label(__('pages.record_sets.new_user'))
-                ->options(Tenant::getTenant()->users->pluck('name', 'id'))
-                ->formatStateUsing(fn () => Tenant::otherUser()?->id)
-                ->searchable()
-                ->preload()
-                ->required(),
+                ->defaultOther()
+                ->formatStateUsing(fn () => Tenant::otherUser()?->id),
             DatePicker::make('set_done_at'),
             Repeater::make('records')
                 ->hiddenLabel()

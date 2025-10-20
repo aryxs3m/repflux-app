@@ -44,6 +44,8 @@ class Measurement extends Model
     use HasTenantRelationship;
 
     protected $fillable = [
+        'created_at',
+        'updated_at',
         'measurement_type_id',
         'user_id',
         'measured_at',
