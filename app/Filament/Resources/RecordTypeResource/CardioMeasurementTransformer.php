@@ -12,6 +12,8 @@ abstract class CardioMeasurementTransformer
     public static function getInput(CardioMeasurement $measurement): TextInput
     {
         return TextInput::make('cardio_measurement_'.$measurement->value)
+            ->label($measurement->getLabel())
+            ->numeric()
             ->nullable()
             ->minValue(0)
             ->suffix($measurement->getMeasurementUnit());
