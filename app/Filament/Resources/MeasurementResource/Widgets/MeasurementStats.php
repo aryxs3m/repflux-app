@@ -11,6 +11,7 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class MeasurementStats extends StatsOverviewWidget
 {
     protected ?string $pollingInterval = null;
+    protected int | array | null $columns = 5;
 
     protected function getStats(): array
     {
@@ -34,6 +35,7 @@ class MeasurementStats extends StatsOverviewWidget
     {
         $measurements = Measurement::query()
             ->where('user_id', auth()->id())
+            ->where('tenant_id', Tenant::getTenant()->id)
             ->where('measurement_type_id', $measurementType->id)
             ->orderBy('measured_at', 'desc')
             ->limit(10)

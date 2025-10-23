@@ -1,8 +1,9 @@
-name
-Biceps – left
-Biceps – right
-Chest
-Hips
-Waist
-Thighs – left
-Thighs – right
+name,const
+Biceps – right,biceps_left
+Biceps – left,biceps_right
+Chest,chest
+Hips,hips
+Waist,waist
+Thighs – left,thighs_left
+Thighs – right,thighs_right
+Neck,neck

@@ -3,7 +3,9 @@
 namespace App\Filament\Resources\MeasurementTypeResource\Schemas;
 
 use App\Filament\AbstractFormSchema;
+use App\Filament\Resources\MeasurementTypeResource\BodyMeasurementType;
 use App\Models\MeasurementType;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
@@ -16,6 +18,11 @@ class MeasurementTypeForm extends AbstractFormSchema
             ->components([
                 TextInput::make('name')
                     ->required(),
+
+                Select::make('measurement_type')
+                    ->options(BodyMeasurementType::class)
+                    ->nullable()
+                    ->placeholder(''),
 
                 TextEntry::make('created_at')
                     ->label('Created Date')

@@ -10,6 +10,7 @@ return [
     'Waist' => 'Waist',
     'Thighs – left' => 'Thighs – left',
     'Thighs – right' => 'Thighs – right',
+    'Neck' => 'Neck',
 
     // Categories
     'Leg' => 'Leg',

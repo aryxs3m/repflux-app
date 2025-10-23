@@ -11,8 +11,13 @@ class StarterDataService
 {
     public function seed(Tenant $tenant): void
     {
+        echo " Seeding database with RecordCategories...\n";
         RecordCategoryTenantSeeder::seed($tenant);
+
+        echo " Seeding database with MeasurementTypes...\n";
         MeasurementTypeTenantSeeder::seed($tenant);
+
+        echo " Seeding database with RecordTypes...\n";
         RecordTypeTenantSeeder::seed($tenant);
     }
 }

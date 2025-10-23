@@ -17,6 +17,7 @@ class DemoSeeder extends Seeder
 {
     public function run(StarterDataService $service): void
     {
+        echo " Creating user...\n";
         $user = User::factory()->create([
             'name' => 'Demo User',
             'email' => config('app.demo.email'),
@@ -26,13 +27,16 @@ class DemoSeeder extends Seeder
             'language' => 'en',
         ]);
 
+        echo " Creating tenant...\n";
         $tenant = Tenant::factory()->create([
             'unit_type' => 'metric',
         ]);
         $tenant->users()->attach($user);
+        echo " Seeding tenant default data...\n";
         $service->seed($tenant);
 
         // Create basic items
+        echo " Seeding weight measurements...\n";
         $weight = 81;
         for ($i = 0; $i < 30; $i++) {
             Weight::query()->insert([
@@ -43,6 +47,7 @@ class DemoSeeder extends Seeder
             ]);
         }
 
+        echo " Seeding body measurements...\n";
         $measurements = MeasurementType::query()
             ->where('tenant_id', $tenant->id)
             ->get();
@@ -58,6 +63,7 @@ class DemoSeeder extends Seeder
             }
         }
 
+        echo " Seeding records...\n";
         $recordTypes = RecordType::query()->where('tenant_id', $tenant->id)->get();
         $baseWeight = 80;
         for ($j = 0; $j < 300; $j++) {

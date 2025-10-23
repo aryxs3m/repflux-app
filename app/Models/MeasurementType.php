@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Filament\Resources\MeasurementTypeResource\BodyMeasurementType;
 use App\Models\Traits\HasTenantRelationship;
 use App\Observers\MeasurementTypeCacheObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -36,5 +37,10 @@ class MeasurementType extends Model
 
     protected $fillable = [
         'name',
+        'measurement_type',
+    ];
+
+    protected $casts = [
+        'measurement_type' => BodyMeasurementType::class,
     ];
 }

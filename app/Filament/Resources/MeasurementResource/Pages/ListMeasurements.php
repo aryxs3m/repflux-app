@@ -22,6 +22,7 @@ class ListMeasurements extends ListRecords
     {
         return [
             // MeasurementResource\Widgets\MeasurementWidget::class,
+            MeasurementResource\Widgets\BRIStat::class,
             MeasurementResource\Widgets\MeasurementStats::class,
         ];
     }

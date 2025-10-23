@@ -5,9 +5,10 @@ namespace App\Services\StarterData\Data;
 use App\Models\RecordCategory;
 use App\Models\RecordType;
 use App\Models\Tenant;
+use App\Services\StarterData\CsvSeederBase;
 use Illuminate\Support\Facades\Cache;
 
-abstract class RecordTypeTenantSeeder
+abstract class RecordTypeTenantSeeder extends CsvSeederBase
 {
     public static function seed(Tenant $tenant): void
     {
@@ -23,28 +24,6 @@ abstract class RecordTypeTenantSeeder
             unset($line['exercise_type']);
 
             return $line;
-        }, self::getData()));
-    }
-
-    protected static function getData(): array
-    {
-        return Cache::remember('app-record-type-seeder-data', 600, function () {
-            $types = [];
-            $file = fopen(storage_path('tenant_seeders/record_types.csv'), 'r');
-            $headers = fgetcsv($file);
-
-            while (! feof($file)) {
-                $row = fgetcsv($file);
-                if (empty($row)) {
-                    continue;
-                }
-
-                $types[] = array_combine($headers, $row);
-            }
-
-            fclose($file);
-
-            return $types;
-        });
+        }, self::getCSV('tenant_seeders/record_types.csv')));
     }
 }

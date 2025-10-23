@@ -2,22 +2,21 @@
 
 namespace App\Services\StarterData\Data;
 
+use App\Filament\Resources\MeasurementTypeResource\BodyMeasurementType;
 use App\Models\MeasurementType;
 use App\Models\Tenant;
+use App\Services\StarterData\CsvSeederBase;
 
-abstract class MeasurementTypeTenantSeeder
+abstract class MeasurementTypeTenantSeeder extends CsvSeederBase
 {
     public static function seed(Tenant $tenant): void
     {
-        $lines = explode("\n", file_get_contents(storage_path('tenant_seeders/measurement_types.csv')));
-        array_shift($lines);
-        $lines = array_filter($lines);
-
-        MeasurementType::query()->insert(array_map(function ($line) use ($tenant) {
+        MeasurementType::query()->insert(array_map(function ($row) use ($tenant) {
             return [
                 'tenant_id' => $tenant->id,
-                'name' => __('seeder.'.$line),
+                'name' => __('seeder.'.$row['name']),
+                'measurement_type' => BodyMeasurementType::from($row['const']),
             ];
-        }, $lines));
+        }, self::getCSV('tenant_seeders/measurement_types.csv')));
     }
 }
