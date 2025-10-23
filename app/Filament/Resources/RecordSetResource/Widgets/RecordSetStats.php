@@ -2,12 +2,14 @@
 
 namespace App\Filament\Resources\RecordSetResource\Widgets;
 
+use App\Filament\Resources\ProgressionResource\Pages\ViewProgression;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurementTransformer;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\RecordSet;
 use App\Services\PersonalRecordsService;
 use App\Services\Settings\Tenant;
+use Filament\Actions\Action;
 use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -83,6 +85,7 @@ class RecordSetStats extends StatsOverviewWidget
             Tenant::numberFormat($records[$record->record_type_id] ?? null, Tenant::getWeightUnitLabel())
         )
             ->icon(Heroicon::OutlinedTrophy)
-            ->description(__('pages.record_sets.widget.pr.description'));
+            ->description(__('pages.record_sets.widget.pr.description'))
+            ->url(ViewProgression::getUrl(['record' => $record->recordType]));
     }
 }

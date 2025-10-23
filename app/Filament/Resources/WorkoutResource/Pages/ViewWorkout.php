@@ -70,23 +70,32 @@ class ViewWorkout extends ViewRecord
                                 ->visible(fn ($record) => $record->recordType->exercise_type === ExerciseType::CARDIO)
                                 ->schema(fn ($record) => CardioMeasurementTransformer::getEntries($record))
                                 ->columnSpanFull(),
-                            RepeatableEntry::make('records')
-                                ->visible(fn ($record) => $record->recordType->exercise_type !== ExerciseType::CARDIO)
-                                ->hiddenLabel()
-                                ->schema([
-                                    TextEntry::make('repeat_index')
-                                        ->hiddenLabel()
-                                        ->suffix('. '.__('columns.reps_short')),
-                                    TextEntry::make('repeat_count')
-                                        ->hiddenLabel()
-                                        ->suffix('x'),
-                                    TextEntry::make('weight_with_base')
-                                        ->visible(fn ($record) => $record->recordSet->recordType->exercise_type === ExerciseType::WEIGHT)
-                                        ->hiddenLabel()
-                                        ->suffix(' '.Tenant::getWeightUnitLabel()),
+                            Section::make('Set')
+                                ->collapsed()
+                                ->headerActions([
+                                    Action::make('view_set')
+                                        ->color('gray')
+                                        ->url(fn (RecordSet $recordSet) => ViewRecordSet::getUrl(['record' => $recordSet]))
                                 ])
-                                ->url(fn (RecordSet $recordSet) => ViewRecordSet::getUrl(['record' => $recordSet]))
-                                ->columns(2)
+                                ->schema([
+                                    RepeatableEntry::make('records')
+                                        ->visible(fn ($record) => $record->recordType->exercise_type !== ExerciseType::CARDIO)
+                                        ->hiddenLabel()
+                                        ->schema([
+                                            TextEntry::make('repeat_index')
+                                                ->hiddenLabel()
+                                                ->suffix('. '.__('columns.reps_short')),
+                                            TextEntry::make('repeat_count')
+                                                ->hiddenLabel()
+                                                ->suffix('x'),
+                                            TextEntry::make('weight_with_base')
+                                                ->visible(fn ($record) => $record->recordSet->recordType->exercise_type === ExerciseType::WEIGHT)
+                                                ->hiddenLabel()
+                                                ->suffix(' '.Tenant::getWeightUnitLabel()),
+                                        ])
+                                        ->columns(3)
+                                        ->columnSpanFull(),
+                                ])
                                 ->columnSpanFull(),
                         ]),
                 ]),
