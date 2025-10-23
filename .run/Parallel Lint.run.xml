@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Parallel Lint" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/vendor/bin/parallel-lint" scriptParameters="--exclude .git --exclude vendor .">
+  <configuration default="false" name="Parallel Lint" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="vendor/bin/parallel-lint" scriptParameters="--exclude .git --exclude vendor .">
     <method v="2" />
   </configuration>
 </component>

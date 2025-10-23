@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="PHPMD" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/vendor/bin/phpmd" scriptParameters="app/ github codesize">
+  <configuration default="false" name="PHPMD" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="vendor/bin/phpmd" scriptParameters="app/ github codesize">
     <method v="2" />
   </configuration>
 </component>
