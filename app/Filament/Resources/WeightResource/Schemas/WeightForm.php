@@ -25,7 +25,7 @@ class WeightForm extends AbstractFormSchema
                     ->required()
                     ->suffix(Tenant::getWeightUnitLabel())
                     ->minValue(1)
-                    ->integer(),
+                    ->numeric(),
 
                 DatePicker::make('measured_at')
                     ->label('Measured Date')
