@@ -25,10 +25,11 @@ class RecordSetTable extends AbstractTableSchema
         return $table
             ->columns([
                 Stack::make([
-                    TextColumn::make('set_done_at')
-                        ->label('Set Done Date')
+                    TextColumn::make('recordType.name')
+                        ->searchable()
                         ->sortable()
-                        ->date(),
+                        ->badge()
+                        ->color('blue'),
 
                     Split::make([
                         TextColumn::make('user.name')
@@ -36,12 +37,11 @@ class RecordSetTable extends AbstractTableSchema
                             ->sortable()
                             ->badge()
                             ->color('danger'),
-                        TextColumn::make('recordType.name')
-                            ->searchable()
-                            ->sortable()
-                            ->badge()
+                        TextColumn::make('set_done_at')
                             ->alignEnd()
-                            ->color('blue'),
+                            ->label('Set Done Date')
+                            ->sortable()
+                            ->date(),
                     ]),
 
                     TextColumn::make('records.weight_with_base')
