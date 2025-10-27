@@ -124,12 +124,14 @@ class RecordSetForm extends AbstractFormSchema
                     ->addActionLabel('Add repetition')
                     ->schema([
                         TextInput::make('repeat_count')
+                            ->autocomplete(false)
                             ->suffix('reps')
                             ->numeric()
                             ->minValue(1)
                             ->required()
                             ->columnSpan(1),
                         TextInput::make('weight')
+                            ->autocomplete(false)
                             ->suffix(Tenant::getWeightUnitLabel())
                             ->numeric()
                             ->minValue(0)
