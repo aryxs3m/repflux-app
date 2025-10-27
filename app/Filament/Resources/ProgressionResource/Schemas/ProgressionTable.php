@@ -19,6 +19,7 @@ class ProgressionTable extends AbstractTableSchema
         return $table
             ->columns([
                 TextColumn::make('recordCategory.name')
+                    ->visibleFrom('md')
                     ->label(__('columns.category'))
                     ->searchable()
                     ->sortable(),
