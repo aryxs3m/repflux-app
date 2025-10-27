@@ -6,7 +6,8 @@ use App\Filament\Resources\MeasurementTypeResource\BodyMeasurementType;
 use App\Models\Measurement;
 use App\Services\Settings\Tenant;
 
-class BodyMeasurementService {
+class BodyMeasurementService
+{
     public function getLastMeasurement(BodyMeasurementType $measurementType): ?Measurement
     {
         return Measurement::with('measurementType')

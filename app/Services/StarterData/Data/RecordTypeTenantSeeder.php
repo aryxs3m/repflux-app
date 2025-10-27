@@ -6,7 +6,6 @@ use App\Models\RecordCategory;
 use App\Models\RecordType;
 use App\Models\Tenant;
 use App\Services\StarterData\CsvSeederBase;
-use Illuminate\Support\Facades\Cache;
 
 abstract class RecordTypeTenantSeeder extends CsvSeederBase
 {

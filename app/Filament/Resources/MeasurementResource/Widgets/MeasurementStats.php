@@ -11,7 +11,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class MeasurementStats extends StatsOverviewWidget
 {
     protected ?string $pollingInterval = null;
-    protected int | array | null $columns = 5;
+
+    protected int|array|null $columns = 5;
 
     protected function getStats(): array
     {

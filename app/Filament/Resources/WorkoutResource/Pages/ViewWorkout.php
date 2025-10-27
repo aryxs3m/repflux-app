@@ -75,7 +75,7 @@ class ViewWorkout extends ViewRecord
                                 ->headerActions([
                                     Action::make('view_set')
                                         ->color('gray')
-                                        ->url(fn (RecordSet $recordSet) => ViewRecordSet::getUrl(['record' => $recordSet]))
+                                        ->url(fn (RecordSet $recordSet) => ViewRecordSet::getUrl(['record' => $recordSet])),
                                 ])
                                 ->schema([
                                     RepeatableEntry::make('records')

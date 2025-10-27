@@ -3,8 +3,6 @@
 namespace App\Filament\Resources\MeasurementResource\Widgets;
 
 use App\Filament\Resources\MeasurementTypeResource\BodyMeasurementType;
-use App\Models\Measurement;
-use App\Models\MeasurementType;
 use App\Services\Data\BodyMeasurementService;
 use App\Services\Settings\Tenant;
 use Filament\Widgets\StatsOverviewWidget;

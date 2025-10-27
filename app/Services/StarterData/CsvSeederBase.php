@@ -5,7 +5,8 @@ namespace App\Services\StarterData;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
-abstract class CsvSeederBase {
+abstract class CsvSeederBase
+{
     protected static function getCSV(string $filePath): array
     {
         return Cache::tags(['seeder'])->remember(Str::slug($filePath), 600, function () use ($filePath) {

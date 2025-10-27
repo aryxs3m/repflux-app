@@ -9,7 +9,6 @@ use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\RecordSet;
 use App\Services\PersonalRecordsService;
 use App\Services\Settings\Tenant;
-use Filament\Actions\Action;
 use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
