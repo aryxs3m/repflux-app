@@ -18,4 +18,6 @@ return [
         \Illuminate\Session\Middleware\AuthenticateSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
     ],
+
+    'remember_login' => true,
 ];
