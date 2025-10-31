@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RecordSet> $recordSets
  * @property-read int|null $record_sets_count
  * @property-read \App\Models\Tenant|null $tenant
+ *
  * @method static \Database\Factories\WorkoutFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Workout newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Workout newQuery()
@@ -36,6 +37,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Workout whereTenantId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Workout whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Workout whereWorkoutAt($value)
+ *
  * @mixin \Eloquent
  */
 class Workout extends Model

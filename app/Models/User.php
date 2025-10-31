@@ -44,6 +44,7 @@ use Illuminate\Support\Collection;
  * @property-read \App\Models\TenantUser|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tenant> $tenants
  * @property-read int|null $tenants_count
+ *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
@@ -67,6 +68,7 @@ use Illuminate\Support\Collection;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereWeightTarget($value)
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable implements FilamentUser, HasAvatar, HasTenants
