@@ -4,6 +4,7 @@ namespace App\Filament\Resources\RecordSetResource\Schemas;
 
 use App\Filament\AbstractTableSchema;
 use App\Filament\Columns\ShortDateColumn;
+use App\Filament\Columns\UserBadgeColumn;
 use App\Filament\Filters\TenantUserFilter;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\RecordSet;
@@ -28,16 +29,17 @@ class RecordSetTable extends AbstractTableSchema
                 Stack::make([
                     TextColumn::make('recordType.name')
                         ->searchable()
-                        ->sortable()
-                        ->badge()
-                        ->color('blue'),
+                        ->sortable(),
 
                     Split::make([
-                        TextColumn::make('user.name')
+                        UserBadgeColumn::make('user')
+                            ->sortable()
+                            ->searchable(),
+                        /*TextColumn::make('user.name')
                             ->searchable()
                             ->sortable()
                             ->badge()
-                            ->color('danger'),
+                            ->color('danger'),*/
                         ShortDateColumn::make('set_done_at')
                             ->alignEnd()
                             ->label('Set Done Date')
@@ -71,9 +73,15 @@ class RecordSetTable extends AbstractTableSchema
                 TenantUserFilter::make(),
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
-                DeleteAction::make(),
+                ViewAction::make()
+                    ->hiddenLabel()
+                    ->size('6xl'),
+                EditAction::make()
+                    ->hiddenLabel()
+                    ->size('6xl'),
+                DeleteAction::make()
+                    ->hiddenLabel()
+                    ->size('6xl'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -84,6 +92,8 @@ class RecordSetTable extends AbstractTableSchema
                 Group::make('user.name')
                     ->collapsible(),
             ])
+            ->paginationPageOptions([12, 24, 36, 48, 60])
+            ->defaultPaginationPageOption(12)
             ->defaultSort('id', 'desc');
     }
 }

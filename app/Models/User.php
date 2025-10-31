@@ -35,6 +35,7 @@ use Illuminate\Support\Collection;
  * @property int $number_format_decimals
  * @property string $number_format_decimal_separator
  * @property string $number_format_thousands_separator
+ * @property string|null $color
  * @property-read mixed $avatar_url
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Measurement> $measurements
  * @property-read int|null $measurements_count
@@ -43,11 +44,11 @@ use Illuminate\Support\Collection;
  * @property-read \App\Models\TenantUser|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tenant> $tenants
  * @property-read int|null $tenants_count
- *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereColor($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmailVerifiedAt($value)
@@ -66,7 +67,6 @@ use Illuminate\Support\Collection;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereWeightTarget($value)
- *
  * @mixin \Eloquent
  */
 class User extends Authenticatable implements FilamentUser, HasAvatar, HasTenants
@@ -95,6 +95,8 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasTenant
         'number_format_decimals',
         'number_format_decimal_separator',
         'number_format_thousands_separator',
+
+        'color',
     ];
 
     protected $appends = [

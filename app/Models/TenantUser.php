@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property int $tenant_id
  * @property string $created_at
  * @property int $is_admin
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TenantUser newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TenantUser newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TenantUser query()
@@ -17,7 +16,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TenantUser whereIsAdmin($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TenantUser whereTenantId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TenantUser whereUserId($value)
- *
  * @mixin \Eloquent
  */
 class TenantUser extends Pivot

@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\RecordSet|null $recordSet
  * @property-read \App\Models\Tenant|null $tenant
  * @property-read mixed $weight_with_base
- *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Record newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Record newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Record query()
@@ -31,7 +30,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Record whereRepeatIndex($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Record whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Record whereWeight($value)
- *
  * @mixin \Eloquent
  */
 #[ObservedBy([WorkoutUpdaterObserver::class])]

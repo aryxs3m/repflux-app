@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int|null $cardio_measurement_calories
  * @property int|null $cardio_measurement_time
  * @property int|null $cardio_measurement_distance
- * @property int|null $cardio_measurement_speed_distance
+ * @property float|null $cardio_measurement_speed_distance
  * @property int|null $cardio_measurement_speed_rotation
  * @property int|null $cardio_measurement_climbed
  * @property int|null $cardio_measurement_heart_rate
@@ -33,7 +33,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \App\Models\Tenant|null $tenant
  * @property-read \App\Models\User|null $user
  * @property-read \App\Models\Workout|null $workout
- *
  * @method static \Database\Factories\RecordSetFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet newQuery()
@@ -53,7 +52,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereWorkoutId($value)
- *
  * @mixin \Eloquent
  */
 class RecordSet extends Model

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
- * @property int $weight
+ * @property float $weight
  * @property int $user_id
  * @property \Illuminate\Support\Carbon $measured_at
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $tenant_id
  * @property-read \App\Models\Tenant|null $tenant
  * @property-read \App\Models\User|null $user
- *
  * @method static \Database\Factories\WeightFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Weight newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Weight newQuery()
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Weight whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Weight whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Weight whereWeight($value)
- *
  * @mixin \Eloquent
  */
 class Weight extends Model

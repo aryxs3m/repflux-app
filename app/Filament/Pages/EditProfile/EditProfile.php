@@ -4,12 +4,14 @@ namespace App\Filament\Pages\EditProfile;
 
 use App\Services\Settings\Tenant;
 use Filament\Auth\Pages\EditProfile as BaseEditProfile;
+use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Colors\Color;
 
 class EditProfile extends BaseEditProfile
 {
@@ -34,6 +36,15 @@ class EditProfile extends BaseEditProfile
                         ->nullable(),
                 ]),
                 Section::make('Preferences')->schema([
+                    Select::make('color')
+                        ->nullable()
+                        ->placeholder('(nincs szín)')
+                        ->options([
+                            'danger' => 'Red',
+                            'warning' => 'Yellow',
+                            'success' => 'Green',
+                            'info' => 'Blue',
+                        ]),
                     Select::make('language')
                         ->options([
                             'en' => 'English',
