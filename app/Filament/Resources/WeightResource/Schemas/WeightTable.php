@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\WeightResource\Schemas;
 
 use App\Filament\AbstractTableSchema;
+use App\Filament\Columns\ShortDateColumn;
 use App\Filament\Filters\TenantUserFilter;
 use App\Services\Settings\Tenant;
 use Filament\Actions\BulkActionGroup;
@@ -21,9 +22,8 @@ class WeightTable extends AbstractTableSchema
                 TextColumn::make('user.name')
                     ->label(__('columns.name'))
                     ->visibleFrom('md'),
-                TextColumn::make('measured_at')
-                    ->label(__('columns.measured_at'))
-                    ->date(),
+                ShortDateColumn::make('measured_at')
+                    ->label(__('columns.measured_at')),
                 TextColumn::make('weight')
                     ->label(__('columns.weight'))
                     ->suffix(' '.Tenant::getWeightUnitLabel()),

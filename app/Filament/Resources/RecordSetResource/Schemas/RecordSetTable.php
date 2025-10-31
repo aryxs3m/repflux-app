@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\RecordSetResource\Schemas;
 
 use App\Filament\AbstractTableSchema;
+use App\Filament\Columns\ShortDateColumn;
 use App\Filament\Filters\TenantUserFilter;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\RecordSet;
@@ -37,11 +38,10 @@ class RecordSetTable extends AbstractTableSchema
                             ->sortable()
                             ->badge()
                             ->color('danger'),
-                        TextColumn::make('set_done_at')
+                        ShortDateColumn::make('set_done_at')
                             ->alignEnd()
                             ->label('Set Done Date')
-                            ->sortable()
-                            ->date(),
+                            ->sortable(),
                     ]),
 
                     TextColumn::make('records.weight_with_base')

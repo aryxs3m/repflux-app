@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\MeasurementResource\Schemas;
 
 use App\Filament\AbstractTableSchema;
+use App\Filament\Columns\ShortDateColumn;
 use App\Filament\Filters\TenantUserFilter;
 use App\Services\Settings\Tenant;
 use Filament\Actions\BulkActionGroup;
@@ -29,9 +30,8 @@ class MeasurementTable extends AbstractTableSchema
                     ->label(__('columns.type'))
                     ->searchable(),
 
-                TextColumn::make('measured_at')
+                ShortDateColumn::make('measured_at')
                     ->label(__('columns.measured_at'))
-                    ->date()
                     ->sortable(),
 
                 TextColumn::make('value')
