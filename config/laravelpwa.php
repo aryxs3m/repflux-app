@@ -6,7 +6,7 @@ return [
         'name' => 'Repflux',
         'short_name' => 'Repflux',
         'start_url' => '/app',
-        'background_color' => '#333333',
+        'background_color' => '#000000',
         'theme_color' => '#000000',
         'display' => 'standalone',
         'orientation' => 'natural',
