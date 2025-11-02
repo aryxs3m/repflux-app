@@ -73,6 +73,8 @@ class RecordSet extends Model
         'cardio_measurement_speed_rotation',
         'cardio_measurement_climbed',
         'cardio_measurement_heart_rate',
+        'cardio_measurement_steps',
+        'cardio_measurement_average_steps',
     ];
 
     public function recordType(): BelongsTo
