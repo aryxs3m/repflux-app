@@ -14,6 +14,7 @@ enum CardioMeasurement: string implements HasLabel
     case CLIMBED = 'climbed';
     case HEART_RATE = 'heart_rate';
     case STEPS = 'steps';
+    case AVERAGE_STEPS = 'average_steps';
 
     public function getLabel(): string
     {

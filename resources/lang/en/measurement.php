@@ -9,4 +9,5 @@ return [
     'climbed' => 'Total climb',
     'heart_rate' => 'Heart rate',
     'steps' => 'Steps',
+    'average_steps' => 'Average steps (stairs/min)',
 ];

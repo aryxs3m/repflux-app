@@ -8,5 +8,6 @@ return [
     'speed_rotation' => 'Átlagos sebesség (rpm)',
     'climbed' => 'Mászás',
     'heart_rate' => 'Szívverés',
-    'steps' => 'Lépések',
+    'steps' => 'Lépcsőfokok',
+    'average_steps' => 'Átlagos lépések (lépcső/perc)',
 ];
