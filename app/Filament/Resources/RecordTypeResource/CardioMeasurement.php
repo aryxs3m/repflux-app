@@ -13,6 +13,7 @@ enum CardioMeasurement: string implements HasLabel
     case SPEED_ROTATION = 'speed_rotation';
     case CLIMBED = 'climbed';
     case HEART_RATE = 'heart_rate';
+    case STEPS = 'steps';
 
     public function getLabel(): string
     {
@@ -27,6 +28,7 @@ enum CardioMeasurement: string implements HasLabel
             self::SPEED_DISTANCE => 'km/h',
             self::SPEED_ROTATION => 'rpm',
             self::HEART_RATE => 'bpm',
+            default => '',
         };
     }
 
