@@ -96,7 +96,6 @@ class RecordSetForm extends AbstractFormSchema
     {
         $lastRecordSet = self::getLastRecordSet($state);
         $set('last_set_info', $lastRecordSet);
-        $set('last_set_created_at', $lastRecordSet ? sprintf('%s — %s', $lastRecordSet->created_at->diffForHumans(), $lastRecordSet->created_at->format('M j (D)')) : '');
     }
 
     protected static function getSetWizardStep(): Wizard\Step
@@ -233,8 +232,6 @@ class RecordSetForm extends AbstractFormSchema
             ->components([
                 Section::make('Last Set')
                     ->schema([
-                        TextEntry::make('last_set_created_at')
-                            ->hiddenLabel(),
                         Field::make('last_set_info')
                             ->hiddenLabel()
                             ->default(self::getLastRecordSet(null))
@@ -245,7 +242,9 @@ class RecordSetForm extends AbstractFormSchema
                     self::getWeightRepsWizardStep(),
                     self::getOtherRepsWizardStep(),
                     self::getResultsWizardStep(),
-                ]),
+                ])->startOnStep(function (RecordSet|null $record) {
+                    return $record === null ? 1 : 2;
+                }),
             ])
             ->columns(1);
     }

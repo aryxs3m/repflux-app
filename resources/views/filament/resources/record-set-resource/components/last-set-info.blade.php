@@ -4,6 +4,9 @@
     @if($getState() === null || is_array($getState()))
         <div class="text-center text-gray-500">No records yet, make your first!</div>
     @else
+        <div class="mb-3">
+            {{ sprintf('%s — %s', $getState()->created_at->diffForHumans(), $getState()->created_at->format('M j (D)')) }}
+        </div>
         <div class="flex justify-center md:justify-between justify-content-center items-center gap-2 flex-wrap md:flex-nowrap">
             @php /** @var Record $record */ @endphp
             @foreach($getState()->records as $record)

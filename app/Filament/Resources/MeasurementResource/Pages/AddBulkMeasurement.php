@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\MeasurementResource\Pages;
 
+use App\Filament\AbstractCreateRecord;
 use App\Filament\Fields\UserSelect;
 use App\Filament\Resources\MeasurementResource;
 use App\Models\Measurement;
@@ -9,13 +10,12 @@ use App\Models\MeasurementType;
 use App\Services\Settings\Tenant;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Pages\CreateRecord;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 
-class AddBulkMeasurement extends CreateRecord
+class AddBulkMeasurement extends AbstractCreateRecord
 {
     protected static string $resource = MeasurementResource::class;
 
@@ -72,10 +72,5 @@ class AddBulkMeasurement extends CreateRecord
 
         // Dummy return to satisfy the method signature
         return new Measurement;
-    }
-
-    protected function getRedirectUrl(): string
-    {
-        return $this->getResource()::getUrl('index');
     }
 }

@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\RecordTypeResource\Pages;
 
+use App\Filament\AbstractCreateRecord;
 use App\Filament\Resources\RecordTypeResource;
-use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 
-class CreateRecordType extends CreateRecord
+class CreateRecordType extends AbstractCreateRecord
 {
     protected static string $resource = RecordTypeResource::class;
 

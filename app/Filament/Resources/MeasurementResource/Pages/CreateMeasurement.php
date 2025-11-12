@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\MeasurementResource\Pages;
 
+use App\Filament\AbstractCreateRecord;
 use App\Filament\Resources\MeasurementResource;
-use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 
-class CreateMeasurement extends CreateRecord
+class CreateMeasurement extends AbstractCreateRecord
 {
     protected static string $resource = MeasurementResource::class;
 
