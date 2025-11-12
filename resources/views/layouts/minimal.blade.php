@@ -1,4 +1,4 @@
-<html lang="en" class="bg-gray-50">
+<html lang="en" class="bg-black text-gray-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
