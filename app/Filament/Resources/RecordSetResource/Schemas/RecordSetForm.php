@@ -19,7 +19,6 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
@@ -242,7 +241,7 @@ class RecordSetForm extends AbstractFormSchema
                     self::getWeightRepsWizardStep(),
                     self::getOtherRepsWizardStep(),
                     self::getResultsWizardStep(),
-                ])->startOnStep(function (RecordSet|null $record) {
+                ])->startOnStep(function (?RecordSet $record) {
                     return $record === null ? 1 : 2;
                 }),
             ])

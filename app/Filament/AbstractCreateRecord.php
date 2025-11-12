@@ -4,11 +4,10 @@ namespace App\Filament;
 
 use Filament\Resources\Pages\CreateRecord;
 
-abstract class AbstractCreateRecord extends CreateRecord {
+abstract class AbstractCreateRecord extends CreateRecord
+{
     /**
      * After save, redirect to the resource list/index.
-     *
-     * @return string
      */
     protected function getRedirectUrl(): string
     {
