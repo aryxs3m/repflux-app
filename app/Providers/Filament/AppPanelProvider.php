@@ -126,6 +126,7 @@ class AppPanelProvider extends PanelProvider
             ->plugins([
                 FilamentApexChartsPlugin::make(),
                 FilamentSocialitePlugin::make()
+                    ->rememberLogin(true)
                     ->providers([
                         Provider::make('google')
                             ->label('Google')
