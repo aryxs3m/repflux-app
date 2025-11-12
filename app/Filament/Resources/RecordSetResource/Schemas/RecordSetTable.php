@@ -93,7 +93,7 @@ class RecordSetTable extends AbstractTableSchema
                     ->collapsible(),
             ])
             ->paginationPageOptions([12, 24, 36, 48, 60])
-            ->defaultPaginationPageOption(12)
+            ->defaultPaginationPageOption(24)
             ->defaultSort('id', 'desc');
     }
 }
