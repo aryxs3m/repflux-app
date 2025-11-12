@@ -70,8 +70,13 @@ class ViewWorkout extends ViewRecord
                                 ->visible(fn ($record) => $record->recordType->exercise_type === ExerciseType::CARDIO)
                                 ->schema(fn ($record) => CardioMeasurementTransformer::getEntries($record))
                                 ->columnSpanFull(),
+                            Action::make('view_set')
+                                ->visible(fn ($record) => $record->recordType->exercise_type === ExerciseType::CARDIO)
+                                ->color('gray')
+                                ->url(fn (RecordSet $recordSet) => ViewRecordSet::getUrl(['record' => $recordSet])),
                             Section::make('Set')
                                 ->collapsed()
+                                ->visible(fn ($record) => $record->recordType->exercise_type !== ExerciseType::CARDIO)
                                 ->headerActions([
                                     Action::make('view_set')
                                         ->color('gray')
