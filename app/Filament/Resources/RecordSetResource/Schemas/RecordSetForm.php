@@ -73,12 +73,8 @@ class RecordSetForm extends AbstractFormSchema
                     $component->hintIcon(null);
 
                     if (! empty($state)) {
-                        $lastRecordSet = self::getLastRecordSet($state);
-                        $set('last_set_info', $lastRecordSet);
-                        $set('last_set_created_at', $lastRecordSet ? sprintf('%s — %s', $lastRecordSet->created_at->diffForHumans(), $lastRecordSet->created_at->format('M j (D)')) : '');
-
+                        self::updateLastRecordSet($state, $set);
                         $recordType = RecordType::query()->find($state);
-
                         $set('exercise_type', $recordType->exercise_type);
 
                         if (empty($recordType?->notes)) {
@@ -94,6 +90,13 @@ class RecordSetForm extends AbstractFormSchema
                 ->live()
                 ->default(ExerciseType::WEIGHT),
         ]);
+    }
+
+    protected static function updateLastRecordSet($state, Set $set): void
+    {
+        $lastRecordSet = self::getLastRecordSet($state);
+        $set('last_set_info', $lastRecordSet);
+        $set('last_set_created_at', $lastRecordSet ? sprintf('%s — %s', $lastRecordSet->created_at->diffForHumans(), $lastRecordSet->created_at->format('M j (D)')) : '');
     }
 
     protected static function getSetWizardStep(): Wizard\Step
