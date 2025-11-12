@@ -19,6 +19,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
@@ -72,7 +73,9 @@ class RecordSetForm extends AbstractFormSchema
                     $component->hintIcon(null);
 
                     if (! empty($state)) {
-                        $set('last_set_info', self::getLastRecordSet($state));
+                        $lastRecordSet = self::getLastRecordSet($state);
+                        $set('last_set_info', $lastRecordSet);
+                        $set('last_set_created_at', $lastRecordSet ? sprintf('%s — %s', $lastRecordSet->created_at->diffForHumans(), $lastRecordSet->created_at->format('M j (D)')) : '');
 
                         $recordType = RecordType::query()->find($state);
 
@@ -227,6 +230,8 @@ class RecordSetForm extends AbstractFormSchema
             ->components([
                 Section::make('Last Set')
                     ->schema([
+                        TextEntry::make('last_set_created_at')
+                            ->hiddenLabel(),
                         Field::make('last_set_info')
                             ->hiddenLabel()
                             ->default(self::getLastRecordSet(null))
