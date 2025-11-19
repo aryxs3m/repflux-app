@@ -39,7 +39,8 @@ class ViewWorkout extends ViewRecord
                 ->color('success')
                 ->icon(Heroicon::OutlinedPlusCircle)
                 ->url(CreateRecordSet::getUrl()),
-            EditAction::make(),
+            EditAction::make()
+                ->color('gray'),
         ];
     }
 
@@ -79,6 +80,8 @@ class ViewWorkout extends ViewRecord
                                 ->visible(fn ($record) => $record->recordType->exercise_type !== ExerciseType::CARDIO)
                                 ->headerActions([
                                     Action::make('view_set')
+                                        ->icon(Heroicon::OutlinedEye)
+                                        ->label(__('common.open'))
                                         ->color('gray')
                                         ->url(fn (RecordSet $recordSet) => ViewRecordSet::getUrl(['record' => $recordSet])),
                                 ])

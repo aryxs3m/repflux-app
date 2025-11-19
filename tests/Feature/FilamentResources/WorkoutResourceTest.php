@@ -25,4 +25,5 @@ class WorkoutResourceTest extends BaseResourceTestCase
     protected static bool $hasViewPage = true;
 
     protected static bool $hasCreatePage = false;
+    protected static bool $hasEditPage = false; // only available in modal
 }

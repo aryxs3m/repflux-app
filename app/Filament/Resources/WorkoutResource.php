@@ -47,7 +47,6 @@ class WorkoutResource extends Resource
         return [
             'index' => Pages\ListWorkouts::route('/'),
             'view' => Pages\ViewWorkout::route('/view/{record}'),
-            'edit' => Pages\EditWorkout::route('/{record}/edit'),
         ];
     }
 
