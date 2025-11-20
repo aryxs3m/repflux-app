@@ -2,18 +2,16 @@
 
 namespace App\Filament\Resources\RecordSetResource\Pages;
 
+use App\Filament\Actions\OpenWorkoutAction;
 use App\Filament\Resources\RecordSetResource;
 use App\Filament\Resources\RecordSetResource\Actions\CreateRecordSetAction;
-use App\Filament\Actions\OpenWorkoutAction;
 use App\Filament\Resources\RecordSetResource\Actions\ReplicateRecordSetAction;
 use App\Filament\Resources\RecordSetResource\Widgets\RecordSetChart;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
-use App\Filament\Resources\WorkoutResource\Pages\ViewWorkout;
 use App\Models\Record;
 use App\Models\RecordSet;
 use App\Services\Settings\Tenant;
 use Filament\Actions\Action;
-use Filament\Actions\CreateAction;
 use Filament\Actions\EditAction;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;

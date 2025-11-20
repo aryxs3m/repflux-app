@@ -15,7 +15,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Opens the last Workout or if used on a RecordSet Edit or View page the Workout where the RecordSet belongs.
  */
-class OpenWorkoutAction extends Action {
+class OpenWorkoutAction extends Action
+{
     public function getRecord(bool $withDefault = true): Model|array|null
     {
         if ($this->record == null) {

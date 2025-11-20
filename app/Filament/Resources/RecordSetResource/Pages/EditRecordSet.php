@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\RecordSetResource\Pages;
 
+use App\Filament\Actions\OpenWorkoutAction;
 use App\Filament\Resources\RecordSetResource;
 use App\Filament\Resources\RecordSetResource\Actions\CreateRecordSetAction;
-use App\Filament\Actions\OpenWorkoutAction;
 use App\Filament\Resources\RecordSetResource\Actions\ReplicateRecordSetAction;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
