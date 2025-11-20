@@ -11,7 +11,6 @@ use Illuminate\Contracts\Support\Htmlable;
 
 class WorkoutWeightProgressionChart extends ChartWidget
 {
-    protected ?string $heading = '';
     protected ?string $pollingInterval = null;
 
     public ?Workout $record = null;

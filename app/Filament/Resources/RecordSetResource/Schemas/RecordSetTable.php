@@ -33,13 +33,7 @@ class RecordSetTable extends AbstractTableSchema
 
                     Split::make([
                         UserBadgeColumn::make('user')
-                            ->sortable()
-                            ->searchable(),
-                        /*TextColumn::make('user.name')
-                            ->searchable()
-                            ->sortable()
-                            ->badge()
-                            ->color('danger'),*/
+                            ->sortable(),
                         ShortDateColumn::make('set_done_at')
                             ->alignEnd()
                             ->label('Set Done Date')
