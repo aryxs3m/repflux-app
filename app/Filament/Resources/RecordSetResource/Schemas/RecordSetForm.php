@@ -7,6 +7,7 @@ use App\Filament\Fields\UserSelect;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurementTransformer;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
+use App\Http\Requests\RecordSetQuickCreateRequest;
 use App\Models\RecordCategory;
 use App\Models\RecordSet;
 use App\Models\RecordType;
@@ -19,6 +20,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
+use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
@@ -45,18 +47,8 @@ class RecordSetForm extends AbstractFormSchema
             Select::make('record_type_id')
                 ->live()
                 ->placeholder(fn (Get $get): string => empty($get('record_category_id')) ? 'First select category' : 'Select an option')
-                ->options(function (?RecordSet $record, Get $get, Set $set, Field $component) use ($recordSetSession) {
-                    if (! empty($record) && empty($get('record_category_id'))) {
-                        $set('record_category_id', $record->recordType->recordCategory->id);
-                        $set('record_type_id', $record->recordType->id);
-                        $component->callAfterStateUpdated();
-                    }
-
-                    if (empty($record) && empty($get('record_category_id')) && $recordSetSession->hasLastRecord()) {
-                        $set('record_category_id', $recordSetSession->getLastRecordCategoryId());
-                        $set('record_type_id', $recordSetSession->getLastRecordTypeId());
-                        $component->callAfterStateUpdated();
-                    }
+                ->options(function (?RecordSet $record, Get $get, Set $set, Field $component, RecordSetQuickCreateRequest $request) use ($recordSetSession) {
+                    self::updateOnLoad($record, $get, $set, $component, $request, $recordSetSession);
 
                     return RecordType::query()
                         ->where('record_category_id', $get('record_category_id'))
@@ -94,7 +86,8 @@ class RecordSetForm extends AbstractFormSchema
     protected static function updateLastRecordSet($state, Set $set): void
     {
         $lastRecordSet = self::getLastRecordSet($state);
-        $set('last_set_info', $lastRecordSet);
+
+        $set('last_set_info', ['set' => $lastRecordSet]);
     }
 
     protected static function getSetWizardStep(): Wizard\Step
@@ -201,7 +194,7 @@ class RecordSetForm extends AbstractFormSchema
             });
     }
 
-    protected static function getLastRecordSet(RecordType|int|null $recordTypeId)
+    protected static function getLastRecordSet(RecordType|int|null $recordTypeId): ?RecordSet
     {
         $recordSetSession = app(RecordSetSessionService::class);
 
@@ -227,13 +220,23 @@ class RecordSetForm extends AbstractFormSchema
 
     public static function configure(Schema $schema): Schema
     {
+        $request = app(RecordSetQuickCreateRequest::class);
+
+        /** @var RecordSet $record */
+        $record = $schema->getRecord();
+        $lastRecordType = $record?->record_type_id;
+
+        if ($request->has('type_id')) {
+            $lastRecordType = $request->validated('type_id');
+        }
+
         return $schema
             ->components([
                 Section::make('Last Set')
                     ->schema([
                         Field::make('last_set_info')
                             ->hiddenLabel()
-                            ->default(self::getLastRecordSet(null))
+                            ->default(['set' => self::getLastRecordSet($lastRecordType)])
                             ->view('filament.resources.record-set-resource.components.last-set-info'),
                     ]),
                 Wizard::make([
@@ -246,5 +249,27 @@ class RecordSetForm extends AbstractFormSchema
                 }),
             ])
             ->columns(1);
+    }
+
+    protected static function updateOnLoad(?RecordSet $record, Get $get, Set $set, Field|Component $component,
+        RecordSetQuickCreateRequest $request, mixed $recordSetSession): void
+    {
+        if (! empty($record) && empty($get('record_category_id'))) {
+            $set('record_category_id', $record->recordType->recordCategory->id);
+            $set('record_type_id', $record->recordType->id);
+            $component->callAfterStateUpdated();
+        }
+
+        if (empty($record) && $request->has('type_id') && $request->has('category_id')) {
+            $set('record_category_id', $request->validated('category_id'));
+            $set('record_type_id', $request->validated('type_id'));
+            $component->callAfterStateUpdated();
+        }
+
+        if (empty($record) && empty($get('record_category_id')) && $recordSetSession->hasLastRecord()) {
+            $set('record_category_id', $recordSetSession->getLastRecordCategoryId());
+            $set('record_type_id', $recordSetSession->getLastRecordTypeId());
+            $component->callAfterStateUpdated();
+        }
     }
 }
