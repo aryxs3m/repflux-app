@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\RecordCategoryResource\Schemas;
 
-use App\Filament\AbstractFormSchema;
+use App\Filament\Abstract\Schema\AbstractFormSchema;
 use App\Models\RecordCategory;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;

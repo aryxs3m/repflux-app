@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\ProgressionResource\Schemas;
 
-use App\Filament\AbstractTableSchema;
+use App\Filament\Abstract\Schema\AbstractTableSchema;
 use App\Models\RecordType;
 use App\Services\PersonalRecordsService;
 use App\Services\Settings\Tenant;

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\TenantResources\UserResource\Schemas;
 
-use App\Filament\AbstractTableSchema;
+use App\Filament\Abstract\Schema\AbstractTableSchema;
 use App\Models\User;
 use App\Services\Settings\Tenant;
 use Filament\Actions\Action;

@@ -2,16 +2,15 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Actions\OpenWorkoutAction;
 use App\Filament\Resources\RecordSetResource\Pages\CreateRecordSet;
+use App\Models\Workout;
 use Filament\Actions\Action;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
 
 class Dashboard extends \Filament\Pages\Dashboard
 {
-    /**
-     * @return string|null
-     */
     public static function getNavigationLabel(): string
     {
         return __('pages.dashboard.title');
@@ -32,6 +31,7 @@ class Dashboard extends \Filament\Pages\Dashboard
                 ->color('success')
                 ->size('md')
                 ->button(),
+            OpenWorkoutAction::make()
         ];
     }
 }

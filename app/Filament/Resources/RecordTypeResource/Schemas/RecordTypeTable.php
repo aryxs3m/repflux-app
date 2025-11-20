@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\RecordTypeResource\Schemas;
 
-use App\Filament\AbstractTableSchema;
+use App\Filament\Abstract\Schema\AbstractTableSchema;
 use App\Services\Settings\Tenant;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;

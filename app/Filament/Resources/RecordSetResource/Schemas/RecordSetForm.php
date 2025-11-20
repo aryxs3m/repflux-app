@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\RecordSetResource\Schemas;
 
-use App\Filament\AbstractFormSchema;
+use App\Filament\Abstract\Schema\AbstractFormSchema;
 use App\Filament\Fields\UserSelect;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurementTransformer;

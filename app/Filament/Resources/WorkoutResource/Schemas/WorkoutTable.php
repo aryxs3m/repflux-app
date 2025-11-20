@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\WorkoutResource\Schemas;
 
-use App\Filament\AbstractTableSchema;
+use App\Filament\Abstract\Schema\AbstractTableSchema;
 use App\Filament\Columns\ShortDateColumn;
 use App\Services\Settings\Tenant;
 use Filament\Actions\BulkActionGroup;

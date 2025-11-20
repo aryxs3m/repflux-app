@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\WeightResource\Pages;
 
-use App\Filament\AbstractCreateRecord;
+use App\Filament\Abstract\Page\AbstractCreateRecord;
 use App\Filament\Resources\WeightResource;
 use Illuminate\Contracts\Support\Htmlable;
 

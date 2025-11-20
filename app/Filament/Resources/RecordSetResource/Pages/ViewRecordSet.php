@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\RecordSetResource\Pages;
 
 use App\Filament\Resources\RecordSetResource;
+use App\Filament\Resources\RecordSetResource\Actions\CreateRecordSetAction;
+use App\Filament\Actions\OpenWorkoutAction;
 use App\Filament\Resources\RecordSetResource\Actions\ReplicateRecordSetAction;
 use App\Filament\Resources\RecordSetResource\Widgets\RecordSetChart;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
@@ -66,13 +68,8 @@ class ViewRecordSet extends ViewRecord
                 ->icon(Heroicon::OutlinedArrowLeft)
                 ->url(ListRecordSets::getUrl())
                 ->color('gray'),
-            Action::make('workout')
-                ->label(__('pages.record_sets.workout'))
-                ->icon(Heroicon::OutlinedBolt)
-                ->url(ViewWorkout::getUrl(['record' => $this->getRecord()->workout]))
-                ->color('gray'),
-            CreateAction::make()
-                ->label(__('pages.record_sets.add_set')),
+            OpenWorkoutAction::make(),
+            CreateRecordSetAction::make(),
             EditAction::make(),
             ReplicateRecordSetAction::make(),
         ];

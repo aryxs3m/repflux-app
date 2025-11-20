@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\RecordCategoryResource\Schemas;
 
-use App\Filament\AbstractTableSchema;
+use App\Filament\Abstract\Schema\AbstractTableSchema;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;

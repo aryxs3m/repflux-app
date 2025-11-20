@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\RecordSetResource\Schemas;
 
-use App\Filament\AbstractTableSchema;
+use App\Filament\Abstract\Schema\AbstractTableSchema;
 use App\Filament\Columns\ShortDateColumn;
 use App\Filament\Columns\UserBadgeColumn;
 use App\Filament\Filters\TenantUserFilter;

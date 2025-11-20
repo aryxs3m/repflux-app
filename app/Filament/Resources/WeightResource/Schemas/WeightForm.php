@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\WeightResource\Schemas;
 
-use App\Filament\AbstractFormSchema;
+use App\Filament\Abstract\Schema\AbstractFormSchema;
 use App\Services\Settings\Tenant;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;

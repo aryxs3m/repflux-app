@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\MeasurementTypeResource\Schemas;
 
-use App\Filament\AbstractFormSchema;
+use App\Filament\Abstract\Schema\AbstractFormSchema;
 use App\Filament\Resources\MeasurementTypeResource\BodyMeasurementType;
 use App\Models\MeasurementType;
 use Filament\Forms\Components\Select;

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\WorkoutResource\Schemas;
 
-use App\Filament\AbstractFormSchema;
+use App\Filament\Abstract\Schema\AbstractFormSchema;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Components\Section;

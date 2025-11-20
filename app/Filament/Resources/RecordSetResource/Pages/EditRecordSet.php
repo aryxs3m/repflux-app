@@ -3,9 +3,10 @@
 namespace App\Filament\Resources\RecordSetResource\Pages;
 
 use App\Filament\Resources\RecordSetResource;
+use App\Filament\Resources\RecordSetResource\Actions\CreateRecordSetAction;
+use App\Filament\Actions\OpenWorkoutAction;
 use App\Filament\Resources\RecordSetResource\Actions\ReplicateRecordSetAction;
 use Filament\Actions\ActionGroup;
-use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
@@ -23,9 +24,10 @@ class EditRecordSet extends EditRecord
     {
         return [
             ActionGroup::make([
-                CreateAction::make(),
+                CreateRecordSetAction::make(),
                 ReplicateRecordSetAction::make(),
             ])->buttonGroup(),
+            OpenWorkoutAction::make(),
             DeleteAction::make(),
         ];
     }

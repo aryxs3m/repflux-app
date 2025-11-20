@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament;
+namespace App\Filament\Abstract\Page;
 
 use Filament\Resources\Pages\CreateRecord;
 

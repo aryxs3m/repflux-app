@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\RecordTypeResource\Pages;
 
-use App\Filament\AbstractCreateRecord;
+use App\Filament\Abstract\Page\AbstractCreateRecord;
 use App\Filament\Resources\RecordTypeResource;
 use Illuminate\Contracts\Support\Htmlable;
 

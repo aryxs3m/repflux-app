@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\RecordSetResource\Pages;
 
-use App\Filament\AbstractCreateRecord;
+use App\Filament\Abstract\Page\AbstractCreateRecord;
 use App\Filament\Resources\RecordSetResource;
 use App\Models\RecordSet;
 use App\Services\RecordSetSessionService;

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\RecordTypeResource\Schemas;
 
-use App\Filament\AbstractFormSchema;
+use App\Filament\Abstract\Schema\AbstractFormSchema;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\RecordType;

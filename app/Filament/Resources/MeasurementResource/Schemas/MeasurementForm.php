@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\MeasurementResource\Schemas;
 
-use App\Filament\AbstractFormSchema;
+use App\Filament\Abstract\Schema\AbstractFormSchema;
 use App\Filament\Fields\UserSelect;
 use App\Models\Measurement;
 use App\Services\Settings\Tenant;

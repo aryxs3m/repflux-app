@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\MeasurementTypeResource\Pages;
 
-use App\Filament\AbstractCreateRecord;
+use App\Filament\Abstract\Page\AbstractCreateRecord;
 use App\Filament\Resources\MeasurementTypeResource;
 use Illuminate\Contracts\Support\Htmlable;
 
