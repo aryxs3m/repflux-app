@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\WorkoutResource\Pages;
 
+use App\Filament\Resources\RecordSetResource\Actions\ReplicateRecordSetAction;
 use App\Filament\Resources\RecordSetResource\Pages\CreateRecordSet;
 use App\Filament\Resources\RecordSetResource\Pages\ViewRecordSet;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurementTransformer;
@@ -85,6 +86,8 @@ class ViewWorkout extends ViewRecord
                                         ->label(__('common.open'))
                                         ->color('gray')
                                         ->url(fn (RecordSet $recordSet) => ViewRecordSet::getUrl(['record' => $recordSet])),
+                                    ReplicateRecordSetAction::make()
+                                        ->hiddenLabel()
                                 ])
                                 ->schema([
                                     RepeatableEntry::make('records')
