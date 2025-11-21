@@ -4,10 +4,11 @@ namespace App\Filament\Resources\WorkoutResource\Widgets;
 
 use App\Models\Workout;
 use App\Services\Settings\Tenant;
-use Carbon\Carbon;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
+use Flowframe\Trend\Trend;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Collection;
 
 class WorkoutWeightProgressionChart extends ChartWidget
 {
@@ -15,27 +16,63 @@ class WorkoutWeightProgressionChart extends ChartWidget
 
     public ?Workout $record = null;
 
+    public ?string $filter = 'weekly';
+
     public function getHeading(): string|Htmlable|null
     {
-        return 'Last 10 similar workout moved weight';
+        return __('pages.workouts.widgets.weight_progression.title');
+    }
 
-        // return __('pages.workouts.widgets.weight_progression');
+    protected function getFilters(): ?array
+    {
+        return [
+            'daily' => __('pages.workouts.widgets.weight_progression.filters.daily'),
+            'weekly' => __('pages.workouts.widgets.weight_progression.filters.weekly'),
+            'halfyear' => __('pages.workouts.widgets.weight_progression.filters.halfyear'),
+        ];
+    }
+
+    protected function getRawData(): Collection
+    {
+        $data = Trend::query(Workout::query()
+            ->where('tenant_id', '=', Tenant::getTenant()->id)
+        );
+
+        switch ($this->filter) {
+            case 'daily':
+                $data = $data
+                    ->between(
+                        start: now()->subDays(30),
+                        end: now()
+                    )
+                    ->perDay();
+                break;
+            case 'weekly':
+                $data = $data
+                    ->between(
+                        start: now()->subMonths(),
+                        end: now()
+                    )
+                    ->perWeek();
+                break;
+            case 'halfyear':
+                $data = $data
+                    ->between(
+                        start: now()->subMonths(6),
+                        end: now()
+                    )
+                    ->perMonth();
+                break;
+        }
+
+        return $data->average('calc_total_weight');
     }
 
     protected function getData(): array
     {
-        $weight = \DB::select('
-            select workout_at, calc_total_weight
-            from workouts
-            where
-                tenant_id = ?
-                and
-                calc_dominant_category = ?
-            order by workout_at
-            limit 30', [Tenant::getTenant()->id, $this->record->calc_dominant_category]);
-
-        $keys = array_map(fn ($date) => Carbon::parse($date)->toFormattedDateString(), array_column($weight, 'workout_at'));
-        $values = array_column($weight, 'calc_total_weight');
+        $data = $this->getRawData();
+        $keys = $data->pluck('date')->toArray();
+        $values = $data->pluck('aggregate');
 
         return [
             'datasets' => [

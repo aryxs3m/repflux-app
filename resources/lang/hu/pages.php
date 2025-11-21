@@ -96,6 +96,14 @@ return [
             'category' => [
                 'title' => 'Gyakorlat típusok',
             ],
+            'weight_progression' => [
+                'title' => 'Megmozgatott súly változása hasonló edzéseknél',
+                'filters' => [
+                    'daily' => '30 nap',
+                    'weekly' => 'Heti',
+                    'halfyear' => 'Havi',
+                ],
+            ],
             'last_dominant_category' => 'Utolsó domináns csoport',
             'last_total_weight' => 'Utolsó edzés megmozgatott tömeg',
             'last_total_reps' => 'Utolsó edzés ismétlései',
