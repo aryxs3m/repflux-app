@@ -6,10 +6,13 @@ use App\Models\User;
 use App\Models\Workout;
 use App\Notifications\MissingWorkoutRecordNotification;
 use App\Services\Workout\WorkoutService;
+use App\Traits\HasUserContext;
 use Illuminate\Console\Command;
 
 class WorkoutMissingRecordTypeCommand extends Command
 {
+    use HasUserContext;
+
     protected $signature = 'app:workout-missing-record-type-notifier';
 
     protected $description = 'Missing record types notification';
@@ -30,10 +33,11 @@ class WorkoutMissingRecordTypeCommand extends Command
             $recordTypes = $service::getMissingRecords($workout);
             if ($recordTypes->isNotEmpty()) {
                 $workout->tenant->users->each(function (User $user) use ($workout, $recordTypes) {
+                    $this->setUserContext($user);
+
                     $this->notifyCount++;
                     $user->notify(new MissingWorkoutRecordNotification($workout, $recordTypes));
-                }
-                );
+                });
             }
         });
 

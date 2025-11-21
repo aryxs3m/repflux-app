@@ -96,6 +96,14 @@ return [
             'category' => [
                 'title' => 'Exercise categories',
             ],
+            'weight_progression' => [
+                'title' => 'Moved weight in similar workouts',
+                'filters' => [
+                    'daily' => '30 days',
+                    'weekly' => 'Weekly',
+                    'halfyear' => 'Monthly',
+                ],
+            ],
             'last_dominant_category' => 'Last dominant category',
             'last_total_weight' => 'Last workout total weight',
             'last_total_reps' => 'Last workout total reps',
@@ -103,6 +111,7 @@ return [
                 'title' => 'Grind in the last year',
             ],
         ],
+        'missing_records' => 'Missing records',
     ],
     'tenancy' => [
         'register_tenant' => 'Register tenant',
