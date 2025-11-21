@@ -36,6 +36,7 @@ class WorkoutWeightProgressionChart extends ChartWidget
     {
         $data = Trend::query(Workout::query()
             ->where('tenant_id', '=', Tenant::getTenant()->id)
+            ->where('calc_dominant_category', '=', $this->record->calc_dominant_category)
         );
 
         switch ($this->filter) {
