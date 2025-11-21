@@ -10,7 +10,9 @@ use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Filament\Resources\WorkoutResource;
 use App\Filament\Resources\WorkoutResource\Widgets\WorkoutStats;
 use App\Models\RecordSet;
+use App\Models\Workout;
 use App\Services\Settings\Tenant;
+use App\Services\Workout\WorkoutService;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Infolists\Components\RepeatableEntry;
@@ -23,6 +25,9 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
 
+/**
+ * @property Workout $record
+ */
 class ViewWorkout extends ViewRecord
 {
     protected static string $resource = WorkoutResource::class;
@@ -56,6 +61,10 @@ class ViewWorkout extends ViewRecord
 
     public function infolist(Schema $schema): Schema
     {
+        /** @var WorkoutService $ws */
+        $ws = app(WorkoutService::class);
+        $missingRecords = $ws::getMissingRecords($this->record);
+
         return $schema->schema([
             Flex::make([
                 Section::make([
@@ -79,6 +88,7 @@ class ViewWorkout extends ViewRecord
                                 ->url(fn (RecordSet $recordSet) => ViewRecordSet::getUrl(['record' => $recordSet])),
                             Section::make('Set')
                                 ->collapsed()
+                                ->heading(__('common.details'))
                                 ->visible(fn ($record) => $record->recordType->exercise_type !== ExerciseType::CARDIO)
                                 ->headerActions([
                                     Action::make('view_set')
@@ -87,6 +97,7 @@ class ViewWorkout extends ViewRecord
                                         ->color('gray')
                                         ->url(fn (RecordSet $recordSet) => ViewRecordSet::getUrl(['record' => $recordSet])),
                                     ReplicateRecordSetAction::make()
+                                        ->tooltip(__('pages.record_sets.clone_set'))
                                         ->hiddenLabel(),
                                 ])
                                 ->schema([
@@ -112,9 +123,19 @@ class ViewWorkout extends ViewRecord
                         ]),
                 ]),
                 Section::make([
+                    TextEntry::make('warnings')
+                        ->label(__('pages.workouts.missing_records'))
+                        ->color('danger')
+                        ->bulleted()
+                        ->visible($missingRecords->isNotEmpty())
+                        ->state(function () use ($missingRecords) {
+                            return $missingRecords->pluck('name');
+                        }),
                     TextEntry::make('workout_at'),
                     TextEntry::make('created_at'),
                     TextEntry::make('updated_at'),
+                    TextEntry::make('notes')
+                        ->default('-'),
                 ])->grow(false),
             ])
                 ->from('md'),

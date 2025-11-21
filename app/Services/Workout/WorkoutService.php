@@ -3,6 +3,7 @@
 namespace App\Services\Workout;
 
 use App\Models\RecordSet;
+use App\Models\RecordType;
 use App\Models\Workout;
 use App\Services\Settings\Tenant;
 use App\Services\Workout\Exceptions\MultipleWorkoutException;
@@ -114,5 +115,24 @@ class WorkoutService
             ->where('calc_dominant_category', '=', $originalWorkout->calc_dominant_category)
             ->orderBy('id', 'desc')
             ->first();
+    }
+
+    /**
+     * @return Collection|RecordType[]
+     *
+     * @noinspection PhpDocSignatureInspection
+     */
+    public static function getMissingRecords(Workout $workout): Collection
+    {
+        $users = $workout->tenant->users->count();
+
+        if ($users <= 1) {
+            return Collection::make();
+        }
+
+        $count = array_count_values($workout->recordSets->pluck('record_type_id')->toArray());
+        $ids = array_keys(array_filter($count, fn ($value) => $value < $users));
+
+        return RecordType::query()->whereIn('id', $ids)->get();
     }
 }

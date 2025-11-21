@@ -111,6 +111,7 @@ return [
                 'title' => 'Grind az elmúlt évben',
             ],
         ],
+        'missing_records' => 'Hiányos rögzítés',
     ],
     'tenancy' => [
         'register_tenant' => 'Csapat regisztrációja',
