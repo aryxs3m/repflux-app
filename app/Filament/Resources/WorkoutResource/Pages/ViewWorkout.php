@@ -73,10 +73,13 @@ class ViewWorkout extends ViewRecord
                         ->columns(3)
                         ->schema([
                             TextEntry::make('user.name')
+                                ->hiddenLabel()
                                 ->columnSpan(1),
                             TextEntry::make('recordType.name')
+                                ->hiddenLabel()
                                 ->columnSpan(1),
                             TextEntry::make('recordType.recordCategory.name')
+                                ->hiddenLabel()
                                 ->columnSpan(1),
                             Grid::make(4)
                                 ->visible(fn ($record) => $record->recordType->exercise_type === ExerciseType::CARDIO)
