@@ -133,6 +133,8 @@ class WorkoutService
         $count = array_count_values($workout->recordSets->pluck('record_type_id')->toArray());
         $ids = array_keys(array_filter($count, fn ($value) => $value < $users));
 
-        return RecordType::query()->whereIn('id', $ids)->get();
+        return RecordType::query()
+            ->whereIn('id', $ids)
+            ->get();
     }
 }
