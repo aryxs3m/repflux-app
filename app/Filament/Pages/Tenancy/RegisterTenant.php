@@ -22,6 +22,7 @@ class RegisterTenant extends \Filament\Pages\Tenancy\RegisterTenant
             ->components([
                 TextInput::make('name')
                     ->default(__('pages.tenancy.default_tenant_name', ['user' => auth()->user()->name]))
+                    ->autofocus()
                     ->required(),
                 Select::make('unit_type')
                     ->options([
