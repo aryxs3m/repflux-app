@@ -96,8 +96,9 @@ class ViewWorkout extends ViewRecord
                                 ->headerActions([
                                     Action::make('view_set')
                                         ->icon(Heroicon::OutlinedEye)
-                                        ->label(__('common.open'))
+                                        ->tooltip(__('common.open'))
                                         ->color('gray')
+                                        ->hiddenLabel()
                                         ->url(fn (RecordSet $recordSet) => ViewRecordSet::getUrl(['record' => $recordSet])),
                                     ReplicateRecordSetAction::make()
                                         ->tooltip(__('pages.record_sets.clone_set'))
