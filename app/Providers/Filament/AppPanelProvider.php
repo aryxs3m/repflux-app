@@ -113,6 +113,7 @@ class AppPanelProvider extends PanelProvider
                     return Blade::render('demo-warning');
                 }
             )
+            ->globalSearch(false)
             ->renderHook(
                 PanelsRenderHook::SIDEBAR_NAV_END,
                 fn () => Blade::render('version-info'),
