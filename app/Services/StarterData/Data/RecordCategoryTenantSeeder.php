@@ -4,8 +4,9 @@ namespace App\Services\StarterData\Data;
 
 use App\Models\RecordCategory;
 use App\Models\Tenant;
+use App\Services\StarterData\StarterDataSeeder;
 
-abstract class RecordCategoryTenantSeeder
+abstract class RecordCategoryTenantSeeder implements StarterDataSeeder
 {
     public static function seed(Tenant $tenant): void
     {

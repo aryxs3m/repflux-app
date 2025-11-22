@@ -3,6 +3,9 @@
 return [
     'greeting' => 'Hali!',
 
+    'success' => 'Sikeres',
+    'starter_data_loaded' => 'A gyári adatok betöltésre kerültek!',
+
     'invite' => [
         'subject' => '💪 Repflux meghívás',
         'body' => 'Meghívtak a(z) ":tenant" Repflux csapatba.',

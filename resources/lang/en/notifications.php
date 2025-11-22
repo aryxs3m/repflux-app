@@ -3,6 +3,9 @@
 return [
     'greeting' => 'Hi!',
 
+    'success' => 'Success',
+    'starter_data_loaded' => 'Default data loaded!',
+
     'invite' => [
         'subject' => '💪 Repflux invitation',
         'body' => 'You have been invited to ":tenant" in Repflux.',

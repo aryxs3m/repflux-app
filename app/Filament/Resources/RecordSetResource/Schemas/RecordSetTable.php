@@ -6,6 +6,7 @@ use App\Filament\Abstract\Schema\AbstractTableSchema;
 use App\Filament\Columns\ShortDateColumn;
 use App\Filament\Columns\UserBadgeColumn;
 use App\Filament\Filters\TenantUserFilter;
+use App\Filament\Resources\RecordSetResource\Actions\CreateRecordSetAction;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\RecordSet;
 use App\Services\Settings\Tenant;
@@ -14,6 +15,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
@@ -25,6 +27,11 @@ class RecordSetTable extends AbstractTableSchema
     public static function configure(Table $table): Table
     {
         return $table
+            ->emptyStateDescription(__('pages.record_sets.empty_state'))
+            ->emptyStateActions([
+                CreateRecordSetAction::make()
+                    ->icon(Heroicon::Plus),
+            ])
             ->columns([
                 Stack::make([
                     TextColumn::make('recordType.name')

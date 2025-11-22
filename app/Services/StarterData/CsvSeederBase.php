@@ -5,7 +5,7 @@ namespace App\Services\StarterData;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
-abstract class CsvSeederBase
+abstract class CsvSeederBase implements StarterDataSeeder
 {
     protected static function getCSV(string $filePath): array
     {

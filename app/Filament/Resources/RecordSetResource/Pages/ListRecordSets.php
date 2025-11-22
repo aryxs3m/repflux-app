@@ -18,9 +18,7 @@ class ListRecordSets extends ListRecords
 
     protected function getFooterWidgets(): array
     {
-        return [
-            RecordSetResource\Widgets\LastRecordsWidget::class,
-        ];
+        return [];
     }
 
     protected function getHeaderActions(): array
