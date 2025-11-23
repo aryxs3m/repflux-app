@@ -10,6 +10,7 @@ enum ExerciseType: string implements HasDescription, HasLabel
     case WEIGHT = 'weight';
     case CARDIO = 'cardio';
     case OTHER = 'other';
+    case TIME = 'time';
 
     public function getLabel(): string
     {

@@ -13,4 +13,8 @@ return [
         'label' => 'Funcionális (saját súlyos és más)',
         'description' => 'Minden más gyakorlat, ahol ismétléseket naplózol, de súlyt nem. Például fekvőtámasz, TRX, plank, saját testsúlyos gyakorlatok.',
     ],
+    'time' => [
+        'label' => 'Idő',
+        'description' => 'Olyan gyakorlat, ahol időt mérsz. Pl. lógás.',
+    ],
 ];

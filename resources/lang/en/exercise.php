@@ -13,4 +13,8 @@ return [
         'label' => 'Functional (Bodyweight & Other)',
         'description' => 'Exercises where you track reps but not load. Examples: push-ups, TRX, planks, calisthenics.',
     ],
+    'time' => [
+        'label' => 'Time',
+        'description' => 'Exercises where you track time with a stopwatch. Examples: hanging.',
+    ],
 ];

@@ -27,6 +27,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int|null $cardio_measurement_speed_rotation
  * @property int|null $cardio_measurement_climbed
  * @property int|null $cardio_measurement_heart_rate
+ * @property int|null $cardio_measurement_steps
+ * @property int|null $cardio_measurement_average_steps
+ * @property int|null $time Measured time in seconds for TIME type RecordTypes
  * @property-read \App\Models\RecordType|null $recordType
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Record> $records
  * @property-read int|null $records_count
@@ -38,18 +41,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementAverageSteps($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementCalories($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementClimbed($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementDistance($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementHeartRate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementSpeedDistance($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementSpeedRotation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementSteps($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCardioMeasurementTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereRecordTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereSetDoneAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereTenantId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet whereWorkoutId($value)
@@ -75,6 +81,7 @@ class RecordSet extends Model
         'cardio_measurement_heart_rate',
         'cardio_measurement_steps',
         'cardio_measurement_average_steps',
+        'time',
     ];
 
     public function recordType(): BelongsTo

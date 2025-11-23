@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\RecordSetResource\Schemas;
 
 use App\Filament\Abstract\Schema\AbstractFormSchema;
+use App\Filament\Fields\Stopwatch;
 use App\Filament\Fields\UserSelect;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurementTransformer;
@@ -168,6 +169,15 @@ class RecordSetForm extends AbstractFormSchema
             ]);
     }
 
+    protected static function getTimeWizardStep(): Wizard\Step
+    {
+        return Wizard\Step::make('Time')
+            ->visible(fn (Get $get) => $get('exercise_type') === ExerciseType::TIME)
+            ->schema([
+                Stopwatch::make('time'),
+            ]);
+    }
+
     protected static function getResultsWizardStep(): Wizard\Step
     {
         return Wizard\Step::make('Results')
@@ -243,6 +253,7 @@ class RecordSetForm extends AbstractFormSchema
                     self::getSetWizardStep(),
                     self::getWeightRepsWizardStep(),
                     self::getOtherRepsWizardStep(),
+                    self::getTimeWizardStep(),
                     self::getResultsWizardStep(),
                 ])->startOnStep(function (?RecordSet $record) {
                     return $record === null ? 1 : 2;

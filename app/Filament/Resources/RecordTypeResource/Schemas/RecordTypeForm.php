@@ -5,6 +5,7 @@ namespace App\Filament\Resources\RecordTypeResource\Schemas;
 use App\Filament\Abstract\Schema\AbstractFormSchema;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
+use App\Filament\Resources\RecordTypeResource\TimeProgressionType;
 use App\Models\RecordType;
 use App\Services\Settings\Tenant;
 use App\Utilities\EnumDescriptor;
@@ -36,6 +37,7 @@ class RecordTypeForm extends AbstractFormSchema
 
                     Radio::make('exercise_type')
                         ->live()
+                        ->default(ExerciseType::WEIGHT)
                         ->options(ExerciseType::class)
                         ->descriptions(EnumDescriptor::getAll(ExerciseType::class)),
                 ]),
@@ -57,6 +59,13 @@ class RecordTypeForm extends AbstractFormSchema
                             ->multiple()
                             ->options(CardioMeasurement::class)
                             ->visible(fn (Get $get) => $get('exercise_type') === ExerciseType::CARDIO),
+
+                        Radio::make('time_progression_type')
+                            ->visible(fn (Get $get) => $get('exercise_type') === ExerciseType::TIME)
+                            ->label('Progresszió típusa')
+                            ->options(TimeProgressionType::class)
+                            ->descriptions(EnumDescriptor::getAll(TimeProgressionType::class))
+                            ->default(TimeProgressionType::UP),
                     ])->columnSpanFull(),
 
                 TextEntry::make('created_at')

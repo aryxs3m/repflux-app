@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
+use App\Filament\Resources\RecordTypeResource\TimeProgressionType;
 use App\Models\Traits\HasTenantRelationship;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $notes
  * @property ExerciseType $exercise_type
  * @property array<array-key, mixed>|null $cardio_measurements
+ * @property TimeProgressionType|null $time_progression_type
  * @property-read \App\Models\RecordCategory|null $recordCategory
  * @property-read \App\Models\Tenant|null $tenant
  *
@@ -35,6 +37,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereNotes($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereRecordCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereTenantId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereTimeProgressionType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereUpdatedAt($value)
  *
  * @mixin \Eloquent
@@ -51,6 +54,7 @@ class RecordType extends Model
         'notes',
         'exercise_type',
         'cardio_measurements',
+        'time_progression_type',
     ];
 
     protected function casts(): array
@@ -58,6 +62,7 @@ class RecordType extends Model
         return [
             'cardio_measurements' => 'json',
             'exercise_type' => ExerciseType::class,
+            'time_progression_type' => TimeProgressionType::class,
         ];
     }
 

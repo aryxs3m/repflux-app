@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\WorkoutResource\Pages;
 
+use App\Filament\Entries\StopwatchEntry;
 use App\Filament\Resources\RecordSetResource\Actions\ReplicateRecordSetAction;
 use App\Filament\Resources\RecordSetResource\Pages\CreateRecordSet;
 use App\Filament\Resources\RecordSetResource\Pages\ViewRecordSet;
@@ -85,14 +86,15 @@ class ViewWorkout extends ViewRecord
                                 ->visible(fn ($record) => $record->recordType->exercise_type === ExerciseType::CARDIO)
                                 ->schema(fn ($record) => CardioMeasurementTransformer::getEntries($record))
                                 ->columnSpanFull(),
+                            StopwatchEntry::make('time'),
                             Action::make('view_set')
-                                ->visible(fn ($record) => $record->recordType->exercise_type === ExerciseType::CARDIO)
+                                ->visible(fn ($record) => in_array($record->recordType->exercise_type, [ExerciseType::CARDIO, ExerciseType::TIME]))
                                 ->color('gray')
                                 ->url(fn (RecordSet $recordSet) => ViewRecordSet::getUrl(['record' => $recordSet])),
                             Section::make('Set')
                                 ->collapsed()
                                 ->heading(__('common.details'))
-                                ->visible(fn ($record) => $record->recordType->exercise_type !== ExerciseType::CARDIO)
+                                ->visible(fn ($record) => in_array($record->recordType->exercise_type, [ExerciseType::WEIGHT, ExerciseType::OTHER]))
                                 ->headerActions([
                                     Action::make('view_set')
                                         ->icon(Heroicon::OutlinedEye)
@@ -106,7 +108,6 @@ class ViewWorkout extends ViewRecord
                                 ])
                                 ->schema([
                                     RepeatableEntry::make('records')
-                                        ->visible(fn ($record) => $record->recordType->exercise_type !== ExerciseType::CARDIO)
                                         ->hiddenLabel()
                                         ->schema([
                                             TextEntry::make('repeat_index')
