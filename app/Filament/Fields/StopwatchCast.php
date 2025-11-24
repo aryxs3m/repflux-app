@@ -10,6 +10,11 @@ use LogicException;
  */
 final class StopwatchCast implements StateCast
 {
+    public static function format(mixed $state): string
+    {
+        return (new self)->set($state);
+    }
+
     public function get(mixed $state): ?int
     {
         if (empty($state)) {

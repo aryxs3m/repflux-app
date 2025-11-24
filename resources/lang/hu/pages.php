@@ -50,6 +50,10 @@ return [
                 'title' => 'PR',
                 'description' => 'Valaha elért legmagasabb súly',
             ],
+            'time' => [
+                'title' => 'Idő',
+                'description' => 'Mért idő',
+            ],
         ],
     ],
     'record_types' => [

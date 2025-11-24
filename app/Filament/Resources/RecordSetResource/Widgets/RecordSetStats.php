@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\RecordSetResource\Widgets;
 
+use App\Filament\Fields\StopwatchCast;
 use App\Filament\Resources\ProgressionResource\Pages\ViewProgression;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurementTransformer;
@@ -33,9 +34,19 @@ class RecordSetStats extends StatsOverviewWidget
             ];
         }
 
-        return [
-            $this->totalReps($this->record),
-        ];
+        if ($this->record->recordType->exercise_type == ExerciseType::OTHER) {
+            return [
+                $this->totalReps($this->record),
+            ];
+        }
+
+        if ($this->record->recordType->exercise_type == ExerciseType::TIME) {
+            return [
+                $this->timeStat($this->record),
+            ];
+        }
+
+        return [];
     }
 
     protected function cardioStats(RecordSet $recordSet): array
@@ -86,5 +97,12 @@ class RecordSetStats extends StatsOverviewWidget
             ->icon(Heroicon::OutlinedTrophy)
             ->description(__('pages.record_sets.widget.pr.description'))
             ->url(ViewProgression::getUrl(['record' => $record->recordType]));
+    }
+
+    protected function timeStat(RecordSet $recordSet)
+    {
+        return Stat::make(__('pages.record_sets.widget.time.title'), StopwatchCast::format($recordSet->time))
+            ->description(__('pages.record_sets.widget.time.description'))
+            ->icon(Heroicon::OutlinedClock);
     }
 }

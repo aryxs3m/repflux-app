@@ -21,6 +21,9 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
 
+/**
+ * @property RecordSet $record
+ */
 class ViewRecordSet extends ViewRecord
 {
     protected static string $resource = RecordSetResource::class;
@@ -77,7 +80,7 @@ class ViewRecordSet extends ViewRecord
     {
         return $schema->schema([
             Section::make('Weights and repeats')
-                ->visible(fn (RecordSet $record) => $record->recordType->exercise_type !== ExerciseType::CARDIO)
+                ->visible(fn (RecordSet $record) => in_array($record->recordType->exercise_type, [ExerciseType::WEIGHT, ExerciseType::OTHER]))
                 ->schema([
                     RepeatableEntry::make('records')
                         ->hiddenLabel()
