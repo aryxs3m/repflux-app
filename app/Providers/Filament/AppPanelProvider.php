@@ -114,6 +114,7 @@ class AppPanelProvider extends PanelProvider
                 }
             )
             ->globalSearch(false)
+            ->databaseNotifications()
             ->renderHook(
                 PanelsRenderHook::SIDEBAR_NAV_END,
                 fn () => Blade::render('version-info'),

@@ -2,8 +2,11 @@
 
 namespace App\Filament\Resources\RecordCategoryResource\Pages;
 
+use App\Filament\Exports\RecordCategoryExporter;
 use App\Filament\Resources\RecordCategoryResource;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
+use Filament\Actions\ExportAction;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -21,6 +24,11 @@ class ListRecordCategories extends ListRecords
         return [
             CreateAction::make()
                 ->label(__('pages.record_categories.add_category')),
+            ActionGroup::make([
+                ExportAction::make()
+                    ->label(__('common.export'))
+                    ->exporter(RecordCategoryExporter::class),
+            ]),
         ];
     }
 }
