@@ -2,18 +2,17 @@
 
 namespace App\Mail;
 
-use Illuminate\Mail\Mailable;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
 
-class TestMailableMail extends Mailable{
+class TestMailableMail extends Mailable
+{
     use Queueable, SerializesModels;
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function envelope(): Envelope
     {
