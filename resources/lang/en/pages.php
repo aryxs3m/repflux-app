@@ -50,6 +50,10 @@ return [
                 'title' => 'PR',
                 'description' => 'Heaviest weight ever reached',
             ],
+            'time' => [
+                'title' => 'Time',
+                'description' => 'Measured time',
+            ],
         ],
     ],
     'record_types' => [
