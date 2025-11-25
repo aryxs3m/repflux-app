@@ -23,7 +23,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property TimeProgressionType|null $time_progression_type
  * @property-read \App\Models\RecordCategory|null $recordCategory
  * @property-read \App\Models\Tenant|null $tenant
- *
  * @method static \Database\Factories\RecordTypeFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType newQuery()
@@ -39,7 +38,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereTenantId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereTimeProgressionType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordType whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class RecordType extends Model

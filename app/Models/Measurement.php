@@ -22,7 +22,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read \App\Models\MeasurementType|null $measurementType
  * @property-read \App\Models\Tenant|null $tenant
  * @property-read \App\Models\User|null $user
- *
  * @method static \Database\Factories\MeasurementFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Measurement newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Measurement newQuery()
@@ -35,7 +34,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Measurement whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Measurement whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Measurement whereValue($value)
- *
  * @mixin \Eloquent
  */
 class Measurement extends Model

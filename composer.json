@@ -13,6 +13,7 @@
         "flowframe/laravel-trend": "^0.4.0",
         "laravel/framework": "^12.0",
         "laravel/octane": "^2.12",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "leandrocfe/filament-apex-charts": "^4.0",
         "martinbean/socialite-discord-provider": "^1.2",

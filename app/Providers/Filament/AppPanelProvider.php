@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\ApiTokens;
 use App\Filament\Pages\EditProfile\EditProfile;
 use App\Filament\Pages\LoginPage;
 use App\Filament\Pages\RegisterPage;
@@ -10,6 +11,7 @@ use App\Filament\Pages\Tenancy\RegisterTenant;
 use App\Filament\Resources\TenantResources\UserResource;
 use App\Filament\Resources\WeightResource\Widgets\WeightChart;
 use App\Filament\Resources\WeightResource\Widgets\WeightStats;
+use App\Filament\Resources\WorkoutResource\Pages\ListWorkouts;
 use App\Filament\Resources\WorkoutResource\Widgets\WorkoutCategoryChart;
 use App\Filament\Widgets\WorkoutHeatmapChart;
 use App\Http\Middlewares\LanguageHandlerMiddleware;
@@ -93,7 +95,14 @@ class AppPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
                 LanguageHandlerMiddleware::class,
             ])
-            // ->userMenuItems([])
+            ->userMenuItems([
+                // TODO: this and the simple layout EditProfile is not compatible. Currently if you open the
+                //       editprofile page, an error raised because no tenant parameter specified for the URL generator.
+                Action::make('api-tokens')
+                    ->label(__('pages.api_tokens.title'))
+                    ->icon(Heroicon::OutlinedKey)
+                    ->url(fn() => ApiTokens::getUrl())
+            ])
             ->authMiddleware([
                 Authenticate::class,
             ])

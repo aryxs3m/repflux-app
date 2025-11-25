@@ -166,4 +166,13 @@ return [
     'edit_profile' => [
         'system_default' => 'System default',
     ],
+    'api_tokens' => [
+        'title' => 'API Tokens',
+        'new_token' => 'New Token',
+        'notification' => [
+            'created_title' => 'API Token Created',
+            'created_body' => 'Copy your token. You will not be able to read it again.',
+            'created_text' => 'Copy the token, because for security reasons you will not be able to do so again.',
+        ]
+    ],
 ];

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property int $id
@@ -44,7 +45,10 @@ use Illuminate\Support\Collection;
  * @property-read \App\Models\TenantUser|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tenant> $tenants
  * @property-read int|null $tenants_count
- *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @property-read int|null $tokens_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Weight> $weights
+ * @property-read int|null $weights_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
@@ -68,13 +72,12 @@ use Illuminate\Support\Collection;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereWeightTarget($value)
- *
  * @mixin \Eloquent
  */
 class User extends Authenticatable implements FilamentUser, HasAvatar, HasTenants
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -131,6 +134,11 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasTenant
     public function measurements(): HasMany
     {
         return $this->hasMany(Measurement::class);
+    }
+
+    public function weights(): HasMany
+    {
+        return $this->hasMany(Weight::class);
     }
 
     public function canAccessPanel(Panel $panel): bool

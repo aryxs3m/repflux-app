@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \App\Models\Tenant|null $tenant
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Workout> $workouts
  * @property-read int|null $workouts_count
- *
  * @method static \Database\Factories\RecordCategoryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordCategory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordCategory newQuery()
@@ -28,7 +27,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordCategory whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordCategory whereTenantId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordCategory whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class RecordCategory extends Model

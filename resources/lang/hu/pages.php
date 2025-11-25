@@ -166,4 +166,13 @@ return [
     'edit_profile' => [
         'system_default' => 'Rendszer alapértelmezett',
     ],
+    'api_tokens' => [
+        'title' => 'API kulcsok',
+        'new_token' => 'Új token',
+        'notification' => [
+            'created_title' => 'Token létrehozva',
+            'created_body' => 'A token létrejött, használatba veheted.',
+            'created_text' => 'Másold ki a tokenedet, mert biztonsági okokból többet nem tudod megtekinteni.',
+        ]
+    ],
 ];

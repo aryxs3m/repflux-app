@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $tenant_id
  * @property BodyMeasurementType|null $measurement_type
  * @property-read \App\Models\Tenant|null $tenant
- *
  * @method static \Database\Factories\MeasurementTypeFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MeasurementType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MeasurementType newQuery()
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MeasurementType whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MeasurementType whereTenantId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MeasurementType whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class MeasurementType extends Model

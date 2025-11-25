@@ -20,11 +20,13 @@ abstract class TestCase extends BaseTestCase
 
         /** @var User $user */
         $user = User::factory()->create();
+        $user->createToken('Pest');
 
         $this->testTenant = Tenant::factory()->create();
         $this->testTenant->users()->attach($user, [
             'is_admin' => true,
         ]);
+        $this->testTenant->save();
 
         $this->actingAs($user);
         Filament::setTenant($this->testTenant);

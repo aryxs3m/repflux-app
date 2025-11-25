@@ -6,6 +6,7 @@ use App\Models\Tenant;
 use App\Models\User;
 use App\Services\Settings\Enums\UnitType;
 use Filament\Facades\Filament;
+use Illuminate\Validation\UnauthorizedException;
 
 class TenantSettingsService
 {
@@ -27,6 +28,19 @@ class TenantSettingsService
             ->first()
             ->pivot
             ->is_admin ?? false;
+    }
+
+    public function authenticate($tenant, ?User $user = null): void
+    {
+        if ($user === null) {
+            $user = auth()->user();
+        }
+
+        $tenant = Tenant::query()->find($tenant);
+
+        if (!$user->canAccessTenant($tenant)) {
+            throw new UnauthorizedException("You don't have permission to access this tenant.");
+        }
     }
 
     public function getUnitType(): UnitType
