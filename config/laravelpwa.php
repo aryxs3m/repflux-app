@@ -6,10 +6,10 @@ return [
         'name' => 'Repflux',
         'short_name' => 'Repflux',
         'start_url' => '/app',
-        'background_color' => '#333333',
+        'background_color' => '#000000',
         'theme_color' => '#000000',
         'display' => 'standalone',
-        'orientation' => 'any',
+        'orientation' => 'natural',
         'status_bar' => 'black',
         'icons' => [
             // TODO: generate lower res versions too
@@ -35,12 +35,12 @@ return [
             [
                 'name' => 'Add weight',
                 'description' => 'Add new weight measurement',
-                'url' => '/app/weights/create',
+                'url' => '/shortcut/weights/create',
             ],
             [
                 'name' => 'Record a set',
                 'description' => 'Add new exercise set',
-                'url' => '/app/record-sets/create',
+                'url' => '/shortcut/record-sets/create',
             ],
         ],
         'custom' => [],

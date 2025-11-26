@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Test Coverage Report" type="PestRunConfigurationType">
+    <option name="pestRunnerSettings">
+      <PestRunner configuration_file="$PROJECT_DIR$/../repflux/phpunit.xml" method="" scope="ConfigurationFile" options="--coverage --coverage-html cov" use_alternative_configuration_file="true" />
+    </option>
+    <method v="2" />
+  </configuration>
+</component>

@@ -3,22 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RecordTypeResource\Pages;
+use App\Filament\Resources\RecordTypeResource\Schemas\RecordTypeForm;
+use App\Filament\Resources\RecordTypeResource\Schemas\RecordTypeTable;
 use App\Models\RecordType;
-use App\Services\Settings\TenantSettings;
 use BackedEnum;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
-use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use UnitEnum;
 
@@ -45,66 +36,17 @@ class RecordTypeResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    /**
+     * @throws \Exception
+     */
     public static function form(Schema $schema): Schema
     {
-        return $schema
-            ->components([
-                Section::make(__('pages.record_types.basic_settings'))->schema([
-                    Select::make('record_category_id')
-                        ->relationship('recordCategory', 'name')
-                        ->required(),
-
-                    TextInput::make('name')
-                        ->required(),
-
-                    TextInput::make('base_weight')
-                        ->default(0)
-                        ->suffix(TenantSettings::getWeightUnitLabel())
-                        ->required(),
-                ]),
-                Section::make(__('pages.record_types.other'))->schema([
-                    Textarea::make('notes')
-                        ->nullable(),
-                ]),
-
-                TextEntry::make('created_at')
-                    ->label('Created Date')
-                    ->state(fn (?RecordType $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                TextEntry::make('updated_at')
-                    ->label('Last Modified Date')
-                    ->state(fn (?RecordType $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
-            ]);
+        return RecordTypeForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                TextColumn::make('recordCategory.name')
-                    ->label(__('columns.category'))
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('name')
-                    ->label(__('columns.exercise'))
-                    ->searchable()
-                    ->sortable(),
-                TextColumn::make('base_weight')
-                    ->label(__('columns.base_weight'))
-                    ->suffix(' '.TenantSettings::getWeightUnitLabel()),
-            ])
-            ->filters([
-                //
-            ])
-            ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ]);
+        return RecordTypeTable::configure($table);
     }
 
     public static function getPages(): array

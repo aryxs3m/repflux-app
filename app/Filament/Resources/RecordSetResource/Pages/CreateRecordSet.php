@@ -2,14 +2,14 @@
 
 namespace App\Filament\Resources\RecordSetResource\Pages;
 
+use App\Filament\Abstract\Page\AbstractCreateRecord;
 use App\Filament\Resources\RecordSetResource;
 use App\Models\RecordSet;
 use App\Services\RecordSetSessionService;
-use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 
-class CreateRecordSet extends CreateRecord
+class CreateRecordSet extends AbstractCreateRecord
 {
     protected static string $resource = RecordSetResource::class;
 
@@ -26,6 +26,17 @@ class CreateRecordSet extends CreateRecord
         app(RecordSetSessionService::class)->updateLastOptions($recordSet);
 
         return $recordSet;
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        $resource = static::getResource();
+
+        if ($resource::hasPage('edit') && $resource::canEdit($this->getRecord())) {
+            return $this->getResourceUrl('edit', $this->getRedirectUrlParameters());
+        }
+
+        return parent::getRedirectUrl();
     }
 
     protected function getHeaderActions(): array

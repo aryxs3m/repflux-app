@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\WeightResource\Pages;
 
+use App\Filament\Abstract\Page\AbstractCreateRecord;
 use App\Filament\Resources\WeightResource;
-use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 
-class CreateWeight extends CreateRecord
+class CreateWeight extends AbstractCreateRecord
 {
     protected static string $resource = WeightResource::class;
 

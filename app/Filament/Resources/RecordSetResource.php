@@ -4,20 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RecordSetResource\Pages;
 use App\Filament\Resources\RecordSetResource\Schemas\RecordSetForm;
+use App\Filament\Resources\RecordSetResource\Schemas\RecordSetTable;
 use App\Models\RecordSet;
-use App\Services\Settings\TenantSettings;
 use BackedEnum;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -53,51 +45,7 @@ class RecordSetResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                TextColumn::make('set_done_at')
-                    ->label('Set Done Date')
-                    ->sortable()
-                    ->date(),
-
-                TextColumn::make('user.name')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('recordType.name')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('records.weight_with_base')
-                    ->label('Rep weights')
-                    ->badge(),
-
-                TextColumn::make('total_weight')
-                    ->label('Total weight')
-                    ->state(function (RecordSet $recordSet): string {
-                        return $recordSet->records->sum(fn ($record) => $record->weight_with_base * $record->repeat_count);
-                    })
-                    ->suffix(' '.TenantSettings::getWeightUnitLabel()),
-            ])
-            ->filters([
-                SelectFilter::make('user')
-                    ->relationship('user', 'name', fn (Builder $query) => $query->whereAttachedTo(TenantSettings::getTenant(), 'tenants')),
-            ])
-            ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
-                DeleteAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ])
-            ->groups([
-                Group::make('user.name')
-                    ->collapsible(),
-            ])
-            ->defaultSort('set_done_at', 'desc');
+        return RecordSetTable::configure($table);
     }
 
     public static function getPages(): array

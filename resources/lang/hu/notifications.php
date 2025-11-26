@@ -3,6 +3,9 @@
 return [
     'greeting' => 'Hali!',
 
+    'success' => 'Sikeres',
+    'starter_data_loaded' => 'A gyári adatok betöltésre kerültek!',
+
     'invite' => [
         'subject' => '💪 Repflux meghívás',
         'body' => 'Meghívtak a(z) ":tenant" Repflux csapatba.',
@@ -19,5 +22,17 @@ return [
         'subject' => '💪 Repflux méréseid elavultak',
         'body' => 'Utoljára :ago frissítetted a testsúlyod. Mérd meg magad, hogy követhesd a progressziód!',
         'measure_now' => 'Mérés',
+    ],
+
+    'workout' => [
+        'sync_failed' => 'Sikertelen szinkronizáció',
+        'multiple_workout_exception' => 'Erre a napra több edzés van rögzítve, nem tudtam automatikusan csatolni a sorozatot.',
+        'workout_not_found_exception' => 'Erre a napra nincs edzés rögzítve, nem tudtam automatikusan csatolni a sorozatot.',
+        'missing_records' => [
+            'subject' => '🤯 Pótolnivaló rekordok a tegnapi edzésben',
+            'body' => 'A tegnapi edzésből hiányoznak neked vagy társa(i)dnak a rekordjai (:count db). Ne felejtsétek el rögzíteni!',
+            'body_details' => 'A következő gyakorlatokból találtam hiányosságot: :list',
+            'button' => 'Edzés megnyitása',
+        ],
     ],
 ];

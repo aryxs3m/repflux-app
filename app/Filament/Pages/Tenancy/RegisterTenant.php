@@ -3,6 +3,8 @@
 namespace App\Filament\Pages\Tenancy;
 
 use App\Models\Tenant;
+use App\Services\StarterData\StarterDataService;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
@@ -20,6 +22,7 @@ class RegisterTenant extends \Filament\Pages\Tenancy\RegisterTenant
             ->components([
                 TextInput::make('name')
                     ->default(__('pages.tenancy.default_tenant_name', ['user' => auth()->user()->name]))
+                    ->autofocus()
                     ->required(),
                 Select::make('unit_type')
                     ->options([
@@ -28,6 +31,9 @@ class RegisterTenant extends \Filament\Pages\Tenancy\RegisterTenant
                     ])
                     ->default('metric')
                     ->required(),
+                Checkbox::make('seed')
+                    ->label('Create exercises, categories and measurements')
+                    ->inline(),
             ]);
     }
 
@@ -35,6 +41,10 @@ class RegisterTenant extends \Filament\Pages\Tenancy\RegisterTenant
     {
         $team = Tenant::create($data);
         $team->users()->attach(auth()->user(), ['is_admin' => true]);
+
+        if ($data['seed']) {
+            app(StarterDataService::class)->seed($team);
+        }
 
         return $team;
     }

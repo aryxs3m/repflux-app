@@ -44,8 +44,42 @@ class TenantSettingsService
         return $this->getUnitType() === UnitType::METRIC ? 'cm' : 'in';
     }
 
+    public function numberFormat(int|float|null|string $number, $suffix = null): string
+    {
+        if ($number === null) {
+            return 'N/A';
+        }
+
+        if (is_string($number)) {
+            return $number;
+        }
+
+        $user = auth()->user();
+
+        $format = number_format(
+            $number,
+            $user->number_format_decimals,
+            $user->number_format_decimal_separator,
+            $user->number_format_thousands_separator
+        );
+
+        if ($suffix !== null) {
+            $format .= ' '.$suffix;
+        }
+
+        return $format;
+    }
+
     public function removeUser(User $user): void
     {
         $this->getTenant()->users()->detach($user);
+    }
+
+    /**
+     * Returns the next user in the tenant (that is not the current one), or null if there is no other user.
+     */
+    public function otherUser(): ?User
+    {
+        return $this->getTenant()->users()->where('id', '!=', auth()->id())->first();
     }
 }

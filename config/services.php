@@ -35,4 +35,32 @@ return [
         ],
     ],
 
+    'youtrack' => [
+        'base_uri' => env('YOUTRACK_BASE_URI'),
+        'token' => env('YOUTRACK_TOKEN'),
+        'issue_tag' => env('YOUTRACK_ISSUE_TAG'),
+        'project_shortname' => env('YOUTRACK_PROJECT_SHORTNAME'),
+    ],
+
+    // Socialite
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => '/app/oauth/callback/github',
+    ],
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => '/app/oauth/callback/google',
+    ],
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => '/app/oauth/callback/facebook',
+    ],
+    'discord' => [
+        'client_id' => env('DISCORD_CLIENT_ID'),
+        'client_secret' => env('DISCORD_CLIENT_SECRET'),
+        'redirect' => '/app/oauth/callback/discord',
+    ],
 ];

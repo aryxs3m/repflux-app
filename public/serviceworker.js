@@ -1,9 +1,10 @@
 var staticCacheName = "pwa-v" + new Date().getTime();
 var filesToCache = [
     '/offline',
-    '/images/logos/favicon.png',
-    '/images/logos/pwa.png',
-    '/images/logos/logo-white-blur.png',
+    '/favicon.ico',
+    '/logos/pwa.png',
+    '/logos/logo-white-blur.png',
+    '/logos/repflux_logo_transparent.png',
 ];
 
 // Cache on install

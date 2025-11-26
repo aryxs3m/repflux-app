@@ -2,8 +2,11 @@
 
 namespace App\Filament\Resources\RecordSetResource\Pages;
 
+use App\Filament\Exports\RecordSetExporter;
 use App\Filament\Resources\RecordSetResource;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
+use Filament\Actions\ExportAction;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -16,11 +19,9 @@ class ListRecordSets extends ListRecords
         return __('pages.record_sets.list_title');
     }
 
-    protected function getHeaderWidgets(): array
+    protected function getFooterWidgets(): array
     {
-        return [
-            RecordSetResource\Widgets\LastRecordsWidget::class,
-        ];
+        return [];
     }
 
     protected function getHeaderActions(): array
@@ -28,6 +29,11 @@ class ListRecordSets extends ListRecords
         return [
             CreateAction::make()
                 ->label(__('pages.record_sets.add_set')),
+            ActionGroup::make([
+                ExportAction::make()
+                    ->label(__('common.export'))
+                    ->exporter(RecordSetExporter::class),
+            ]),
         ];
     }
 }

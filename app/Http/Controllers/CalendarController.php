@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CalendarRequest;
 use App\Models\Tenant;
 use App\Services\CalendarService;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class CalendarController extends Controller
 {
-    public function events(Tenant $tenant, Request $request, CalendarService $service)
+    public function events(Tenant $tenant, CalendarRequest $request, CalendarService $service)
     {
         if (! $tenant->users->contains(auth()->user()->id)) {
             abort(403);
         }
 
-        $start = Carbon::parse($request->query('start'));
-        $end = Carbon::parse($request->query('end'));
+        $start = Carbon::parse($request->validated('start'));
+        $end = Carbon::parse($request->validated('end'));
 
         return response()->json($service->getEvents($tenant, $start, $end));
     }

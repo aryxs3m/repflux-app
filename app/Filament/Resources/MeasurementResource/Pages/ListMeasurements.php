@@ -2,9 +2,12 @@
 
 namespace App\Filament\Resources\MeasurementResource\Pages;
 
+use App\Filament\Exports\MeasurementExporter;
 use App\Filament\Resources\MeasurementResource;
 use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
+use Filament\Actions\ExportAction;
 use Filament\Facades\Filament;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Support\Htmlable;
@@ -22,6 +25,7 @@ class ListMeasurements extends ListRecords
     {
         return [
             // MeasurementResource\Widgets\MeasurementWidget::class,
+            MeasurementResource\Widgets\BRIStat::class,
             MeasurementResource\Widgets\MeasurementStats::class,
         ];
     }
@@ -36,6 +40,11 @@ class ListMeasurements extends ListRecords
                 ->url(route('filament.app.resources.measurements.bulk', ['tenant' => Filament::getTenant()])),
             CreateAction::make()
                 ->label(__('pages.measurements.add_single')),
+            ActionGroup::make([
+                ExportAction::make()
+                    ->label(__('common.export'))
+                    ->exporter(MeasurementExporter::class),
+            ]),
         ];
     }
 }

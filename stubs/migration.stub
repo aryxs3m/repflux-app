@@ -1,0 +1,22 @@
+<?php
+
+use App\RepfluxMigration;
+
+return new class extends RepfluxMigration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        //
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        //
+    }
+};

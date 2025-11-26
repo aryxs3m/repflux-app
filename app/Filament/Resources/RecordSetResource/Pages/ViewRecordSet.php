@@ -2,25 +2,28 @@
 
 namespace App\Filament\Resources\RecordSetResource\Pages;
 
+use App\Filament\Actions\OpenWorkoutAction;
 use App\Filament\Resources\RecordSetResource;
+use App\Filament\Resources\RecordSetResource\Actions\CreateRecordSetAction;
+use App\Filament\Resources\RecordSetResource\Actions\ReplicateRecordSetAction;
 use App\Filament\Resources\RecordSetResource\Widgets\RecordSetChart;
+use App\Filament\Resources\RecordTypeResource\ExerciseType;
 use App\Models\Record;
-use App\Services\Settings\TenantSettings;
-use Filament\Actions\CreateAction;
+use App\Models\RecordSet;
+use App\Services\Settings\Tenant;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
-use Filament\Actions\ReplicateAction;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property RecordSet $record
+ */
 class ViewRecordSet extends ViewRecord
 {
     protected static string $resource = RecordSetResource::class;
@@ -28,6 +31,16 @@ class ViewRecordSet extends ViewRecord
     public function getTitle(): string|Htmlable
     {
         return __('pages.record_sets.view_title');
+    }
+
+    public function getSubheading(): string|Htmlable|null
+    {
+        return sprintf(
+            '%s, %s (%s)',
+            $this->record->recordType->name,
+            $this->record->set_done_at->diffForHumans(),
+            $this->record->user->name
+        );
     }
 
     protected function getHeaderWidgets(): array
@@ -39,6 +52,10 @@ class ViewRecordSet extends ViewRecord
 
     protected function getFooterWidgets(): array
     {
+        if ($this->record->recordType->exercise_type !== ExerciseType::WEIGHT) {
+            return [];
+        }
+
         return [
             RecordSetChart::class,
         ];
@@ -47,92 +64,41 @@ class ViewRecordSet extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make()
-                ->label(__('pages.record_sets.add_set')),
+            Action::make('back')
+                ->label(__('pages.record_sets.back'))
+                ->icon(Heroicon::OutlinedArrowLeft)
+                ->url(ListRecordSets::getUrl())
+                ->color('gray'),
+            OpenWorkoutAction::make(),
+            CreateRecordSetAction::make(),
             EditAction::make(),
-            ReplicateAction::make()
-                ->color('success')
-                ->schema([
-                    Select::make('user_id')
-                        ->label(__('pages.record_sets.new_user'))
-                        ->options(TenantSettings::getTenant()->users->pluck('name', 'id'))
-                        ->searchable()
-                        ->default(auth()->id())
-                        ->preload()
-                        ->required(),
-                    Repeater::make('records')
-                        ->hiddenLabel()
-                        ->cloneable()
-                        ->afterStateHydrated(function (Set $set) {
-                            $records = $this->getRecord()->records->toArray();
-
-                            $defaults = array_map(function ($record) {
-                                return [
-                                    'repeat_count' => $record['repeat_count'],
-                                    'weight' => $record['weight'],
-                                ];
-                            }, $records);
-
-                            $set('records', $defaults);
-                        })
-                        ->orderColumn('repeat_index')
-                        ->reorderableWithButtons()
-                        ->reorderableWithDragAndDrop(false)
-                        ->minItems(1)
-                        ->addActionLabel('Add repetition')
-                        ->schema([
-                            TextInput::make('repeat_count')
-                                ->suffix('reps')
-                                ->numeric()
-                                ->minValue(0)
-                                ->columnSpan(1),
-                            TextInput::make('weight')
-                                ->suffix(TenantSettings::getWeightUnitLabel())
-                                ->numeric()
-                                ->minValue(0)
-                                ->columnSpan(1),
-                        ])
-                        ->columns([
-                            'default' => 2,
-                        ]),
-                ])
-                ->after(function (Model $replica, array $data) {
-                    $id = $replica->id;
-
-                    $index = 0;
-                    Record::query()->insert(array_map(function ($record) use ($id, $index) {
-                        $index++;
-
-                        return array_merge($record, [
-                            'repeat_index' => $index,
-                            'record_set_id' => $id,
-                        ]);
-                    }, $data['records']));
-                })
-                ->label(__('pages.record_sets.clone_set')),
+            ReplicateRecordSetAction::make(),
         ];
     }
 
     public function infolist(Schema $schema): Schema
     {
         return $schema->schema([
-            Section::make('Weights and repeats')->schema([
-                RepeatableEntry::make('records')
-                    ->hiddenLabel()
-                    ->schema([
-                        TextEntry::make('repeat_index')
-                            ->suffix('. '.__('columns.reps_short'))
-                            ->hiddenLabel(),
-                        TextEntry::make('repeat_count')
-                            ->suffix('x')
-                            ->hiddenLabel(),
-                        TextEntry::make('weight_with_base')
-                            ->hiddenLabel()
-                            ->suffix(' '.TenantSettings::getWeightUnitLabel()),
-                    ])->columns([
-                        'default' => 3,
-                    ]),
-            ])->columnSpanFull(),
+            Section::make('Weights and repeats')
+                ->visible(fn (RecordSet $record) => in_array($record->recordType->exercise_type, [ExerciseType::WEIGHT, ExerciseType::OTHER]))
+                ->schema([
+                    RepeatableEntry::make('records')
+                        ->hiddenLabel()
+                        ->schema([
+                            TextEntry::make('repeat_index')
+                                ->suffix('. '.__('columns.reps_short'))
+                                ->hiddenLabel(),
+                            TextEntry::make('repeat_count')
+                                ->suffix('x')
+                                ->hiddenLabel(),
+                            TextEntry::make('weight_with_base')
+                                ->visible(fn (Record $record) => $record->recordSet->recordType->exercise_type === ExerciseType::WEIGHT)
+                                ->hiddenLabel()
+                                ->suffix(' '.Tenant::getWeightUnitLabel()),
+                        ])->columns([
+                            'default' => 3,
+                        ]),
+                ])->columnSpanFull(),
             Section::make('Exercise')->schema([
                 TextEntry::make('recordType.name'),
                 TextEntry::make('recordType.recordCategory.name')

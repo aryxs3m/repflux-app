@@ -2,8 +2,11 @@
 
 namespace App\Filament\Resources\WeightResource\Pages;
 
+use App\Filament\Exports\WeightExporter;
 use App\Filament\Resources\WeightResource;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
+use Filament\Actions\ExportAction;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Support\Htmlable;
 
@@ -19,7 +22,7 @@ class ListWeights extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            WeightResource\Widgets\BmiWidget::class,
+            WeightResource\Widgets\WeightStats::class,
             WeightResource\Widgets\WeightChart::class,
         ];
     }
@@ -29,6 +32,11 @@ class ListWeights extends ListRecords
         return [
             CreateAction::make()
                 ->label(__('pages.weight.add_weight')),
+            ActionGroup::make([
+                ExportAction::make()
+                    ->label(__('common.export'))
+                    ->exporter(WeightExporter::class),
+            ]),
         ];
     }
 }

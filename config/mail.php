@@ -16,6 +16,10 @@ return [
 
     'default' => env('MAIL_MAILER', 'log'),
 
+    'markdown' => [
+        'theme' => 'mail.themes.repflux',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Mailer Configurations

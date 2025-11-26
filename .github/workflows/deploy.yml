@@ -1,0 +1,19 @@
+name: deploy.yml
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy on hosting1
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: hosting-1.pvga.hu
+          username: deploy
+          key: ${{ secrets.KEY }}
+          port: 22
+          script: |
+            cd /var/www/gymbro.pvga.hu
+            bash update.sh

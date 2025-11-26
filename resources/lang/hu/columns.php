@@ -11,4 +11,5 @@ return [
     'base_weight' => 'Gép/rúd súlya',
     'reps_short' => 'ism',
     'weight' => 'Súly',
+    'weight_target' => 'Cél súly',
 ];

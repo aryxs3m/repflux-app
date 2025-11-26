@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use Filament\Notifications\Livewire\Notifications;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
+use Filament\Support\Enums\VerticalAlignment;
 use Filament\Support\Facades\FilamentAsset;
+use Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,5 +31,9 @@ class AppServiceProvider extends ServiceProvider
             Js::make('js', \Vite::useHotFile('hot')
                 ->asset('resources/js/app.js', 'build')),
         ]);
+
+        Notifications::verticalAlignment(VerticalAlignment::End);
+
+        Gate::define('create-feedback', fn () => config('app.allow_feedback') === true);
     }
 }

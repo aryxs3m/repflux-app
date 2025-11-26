@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => 'gymBro',
+    'name' => 'Repflux',
 
     /*
     |--------------------------------------------------------------------------
@@ -123,4 +123,17 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'version' => env('APP_VERSION', 'local'),
+
+    'demo' => [
+        'enabled' => (bool) env('APP_DEMO', false),
+        'email' => env('APP_DEMO_EMAIL', 'demo@repflux.app'),
+        'password' => env('APP_DEMO_PASSWORD', 'RepfluxFTW987654321'),
+    ],
+
+    'ratelimit' => [
+        'register' => (int) env('APP_RATELIMIT_REGISTER', 5),
+    ],
+
+    'allow_feedback' => (bool) env('ALLOW_FEEDBACK', false),
 ];

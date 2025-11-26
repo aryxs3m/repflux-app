@@ -13,4 +13,5 @@ return [
     'reports' => 'Kimutatások',
     'settings' => 'Beállítások',
     'progression' => 'Előrehaladás',
+    'workouts' => 'Edzések',
 ];

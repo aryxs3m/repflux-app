@@ -23,3 +23,16 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 /storage/tesseract/
+
+**/caddy
+frankenphp
+frankenphp-worker.php
+/cov/
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

@@ -2,7 +2,7 @@
 
 @section('body')
     <div class="container text-center m-auto">
-        <img src="/logos/logo-black.svg" alt="gymBro" class="m-auto mb-10">
+        <img src="/logos/repflux_logo_transparent.png" alt="Repflux" class="m-auto mb-10 w-100">
         <h1 class="text-3xl font-bold">@yield('title')</h1>
 
         @yield('content')

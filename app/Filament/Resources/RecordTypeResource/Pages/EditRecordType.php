@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\RecordTypeResource\Pages;
 
+use App\Filament\Actions\NewRecordSetAction;
 use App\Filament\Resources\RecordTypeResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
@@ -19,6 +20,7 @@ class EditRecordType extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            NewRecordSetAction::make(),
             DeleteAction::make(),
         ];
     }
