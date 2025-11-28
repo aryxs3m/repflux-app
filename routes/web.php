@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\EmbedController;
 use App\Http\Controllers\InviteJoinController;
 use App\Http\Controllers\PwaShortcutController;
 use Filament\Http\Middleware\Authenticate;
@@ -20,5 +21,14 @@ Route::middleware(Authenticate::class)
         Route::get('/shortcut/record-sets/create', [PwaShortcutController::class, 'newRecordSet'])
             ->name('pwa-shortcut.new-record-set');
     });
+
+Route::prefix('embed')->name('embed.')->group(function () {
+    if (app()->hasDebugModeEnabled()) {
+        Route::get('/debug/{hash}', [EmbedController::class, 'debug']);
+    }
+
+    Route::get('/widget/{hash}', [EmbedController::class, 'widget'])->name('widget');
+    Route::get('/data/{hash}', [EmbedController::class, 'data'])->name('data');
+});
 
 Route::redirect('/', '/app');
