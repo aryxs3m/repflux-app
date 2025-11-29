@@ -38,6 +38,15 @@ class ViewWorkout extends ViewRecord
         return __('pages.workouts.view_title');
     }
 
+    public function getSubheading(): string|Htmlable|null
+    {
+        return sprintf(
+            '%s %s',
+            $this->record->dominantCategory->name ?? '',
+            $this->record->workout_at->diffForHumans(),
+        );
+    }
+
     protected function getHeaderActions(): array
     {
         return [
