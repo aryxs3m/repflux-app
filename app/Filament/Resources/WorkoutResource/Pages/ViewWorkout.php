@@ -86,7 +86,8 @@ class ViewWorkout extends ViewRecord
                                 ->visible(fn ($record) => $record->recordType->exercise_type === ExerciseType::CARDIO)
                                 ->schema(fn ($record) => CardioMeasurementTransformer::getEntries($record))
                                 ->columnSpanFull(),
-                            StopwatchEntry::make('time'),
+                            StopwatchEntry::make('time')
+                                ->visible(fn ($record) => $record->recordType->exercise_type === ExerciseType::TIME),
                             Action::make('view_set')
                                 ->visible(fn ($record) => in_array($record->recordType->exercise_type, [ExerciseType::CARDIO, ExerciseType::TIME]))
                                 ->color('gray')
@@ -121,7 +122,9 @@ class ViewWorkout extends ViewRecord
                                                 ->hiddenLabel()
                                                 ->suffix(' '.Tenant::getWeightUnitLabel()),
                                         ])
-                                        ->columns(3)
+                                        ->columns([
+                                            'default' => 3,
+                                        ])
                                         ->columnSpanFull(),
                                 ])
                                 ->columnSpanFull(),
