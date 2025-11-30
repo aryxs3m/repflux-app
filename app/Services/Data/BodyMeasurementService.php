@@ -19,4 +19,30 @@ class BodyMeasurementService
             ->get()
             ->first();
     }
+
+    public function getBRI(int $wc, int $height): float
+    {
+        return 364.2 - 365.5 * sqrt(1 - pow($wc / (2 * pi()), 2) / pow(0.5 * $height, 2));
+    }
+
+    public function getBRICategory(float $briValue): BRICategory
+    {
+        if ($briValue >= 6.9) {
+            return BRICategory::ROUND_HIGH_RISK;
+        }
+
+        if ($briValue >= 5.6) {
+            return BRICategory::OVERWEIGHT;
+        }
+
+        if ($briValue >= 4.5) {
+            return BRICategory::NORMAL;
+        }
+
+        if ($briValue >= 3.4) {
+            return BRICategory::NORMAL_LEAN;
+        }
+
+        return BRICategory::LEAN;
+    }
 }

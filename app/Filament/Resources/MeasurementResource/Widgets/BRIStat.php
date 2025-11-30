@@ -23,10 +23,11 @@ class BRIStat extends StatsOverviewWidget
     {
         $stat = Stat::make('Body Roundness Index', 'N/A');
 
-        $height = auth()->user()->height;
+        /** @var BodyMeasurementService $bms */
+        $bms = app(BodyMeasurementService::class);
 
-        $wc = app(BodyMeasurementService::class)
-            ->getLastMeasurement(BodyMeasurementType::WAIST);
+        $height = auth()->user()->height;
+        $wc = $bms->getLastMeasurement(BodyMeasurementType::WAIST);
 
         if ($wc === null) {
             return $stat
@@ -39,8 +40,10 @@ class BRIStat extends StatsOverviewWidget
         }
 
         $wc = $wc->value;
+        $bri = $bms->getBRI($wc, $height);
 
-        $stat->value(Tenant::numberFormat(364.2 - 365.5 * sqrt(1 - pow($wc / (2 * pi()), 2) / pow(0.5 * $height, 2))));
+        $stat->value(Tenant::numberFormat($bri));
+        $stat->description($bms->getBRICategory($bri)->getLabel());
 
         return $stat;
     }
