@@ -64,6 +64,7 @@ class ViewWorkout extends ViewRecord
     {
         return [
             WorkoutStats::class,
+            WorkoutResource\Widgets\WorkoutSummary::class,
             WorkoutResource\Widgets\WorkoutCategoryChart::class,
             WorkoutResource\Widgets\WorkoutWeightProgressionChart::class,
         ];
