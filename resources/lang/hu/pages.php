@@ -83,7 +83,7 @@ return [
         'list_title' => 'Előrehaladás',
         'widgets' => [
             'weight' => 'Súly',
-            'weight_progression' => 'Megmozgatott súly változása (utolsó 30 sorozat)',
+            'weight_progression' => 'Max súly / ismétlés (utolsó 30 sorozat)',
             'brzycki' => [
                 'title' => 'Brzycki 1RM',
                 'description' => 'A Brzycki képlet alapján számított max súly',

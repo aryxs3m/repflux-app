@@ -14,11 +14,23 @@ class MeasurementChart extends ChartWidget
 
     protected int|string|array $columnSpan = 'full';
 
+    public ?string $filter = null;
+
+    public function __construct()
+    {
+        $this->filter = auth()->user()->id;
+    }
+
+    protected function getFilters(): ?array
+    {
+        return Tenant::getTenant()->users()->pluck('name', 'id')->toArray();
+    }
+
     protected function getRawData(): Collection
     {
         return Measurement::query()
             ->where('tenant_id', '=', Tenant::getTenant()->id)
-            ->where('user_id', '=', auth()->user()->id)
+            ->where('user_id', '=', $this->filter)
             ->where('measured_at', '>', now()->subYear())
             ->orderBy('measured_at')
             ->get();
