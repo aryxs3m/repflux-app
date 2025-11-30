@@ -24,7 +24,7 @@ class ListMeasurements extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            //MeasurementResource\Widgets\MeasurementWidget::class,
+            // MeasurementResource\Widgets\MeasurementWidget::class,
             MeasurementResource\Widgets\BRIStat::class,
             MeasurementResource\Widgets\MeasurementStats::class,
             MeasurementResource\Widgets\MeasurementChart::class,

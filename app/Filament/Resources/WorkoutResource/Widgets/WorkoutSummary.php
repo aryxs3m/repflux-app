@@ -9,7 +9,8 @@ use Filament\Widgets\Widget;
 class WorkoutSummary extends Widget
 {
     protected string $view = 'filament.resources.workout-resource.widgets.workout-summary';
-    protected int | string | array $columnSpan = 'full';
+
+    protected int|string|array $columnSpan = 'full';
 
     public string $totalMove = 'nothing';
 

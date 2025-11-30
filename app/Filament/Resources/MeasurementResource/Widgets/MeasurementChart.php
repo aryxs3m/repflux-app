@@ -12,7 +12,7 @@ class MeasurementChart extends ChartWidget
 {
     protected ?string $heading = 'Measurement Chart';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected function getRawData(): Collection
     {

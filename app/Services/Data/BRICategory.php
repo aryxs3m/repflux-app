@@ -5,7 +5,8 @@ namespace App\Services\Data;
 use Filament\Support\Contracts\HasLabel;
 use Illuminate\Contracts\Support\Htmlable;
 
-enum BRICategory: string implements HasLabel {
+enum BRICategory: string implements HasLabel
+{
     case LEAN = 'lean';
     case NORMAL_LEAN = 'normal_lean';
     case NORMAL = 'normal';
