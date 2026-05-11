@@ -24,7 +24,7 @@ class NewRecordSetAction extends Action
         return __('pages.record_sets.add_set');
     }
 
-    public function getIcon(BackedEnum|string|null $default = null): string|BackedEnum|Htmlable|null
+    public function getIcon(string | BackedEnum | Htmlable | null $default = null): string | BackedEnum | Htmlable | null
     {
         return Heroicon::OutlinedPlusCircle;
     }
