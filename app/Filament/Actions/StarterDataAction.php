@@ -35,7 +35,7 @@ class StarterDataAction extends Action
         return __('common.load_default');
     }
 
-    public function getIcon(string | BackedEnum | Htmlable | null $default = null): string | BackedEnum | Htmlable | null
+    public function getIcon(string|BackedEnum|Htmlable|null $default = null): string|BackedEnum|Htmlable|null
     {
         return Heroicon::FolderPlus;
     }
