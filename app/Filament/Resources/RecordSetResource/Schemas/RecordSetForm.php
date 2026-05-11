@@ -14,6 +14,7 @@ use App\Models\RecordSet;
 use App\Models\RecordType;
 use App\Services\RecordSetSessionService;
 use App\Services\Settings\Tenant;
+use Filament\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Field;
 use Filament\Forms\Components\Hidden;
@@ -28,6 +29,7 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Components\Wizard;
 use Filament\Schemas\Schema;
+use Filament\Support\Colors\Color;
 use Filament\Support\Icons\Heroicon;
 
 class RecordSetForm extends AbstractFormSchema
@@ -112,6 +114,35 @@ class RecordSetForm extends AbstractFormSchema
         return Wizard\Step::make('Repetitions')
             ->visible(fn (Get $get) => $get('exercise_type') === ExerciseType::WEIGHT)
             ->schema([
+                Section::make()
+                    ->hiddenLabel()
+                    ->columns(3)
+                    ->schema([
+                        Action::make('Copy last')
+                            ->label('Copy last')
+                            ->action(function ($state, Set $set) {
+                                $lastRecords = $state['last_set_info']['set']->records()->get()->map(function ($record) {
+                                    return [
+                                        'repeat_count' => $record->repeat_count,
+                                        'weight' => $record->weight,
+                                    ];
+                                })->toArray();
+
+                                $set('records', $lastRecords);
+                            }),
+                        /*Action::make('Add +2.5')
+                            ->label('Add +2.5')
+                            ->color(Color::Gray)
+                            ->action(function () {
+                                // asd
+                            }),
+                        Action::make('Add +5')
+                            ->label('Add +5')
+                            ->color(Color::Gray)
+                            ->action(function () {
+                                // asd
+                            }),*/
+                    ]),
                 Repeater::make('records')
                     ->relationship('records')
                     ->hiddenLabel()
