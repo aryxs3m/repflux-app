@@ -9,7 +9,6 @@ use App\Models\RecordType;
 use Exception;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Model;
-use Tests\Feature\FilamentResources\BaseResourceTestCase;
 
 class RecordSetResourceTest extends BaseResourceTestCase
 {

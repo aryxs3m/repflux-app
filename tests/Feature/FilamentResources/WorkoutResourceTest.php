@@ -6,7 +6,6 @@ use App\Filament\Resources\WorkoutResource;
 use App\Models\Workout;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Model;
-use Tests\Feature\FilamentResources\BaseResourceTestCase;
 
 class WorkoutResourceTest extends BaseResourceTestCase
 {

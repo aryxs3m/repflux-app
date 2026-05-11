@@ -4,7 +4,6 @@ namespace Tests\Feature\FilamentResources;
 
 use App\Filament\Resources\ProgressionResource;
 use Filament\Resources\Resource;
-use Tests\Feature\FilamentResources\BaseResourceTestCase;
 
 class ProgressionResourceTest extends BaseResourceTestCase
 {
