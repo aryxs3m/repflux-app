@@ -58,7 +58,7 @@ abstract class GamifiedSize
         12000 => 'Fire truck',
         15000 => 'Humpback whale',
         20000 => 'Loaded semi-truck',
-        25000 => 'Adult male sperm whale',
+        25000 => 'Adult male sperm whale', // @pest-ignore-profanity
         30000 => 'Loaded cement mixer truck',
         40000 => 'Fully loaded semi-truck and trailer',
         50000 => 'M1 Abrams tank',

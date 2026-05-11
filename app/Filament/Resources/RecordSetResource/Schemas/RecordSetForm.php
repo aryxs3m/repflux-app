@@ -5,6 +5,7 @@ namespace App\Filament\Resources\RecordSetResource\Schemas;
 use App\Filament\Abstract\Schema\AbstractFormSchema;
 use App\Filament\Fields\Stopwatch;
 use App\Filament\Fields\UserSelect;
+use App\Filament\Resources\RecordSetResource\Actions\ModifyWeightAction;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurement;
 use App\Filament\Resources\RecordTypeResource\CardioMeasurementTransformer;
 use App\Filament\Resources\RecordTypeResource\ExerciseType;
@@ -14,7 +15,9 @@ use App\Models\RecordSet;
 use App\Models\RecordType;
 use App\Services\RecordSetSessionService;
 use App\Services\Settings\Tenant;
+use Carbon\Carbon;
 use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Field;
 use Filament\Forms\Components\Hidden;
@@ -29,7 +32,6 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Components\Wizard;
 use Filament\Schemas\Schema;
-use Filament\Support\Colors\Color;
 use Filament\Support\Icons\Heroicon;
 
 class RecordSetForm extends AbstractFormSchema
@@ -109,40 +111,42 @@ class RecordSetForm extends AbstractFormSchema
             ]);
     }
 
+    protected static function repetitionToolbar(): Section
+    {
+        return Section::make()
+            ->hiddenLabel()
+            ->columns(3)
+            ->schema([
+                Action::make('Copy last')
+                    ->label('Copy last')
+                    ->icon(Heroicon::ClipboardDocumentList)
+                    ->action(function ($state, Set $set) {
+                        $lastRecords = $state['last_set_info']['set']->records()->get()->map(function ($record) {
+                            return [
+                                'repeat_count' => $record->repeat_count,
+                                'weight' => $record->weight,
+                            ];
+                        })->toArray();
+
+                        $set('records', $lastRecords);
+                    }),
+                ActionGroup::make([
+                    ModifyWeightAction::makeWithWeight(2.5),
+                    ModifyWeightAction::makeWithWeight(-2.5),
+                ])->buttonGroup(),
+                ActionGroup::make([
+                    ModifyWeightAction::makeWithWeight(5),
+                    ModifyWeightAction::makeWithWeight(-5),
+                ])->buttonGroup(),
+            ]);
+    }
+
     protected static function getWeightRepsWizardStep(): Wizard\Step
     {
         return Wizard\Step::make('Repetitions')
             ->visible(fn (Get $get) => $get('exercise_type') === ExerciseType::WEIGHT)
             ->schema([
-                Section::make()
-                    ->hiddenLabel()
-                    ->columns(3)
-                    ->schema([
-                        Action::make('Copy last')
-                            ->label('Copy last')
-                            ->action(function ($state, Set $set) {
-                                $lastRecords = $state['last_set_info']['set']->records()->get()->map(function ($record) {
-                                    return [
-                                        'repeat_count' => $record->repeat_count,
-                                        'weight' => $record->weight,
-                                    ];
-                                })->toArray();
-
-                                $set('records', $lastRecords);
-                            }),
-                        /*Action::make('Add +2.5')
-                            ->label('Add +2.5')
-                            ->color(Color::Gray)
-                            ->action(function () {
-                                // asd
-                            }),
-                        Action::make('Add +5')
-                            ->label('Add +5')
-                            ->color(Color::Gray)
-                            ->action(function () {
-                                // asd
-                            }),*/
-                    ]),
+                self::repetitionToolbar(),
                 Repeater::make('records')
                     ->relationship('records')
                     ->hiddenLabel()
@@ -255,6 +259,7 @@ class RecordSetForm extends AbstractFormSchema
             ->where('tenant_id', Tenant::getTenant()->id)
             ->where('user_id', auth()->user()->id)
             ->where('record_type_id', $recordTypeId)
+            ->where('set_done_at', '<', Carbon::today()->startOfDay())
             ->latest('set_done_at')
             ->first();
     }

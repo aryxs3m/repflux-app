@@ -1,6 +1,6 @@
 <?php
 
-namespace Feature\Commands;
+namespace Tests\Feature\Commands;
 
 use App\Models\RecordSet;
 use App\Services\Workout\WorkoutService;

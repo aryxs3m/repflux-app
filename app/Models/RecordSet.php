@@ -5,19 +5,21 @@ namespace App\Models;
 use App\Models\Traits\HasTenantRelationship;
 use App\Observers\WorkoutGeneratorObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 #[ObservedBy([WorkoutGeneratorObserver::class])]
 /**
  * @property int $id
  * @property int $record_type_id
  * @property int $user_id
- * @property \Illuminate\Support\Carbon $set_done_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon $set_done_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int $tenant_id
  * @property int|null $workout_id
  * @property int|null $cardio_measurement_calories
@@ -30,12 +32,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int|null $cardio_measurement_steps
  * @property int|null $cardio_measurement_average_steps
  * @property int|null $time Measured time in seconds for TIME type RecordTypes
- * @property-read \App\Models\RecordType|null $recordType
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Record> $records
+ * @property-read RecordType|null $recordType
+ * @property-read Collection<int, Record> $records
  * @property-read int|null $records_count
- * @property-read \App\Models\Tenant|null $tenant
- * @property-read \App\Models\User|null $user
- * @property-read \App\Models\Workout|null $workout
+ * @property-read Tenant|null $tenant
+ * @property-read User|null $user
+ * @property-read Workout|null $workout
  *
  * @method static \Database\Factories\RecordSetFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RecordSet newModelQuery()

@@ -44,7 +44,7 @@ class OpenWorkoutAction extends Action
         return __('pages.record_sets.workout');
     }
 
-    public function getIcon(BackedEnum|string|null $default = null): string|BackedEnum|Htmlable|null
+    public function getIcon(string|BackedEnum|Htmlable|null $default = null): string|BackedEnum|Htmlable|null
     {
         return Heroicon::OutlinedBolt;
     }

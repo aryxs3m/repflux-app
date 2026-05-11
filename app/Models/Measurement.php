@@ -8,20 +8,21 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 #[ObservedBy([MeasurementCacheObserver::class])]
 /**
  * @property int $id
  * @property int $measurement_type_id
- * @property \Illuminate\Support\Carbon $measured_at
+ * @property Carbon $measured_at
  * @property int $value
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int $user_id
  * @property int $tenant_id
- * @property-read \App\Models\MeasurementType|null $measurementType
- * @property-read \App\Models\Tenant|null $tenant
- * @property-read \App\Models\User|null $user
+ * @property-read MeasurementType|null $measurementType
+ * @property-read Tenant|null $tenant
+ * @property-read User|null $user
  *
  * @method static \Database\Factories\MeasurementFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Measurement newModelQuery()

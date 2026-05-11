@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasTenants;
@@ -13,18 +14,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 /**
  * @property int $id
  * @property string $name
  * @property string $email
- * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property Carbon|null $email_verified_at
  * @property string|null $password
  * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int|null $height
  * @property string|null $language
  * @property int $notify_measurement_weight
@@ -37,12 +41,12 @@ use Illuminate\Support\Collection;
  * @property string $number_format_thousands_separator
  * @property string|null $color
  * @property-read mixed $avatar_url
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Measurement> $measurements
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Measurement> $measurements
  * @property-read int|null $measurements_count
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \App\Models\TenantUser|null $pivot
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tenant> $tenants
+ * @property-read TenantUser|null $pivot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Tenant> $tenants
  * @property-read int|null $tenants_count
  *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
@@ -73,7 +77,7 @@ use Illuminate\Support\Collection;
  */
 class User extends Authenticatable implements FilamentUser, HasAvatar, HasTenants
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**

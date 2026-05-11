@@ -8,16 +8,17 @@ use App\Observers\MeasurementTypeCacheObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 #[ObservedBy([MeasurementTypeCacheObserver::class])]
 /**
  * @property int $id
  * @property string $name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property int $tenant_id
  * @property BodyMeasurementType|null $measurement_type
- * @property-read \App\Models\Tenant|null $tenant
+ * @property-read Tenant|null $tenant
  *
  * @method static \Database\Factories\MeasurementTypeFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MeasurementType newModelQuery()

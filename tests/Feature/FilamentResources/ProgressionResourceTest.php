@@ -1,6 +1,6 @@
 <?php
 
-namespace Feature\FilamentResources;
+namespace Tests\Feature\FilamentResources;
 
 use App\Filament\Resources\ProgressionResource;
 use Filament\Resources\Resource;

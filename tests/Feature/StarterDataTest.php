@@ -1,6 +1,6 @@
 <?php
 
-namespace Feature;
+namespace Tests\Feature;
 
 use App\Models\Tenant;
 use App\Services\StarterData\StarterDataService;

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -15,10 +16,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $repeat_index
  * @property int $repeat_count
  * @property float|null $weight
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\RecordSet|null $recordSet
- * @property-read \App\Models\Tenant|null $tenant
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read RecordSet|null $recordSet
+ * @property-read Tenant|null $tenant
  * @property-read mixed $weight_with_base
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Record newModelQuery()
